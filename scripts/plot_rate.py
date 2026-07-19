@@ -43,7 +43,7 @@ def random_search_case_curves(
             n_paths=4,
             channel_memory=5,
             noise_power_dbm=-95.0,
-            channel_gain_scale=2.2839976470784646e-6,
+            channel_gain_scale=2.280350850198276e-6,
             seed=7,
         )
     )
@@ -106,7 +106,7 @@ def main() -> None:
     )
     all_mean = pd.concat([mean_curves, random_mean], ignore_index=True)
 
-    grid_path = ROOT / "runs/grid_rate20_noise_m95_gain2p284e6/grid_search_result.json"
+    grid_path = ROOT / "runs/grid_rate20_noise_m95_xivar5p2e12/grid_search_result.json"
     grid_best = float(json.loads(grid_path.read_text(encoding="utf-8"))["deploy_best"]["rate"])
 
     labels = {

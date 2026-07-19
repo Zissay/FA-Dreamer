@@ -40,7 +40,7 @@ python scripts/train_ppo.py --logdir runs/ppo_200k --total-timesteps 200000 --de
 ### Exhaustive Search
 
 ```bash
-python scripts/grid_search.py --output-dir runs/grid_rate20_noise_m95_gain2p284e6 --grid-points 9 --noise-power-dbm -95 --channel-gain-scale 2.2839976470784646e-6
+python scripts/grid_search.py --output-dir runs/grid_rate20_noise_m95_xivar5p2e12 --grid-points 9
 ```
 
 ## Evaluation Scripts
@@ -75,7 +75,7 @@ Required inputs:
 ```text
 runs/direct_position_rate20_four_model_midexplore_with_random_fixed/four_model_midexplore_mean_curves.csv
 runs/direct_position_rate20_four_model_midexplore_with_random_fixed/four_model_midexplore_case_curves.csv
-runs/grid_rate20_noise_m95_gain2p284e6/grid_search_result.json
+runs/grid_rate20_noise_m95_xivar5p2e12/grid_search_result.json
 ```
 
 ### Fig. 2: Channel Magnitude Relative Error

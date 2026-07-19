@@ -23,8 +23,8 @@ def main() -> None:
     parser.add_argument("--n-subcarriers", type=int, default=16)
     parser.add_argument("--n-paths", type=int, default=4)
     parser.add_argument("--channel-memory", type=int, default=5)
-    parser.add_argument("--noise-power-dbm", type=float, default=None)
-    parser.add_argument("--channel-gain-scale", type=float, default=1.0)
+    parser.add_argument("--noise-power-dbm", type=float, default=-95.0)
+    parser.add_argument("--channel-gain-scale", type=float, default=2.280350850198276e-6)
     args = parser.parse_args()
 
     outdir = Path(args.output_dir)

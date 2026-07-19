@@ -22,8 +22,8 @@ class FAAFDMConfig:
     rx_region: float = 0.5
     transmit_power: float = 1.0
     noise_power: float = 1e-2
-    noise_power_dbm: float | None = None
-    channel_gain_scale: float = 1.0
+    noise_power_dbm: float | None = -95.0
+    channel_gain_scale: float = 2.280350850198276e-6
     doppler_scale: float = 1.0
     c2: float = 1.0 / 97.0
     seed: int = 11
