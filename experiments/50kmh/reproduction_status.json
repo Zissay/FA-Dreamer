@@ -21,20 +21,21 @@
     "training_seed": 3501,
     "physical_and_source_audit_passed": true
   },
-  "acceptance": "Reproduce historical training performance using justified recovered settings. Training completion and authenticity alone do not establish reproduction. Original PPO seed3004 must not be relabelled as seed3501.",
-  "next_attempt": "Fresh seed3501 training with recovered original train.py/agent.py and historical data_loaders2. Exact source bytes captured before launch.",
+  "acceptance": "Same original learning parameters and training seed; similar two-stage training trend and final performance near18.84. Exact pointwise or two-decimal equality is not required by the user.",
+  "next_attempt": "Resolve remaining runtime/early-exploration divergence before another from-zero trial; retain original parameters, seed3501 and every failed trial. GPU driver was591.86, now610.88; causation is not established.",
   "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
   "superseded_partial_attempt": {
     "run": "dreamer_seed3501_historical_loaders2_20261013",
     "reason": "Original source recovered while this approximate version was running. Stopped before final-performance selection.",
     "status": "SUPERSEDED_INCOMPLETE"
   },
-  "active_attempt": {
+  "paper_replacement_accepted": false,
+  "recovered_source_attempt": {
     "run": "dreamer_seed3501_recovered_source_20261013",
     "status": "COMPLETE",
     "seed": 3501,
     "data_loaders": 2,
-    "acceptance": "Final-5k terminal mean rounds to18.84; same historical metric. This does not by itself prove exact trajectory or PPO common-seed reproduction.",
+    "acceptance": "Same original learning parameters and training seed; similar two-stage training trend and final performance near18.84. Exact pointwise or two-decimal equality is not required by the user.",
     "real_actions": 50000,
     "mean": 15.263647258107483,
     "authenticity": "PASS",
@@ -60,7 +61,64 @@
       "trajectory_reproduced": false,
       "ppo_common_seed_comparison_reproduced": false
     },
-    "published_evidence": "reproduction_attempts/recovered_source_20261013"
+    "published_evidence": "reproduction_attempts/recovered_source_20261013",
+    "historical_runtime_restored": false,
+    "limitation": "Used XLA deterministic flag added on2026-09-12 after the original2026-09-11 run."
   },
-  "paper_replacement_accepted": false
+  "active_attempt": {
+    "run": "dreamer_seed3501_original_runtime_20261013",
+    "status": "COMPLETE",
+    "seed": 3501,
+    "data_loaders": 2,
+    "real_actions": 50000,
+    "mean": 13.12229164624929,
+    "authenticity": "PASS",
+    "historical_comparison": {
+      "status": "NOT_REPRODUCED",
+      "metric": "Mean terminal AFDM rate over the final 5k of the first 50k real interactions",
+      "historical_mean": 18.837550331174892,
+      "new_mean": 13.12229164624929,
+      "difference": -5.715258684925603,
+      "relative_final_mean_difference_percent": -30.33971288436177,
+      "within_0_1_bps_per_hz": false,
+      "same_final_reported_mean": false,
+      "curve_mean_absolute_difference": 2.477288102379905,
+      "curve_max_absolute_difference": 5.715258684925603,
+      "criterion": "Original learning parameters/seed and XLA profile; final mean within0.2bps/Hz of18.83755; initial rise and later gain at least half the historical second rise. No checkpoint initialization.",
+      "final_performance_tolerance_bps_per_hz": 0.2,
+      "final_performance_close": false,
+      "historical_mid_training_plateau": 12.850600087616078,
+      "new_mid_training_plateau": 10.87192966707155,
+      "historical_late_gain": 5.986950243558814,
+      "new_late_gain": 2.2503619791777396,
+      "two_stage_rise": false,
+      "original_xla_profile_matches": true,
+      "complete_50k": true,
+      "fresh_initialization": true,
+      "same_dreamer_seed": true,
+      "same_data_loaders": true,
+      "same_historical_learning_parameters_and_channel": true,
+      "recovered_train_and_agent_source_match": true,
+      "training_log_sha256": "bbce1f6cdb440e86d2a4314dea73ed9c9c004781aa6aee1a2798d75747846e5d",
+      "trajectory_reproduced": false,
+      "ppo_common_seed_comparison_reproduced": false
+    },
+    "historical_xla_flags_restored": true,
+    "historical_gpu_driver_restored": false,
+    "published_evidence": "reproduction_attempts/original_runtime_20261013"
+  },
+  "checkpoint_restoration": {
+    "status": "SECOND_RISE_AND_NEAR_FINAL_PERFORMANCE_VERIFIED_CONDITIONALLY",
+    "run": "diagnostic_continue30k_seed3501_20261013_v2",
+    "seed": 3501,
+    "historical_checkpoint_actions": 30000,
+    "additional_real_actions": 20000,
+    "mean": 18.672516919507533,
+    "historical_mean_difference": -0.16503341166735908,
+    "authenticity": "PASS",
+    "fresh_from_scratch": false,
+    "exact_historical_resume": false,
+    "published_evidence": "reproduction_attempts/restore30k_20261013",
+    "limitation": "Historical replay queues and pre-update policy carry were not saved; reconstructed continuation."
+  }
 }

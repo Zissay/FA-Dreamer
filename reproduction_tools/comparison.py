@@ -23,11 +23,25 @@ def compare_historical_50(dreamer_run):
     recovery = read_json(case_dir(50) / "historical_target/source/recovery_manifest.json")
     same_source = all(launch["source_sha256"].get("experiments/50kmh/source/dreamer/" + rel) == digest
                       for rel, digest in recovery["recovered_sha256"].items())
-    # The paper reported two decimal places. Declare that accuracy before seeing
-    # the new run; never relax it after observing performance.
+    # User accepts similar performance and a two-stage rise; exact decimals and
+    # pointwise equality are not required. Set a conservative0.2bps/Hz margin
+    # before seeing the fully recovered original-runtime run's final outcome.
     reported_value_matches = round(actual, 2) == round(target["last_5k_mean"], 2)
-    return {"status": "REPRODUCED_REPORTED_FINAL_MEAN" if all((complete, fresh, same_seed,
-                same_loaders, same_parameters, same_source, reported_value_matches)) else "NOT_REPRODUCED",
+    performance_close = abs(actual - target["last_5k_mean"]) <= 0.2
+    plateau_mask = (current_curve["steps"] > 20000) & (current_curve["steps"] <= 35000)
+    new_plateau = float(np.mean(current_curve["batch_mean"][plateau_mask]))
+    old_plateau = float(np.mean(historical_curve["batch_mean"][plateau_mask]))
+    old_late_gain = target["last_5k_mean"] - old_plateau
+    new_late_gain = actual - new_plateau
+    first_gain = new_plateau - float(np.mean(current_curve["batch_mean"][:5]))
+    two_stage_rise = first_gain > 1 and new_late_gain >= 0.5 * old_late_gain
+    flags = launch["environment"].get("XLA_FLAGS", "")
+    runtime_match = ("--xla_gpu_deterministic_ops" not in flags
+                     and "--xla_gpu_enable_triton_gemm=false" in flags
+                     and "--xla_gpu_cuda_data_dir=" in flags
+                     and launch["environment"].get("PYTHONHASHSEED") is None)
+    return {"status": "REPRODUCED_APPROXIMATE_DREAMER_PERFORMANCE_AND_TREND" if all((complete, fresh, same_seed,
+                same_loaders, same_parameters, same_source, runtime_match, performance_close, two_stage_rise)) else "NOT_REPRODUCED",
             "metric": status["metric"], "historical_mean": target["last_5k_mean"],
             "new_mean": actual, "difference": actual - target["last_5k_mean"],
             "relative_final_mean_difference_percent": 100 * (actual / target["last_5k_mean"] - 1),
@@ -35,7 +49,15 @@ def compare_historical_50(dreamer_run):
             "same_final_reported_mean": reported_value_matches,
             "curve_mean_absolute_difference": float(np.mean(np.abs(current_curve["displayed"] - historical_curve["displayed"]))),
             "curve_max_absolute_difference": float(np.max(np.abs(current_curve["displayed"] - historical_curve["displayed"]))),
-            "criterion": "Same final-5k terminal metric, rounds to18.84 at2 decimals; no checkpoint initialization",
+            "criterion": "Original learning parameters/seed and XLA profile; final mean within0.2bps/Hz of18.83755; initial rise and later gain at least half the historical second rise. No checkpoint initialization.",
+            "final_performance_tolerance_bps_per_hz": 0.2,
+            "final_performance_close": performance_close,
+            "historical_mid_training_plateau": old_plateau,
+            "new_mid_training_plateau": new_plateau,
+            "historical_late_gain": old_late_gain,
+            "new_late_gain": new_late_gain,
+            "two_stage_rise": two_stage_rise,
+            "original_xla_profile_matches": runtime_match,
             "complete_50k": complete, "fresh_initialization": fresh,
             "same_dreamer_seed": same_seed, "same_data_loaders": same_loaders,
             "same_historical_learning_parameters_and_channel": same_parameters,

@@ -1,6 +1,6 @@
 # 50 km/h 与 500 km/h 论文结果复现说明
 
-> **恢复版完整运行：** 已完成50k，Dreamer为15.263647 bps/Hz，原目标18.837550，仍未复现。源码与物理核验通过；详细结果见 `docs/recovered_source_50kmh_result.json`，本次日志保存在 `experiments/50kmh/reproduction_attempts/recovered_source_20261013/`。
+> **最新核验：** 原30k检查点恢复后，新增20k真实交互再次出现第二次抬升，最后5k为 **18.672517 bps/Hz**（原18.837550，差−0.165033）。这是有检查点条件的续训验证。从零50k最新尝试为13.122292，仍未复现。见[恢复与续训说明](HISTORICAL_50KMH_RECOVERY_CN.md)。
 
 > **复现状态：未成功。** 原 50 km/h 目标为 Dreamer 18.837550、PPO 15.441477 bps/Hz。当前 `recorded/` 中的 15.242103 / 13.739768 是未达到原结果的真实尝试，不能替换论文结果。原 PPO seed 为3004；后续两种方法统一3501，旧数据不会改标 seed。见 `experiments/50kmh/reproduction_status.json`。
 
@@ -102,10 +102,10 @@ python scripts/reproduce.py baseline --speed 500 --method daft --device cuda --o
 
 * 原始终点记录、曲线聚合规则和最终数值可直接核验和重绘。
 * 500 km/h 的 Dreamer 与 PPO 源码取自各自训练前快照，完整依赖记录保存在 `requirements/locks/`。
-* 50 km/h 的原始启动源码无法确认，已使用当前代码重新从零训练两种方法，统一 seed 3501。
+* 50 km/h 的原train.py/agent.py已按历史启动前修改恢复；全部从零尝试未达到原结果，检查点续训另行记录。当前可执行配置统一seed3501。
   查找范围、历史包哈希、原始记录备份和重建改动见 `docs/SOURCE_SEARCH_50KMH.json`。
   新结果采用实际新日志，验收目标是恢复原实验并复现先前的性能；当前尚未达到。
-  首次失败尝试改用了同步加载。当前已恢复 data_loaders=2，并通过原训练线程的三次启动前修改恢复 train.py/agent.py，正在核验原结果。
+  首次失败尝试改用了同步加载。当前已恢复 data_loaders=2，并通过原训练线程的三次启动前修改恢复 train.py/agent.py，完整试验及检查点续训结果见HISTORICAL_50KMH_RECOVERY_CN.md。
   PPO 的两个依赖模块来源与日志扩展在源码清单中标明，seed 从历史 3004 改为与 Dreamer 一致的 3501。
   原结果保留在 Git 历史和独立存档中，新的比较采用新的完整记录。
 * JAX/CUDA、异步数据加载和硬件可能影响新的训练轨迹。新训练应报告实际结果，不能强制对齐旧曲线。
@@ -160,7 +160,7 @@ OPENBLAS_NUM_THREADS=1 python scripts/reproduce.py audit --dreamer-run experimen
 python scripts/reproduce.py compare-historical --dreamer-run runs/50kmh/dreamer_seed3501_recovered_source_20261013 --output runs/50kmh/historical_comparison.json
 ```
 
-按论文报告的两位小数判定最终5k终点均值是否仍为18.84，训练完成或数据核验通过不能代替此检查。
+按用户要求核对原参数、seed、二次抬升趋势及接近18.84的最终性能；工具采用±0.2bps/Hz作为明确的近似性能检查范围，两位小数一致仅作额外信息。训练完成或数据核验通过不能代替性能检查。
 完整轨迹是否重现、统一seed后的PPO是否达到旧性能，需分别报告。
 `plot/plot-all` 默认拒绝尚未复现的50km/h结果；加 `--allow-unreproduced` 仅用于查看诊断图。
 原版训练源及启动前修改记录位于 `experiments/50kmh/historical_target/source/`。

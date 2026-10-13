@@ -96,5 +96,6 @@
   ],
   "next_attempt": "Restore historical Dreamer data_loaders=2 and uniform imagination-start config; keep seed3501. No pretrained initialization, seed search, or curve fitting.",
   "recovered_prelaunch_edits": "experiments/50kmh/historical_target/source/recovery_manifest.json",
-  "source_recovery_status": "Original source reconstructed from archived package and three timestamped prelaunch edits; no original launch source hash, so performance verification still required."
+  "source_recovery_status": "Original source reconstructed from archived package and three timestamped prelaunch edits; no original launch source hash, so performance verification still required.",
+  "latest_update": "Original train.py/agent.py recovered from timestamped prelaunch edits; historical XLA flags restored. Fresh50k13.122292 remains failed. Original30k+new20k continuation18.672517 verifies second rise conditionally; see HISTORICAL_50KMH_RECOVERY_CN.md."
 }

@@ -1,0 +1,22 @@
+{
+  "historical": {
+    "terminal_records_so_far": 1000,
+    "first_terminal_ge17": 17993,
+    "count_ge17": 263,
+    "maximum_terminal_rate": 19.184366450324326,
+    "rate_at_first_high": 17.795975489044814
+  },
+  "source_only": {
+    "terminal_records_so_far": 1000,
+    "first_terminal_ge17": null,
+    "count_ge17": 0,
+    "maximum_terminal_rate": 15.383985752006117,
+    "rate_at_first_high": null
+  },
+  "original_xla_profile_complete": {
+    "terminal_records": 1000,
+    "first_terminal_ge17": null,
+    "count_ge17": 0,
+    "maximum_terminal_rate": 14.106045319884775
+  }
+}
