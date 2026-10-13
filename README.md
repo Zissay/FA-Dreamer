@@ -21,7 +21,7 @@ The three independent PDF/PNG panels share the same axis-frame dimensions, spine
 
 | Speed | Dreamer | PPO | DAFT grid | Time-selected positions, AFDM rate | Random positions |
 |---|---:|---:|---:|---:|---:|
-| 50 km/h | 18.837550 | 15.441477 | 19.416280 | 13.257986 | 5.919826 |
+| 50 km/h | 15.242103 | 13.739768 | 19.416280 | 13.257986 | 5.919826 |
 | 500 km/h | 18.301658 | 15.277230 | 19.418465 | 13.252067 | 5.920893 |
 
 Dreamer/PPO rates average terminal episodes during the final 5k of the first 50k real environment interactions. Training curves use 1k-interaction batches and a trailing, causal five-batch mean. Random references average 100 independent joint positions on the corresponding speed's channel. See [aggregation rules](docs/TRAINING_CURVE_RULES.md).
@@ -31,7 +31,7 @@ Dreamer/PPO rates average terminal episodes during the final 5k of the first 50k
 | Setting | 50 km/h | 500 km/h |
 |---|---:|---:|
 | Dreamer seed | 3501 | 5215 |
-| PPO seed | 3004 | 5215 |
+| PPO seed | 3501 | 5215 |
 | Channel seed | 7 | 7 |
 | Parallel environments / episode actions | 20 / 50 | 20 / 50 |
 | Maximum coordinate displacement per action | 1 mm | 1 mm |
@@ -50,7 +50,7 @@ Training uses Linux/WSL, Python 3.12 and an NVIDIA CUDA GPU. Create separate Dre
 ```bash
 .venv-dreamer/bin/python scripts/reproduce.py train --speed 50 --algorithm dreamer --run-dir runs/50kmh/dreamer_seed3501
 .venv-dreamer/bin/python scripts/reproduce.py train --speed 500 --algorithm dreamer --run-dir runs/500kmh/dreamer_seed5215
-.venv-ppo/bin/python scripts/reproduce.py train --speed 50 --algorithm ppo --gpu-python .venv-dreamer/bin/python --run-dir runs/50kmh/ppo_seed3004
+.venv-ppo/bin/python scripts/reproduce.py train --speed 50 --algorithm ppo --gpu-python .venv-dreamer/bin/python --run-dir runs/50kmh/ppo_seed3501
 .venv-ppo/bin/python scripts/reproduce.py train --speed 500 --algorithm ppo --gpu-python .venv-dreamer/bin/python --run-dir runs/500kmh/ppo_seed5215
 ```
 
@@ -58,11 +58,13 @@ All four training commands stop after 50k real interactions. PPO retains the rec
 
 ## Provenance and reproducibility
 
-Archived records and figure values are directly verifiable. The **500 km/h** trainers come from their respective pretraining source snapshots; archive hashes and original Git heads are recorded in the case directory. The **50 km/h** sources come from the 2026-09-11 historical package, with two missing PPO dependencies recovered from the retained workspace. Its original launch snapshot and dependency lock are unavailable, so this is a runnable reconstruction candidate rather than a guarantee of the original training trajectory. Source manifests identify every recovered file.
+The **50 km/h** case is a fresh reconstruction trained from scratch with **seed 3501 for both methods**, using the published code and captured dependency environments. The original launch source could not be established; the search and reconstruction changes are recorded in [source search](docs/SOURCE_SEARCH_50KMH.json). The historical results are preserved in Git history and a separately hashed local archive. They are not mixed into the fresh comparison.
+
+The new case publishes complete compressed 50k-action logs, terminal records, optimizer diagnostics, launch records, source copies verified against pretraining hashes and an independent physical audit. Dreamer uses seeded uniform prefill and synchronous replay loading (`data_loaders=0`); its model sizes, H10, batch settings, training ratio and learning schedules are retained. PPO uses the same training seed and records executed actions and raw physical rewards. The **500 km/h** trainers and results retain their original pretraining provenance.
 
 New trajectories can vary with JAX/CUDA, hardware and asynchronous data loading. Plot new runs from their own recorded data. No pretrained weights are distributed.
 
-The snapshot plotting helpers have had their unused historical PPO default path removed. Their original and current hashes are recorded in the source manifests; training logic is unchanged.
+Local reconstruction changes and original/current source hashes are recorded in the source manifests.
 
 ```text
 experiments/50kmh/       Configs, selected historical sources, terminal records and references
@@ -70,7 +72,7 @@ experiments/500kmh/      Configs, pretraining sources, terminal records and refe
 reproduction_tools/     Shared launch, record verification, baseline and figure tools
 requirements/           Analysis/training dependencies and original launch inventories
 vendor/                 Preserved installed Dreamer source and its license
-scripts/reproduce.py    Entry point for verify/train/plot/plot-all/baseline
+scripts/reproduce.py    Entry point for verify/audit/train/plot/plot-all/baseline
 tests/                  Record causality, protocol and trainer-config checks
 ```
 

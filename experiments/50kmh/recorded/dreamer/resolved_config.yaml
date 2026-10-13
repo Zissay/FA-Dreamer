@@ -22,7 +22,6 @@ actor_opt: {clip: 10.0, eps: 1e-05, lateclip: 0.0, lr: 3e-05, opt: adam, warmup:
 afdm:
   full_return_actor: false
   imagination_start_count: 0
-  imagination_start_mode: uniform
   imagination_start_stride: 1
   known_kinematics: true
   replay_return_lambda: 0.95
@@ -62,7 +61,7 @@ critic_opt: {clip: 100.0, eps: 1e-05, lateclip: 0.0, lr: 0.0001, opt: adam, warm
   wd: 0.0}
 critic_slowreg: logprob
 critic_type: vfunction
-data_loaders: 2
+data_loaders: 0
 decoder:
   act: silu
   cnn: resnet

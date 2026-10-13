@@ -21,6 +21,25 @@ from dreamer_simple.agent import Agent
 e = native.embodied
 
 
+class SeededRandomAgent:
+    """Uniform prefill with a private, recorded RNG; no rate or policy input."""
+
+    def __init__(self, act_space, seed):
+        self.act_space = act_space
+        self.random = np.random.RandomState(seed)
+
+    def policy(self, obs, state=None, mode="train"):
+        amount = len(next(iter(obs.values())))
+        actions = {}
+        for key, space in self.act_space.items():
+            if key == "reset":
+                continue
+            if not np.issubdtype(space.dtype, np.floating):
+                raise TypeError(f"Unexpected prefill action space: {key}")
+            actions[key] = self.random.uniform(space.low, space.high, (amount,) + space.shape).astype(space.dtype)
+        return actions, state
+
+
 def model_config(hp, seed, platform="cuda"):
     units = hp["units"]
     cfg = e.Config(Agent.configs["defaults"]).update(Agent.configs["small"])
@@ -33,7 +52,7 @@ def model_config(hp, seed, platform="cuda"):
             "batch_size": hp["batch_size"],
             "batch_length": hp["batch_length"],
             "replay_size": hp["replay_size"],
-            "data_loaders": 2,
+            "data_loaders": hp["data_loaders"],
             "rssm.deter": units,
             "rssm.units": units,
             "encoder.mlp_units": units,
@@ -144,6 +163,9 @@ def main():
         algorithm="RSSM Dreamer, state-rate model, exact horizon and replay-value critic",
         known_kinematics=hp.get("known_kinematics", False),
         hyperparameters=hp,
+        prefill_rng_seed=args.seed + 1000003,
+        replay_sampler_seed=0,
+        reconstruction="Fresh audited 50 km/h run; original launch source could not be established",
         jax_platform=args.platform,
         imagined_termination="known finite task clock",
     )
@@ -165,7 +187,7 @@ def main():
     driver = e.Driver(env)
     driver.on_step(lambda tran, worker: counter.increment())
     driver.on_step(replay.add)
-    random = e.RandomAgent(env.act_space)
+    random = SeededRandomAgent(env.act_space, args.seed + 1000003)
     stats = e.Metrics()
     state = None
     next_log, next_save, next_plot = 2040, 10200, args.snapshot_every

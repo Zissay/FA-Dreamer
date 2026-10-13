@@ -76,10 +76,16 @@ def reference_rates(speed):
 
 def load_results(speed, dreamer_run=None, ppo_run=None):
     folder = case_dir(speed)
+    if ppo_run and (Path(ppo_run) / "training/config.json").is_file():
+        ppo_run = Path(ppo_run) / "training"
     dpath = (Path(dreamer_run) / "training_queries.csv") if dreamer_run else folder / "recorded/dreamer/terminal_interactions.csv"
     ppath = (Path(ppo_run) / "training_interaction_rates.csv") if ppo_run else folder / "recorded/ppo/terminal_interactions.csv"
     if (dreamer_run is None) != (ppo_run is None):
         raise ValueError("Provide both new run directories, or use both recorded curves")
+    dm_seed = read_json(Path(dreamer_run) / "experiment.json")["seed"] if dreamer_run else read_json(folder / "recorded/dreamer/experiment.json")["seed"]
+    pm_seed = read_json(Path(ppo_run) / "config.json")["seed"] if ppo_run else read_json(folder / "recorded/ppo/config.json")["seed"]
+    if dm_seed != pm_seed:
+        raise ValueError("Dreamer/PPO training seeds must match for this comparison")
     if dreamer_run:
         from dataclasses import asdict
         from .physics import FAAFDMConfig

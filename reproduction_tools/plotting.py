@@ -48,6 +48,9 @@ def canvas(xlabel, font_dir=None):
     ax = fig.add_axes((x / SIZE_PT[0], y / SIZE_PT[1], w / SIZE_PT[0], h / SIZE_PT[1]))
     ax.set_xlabel(xlabel, fontproperties=font(20.6, True, font_dir), labelpad=1)
     ax.set_ylabel("Rate (bps/Hz)", fontproperties=font(26.8, True, font_dir), labelpad=2)
+    # Fix the physical label position across Agg/PDF renderers and all panels.
+    ax.yaxis.set_label_coords(15.8 / SIZE_PT[0], (y + h / 2) / SIZE_PT[1], transform=fig.transFigure)
+    ax.yaxis.label.set_verticalalignment("center")
     ax.tick_params(direction="in", top=True, right=True, width=1.4, labelsize=13, pad=5)
     ax.yaxis.set_major_formatter(FormatStrFormatter("%.2f"))
     ax.set_axisbelow(True)

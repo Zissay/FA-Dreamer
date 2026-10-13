@@ -1,0 +1,8 @@
+{
+  "environment": "GRPO_CUDA-style multi-step AFDM navigation environment",
+  "objective": "true fixed-channel AFDM rate",
+  "frozen_policy_return_mean": 9.845432574665182,
+  "frozen_policy_return_std": 0.0,
+  "frozen_policy_terminal_sum_rate_mean": 14.22955827139435,
+  "frozen_policy_terminal_sum_rate_std": 1.7763568394002505e-15
+}

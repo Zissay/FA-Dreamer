@@ -1,16 +1,24 @@
 {
   "dreamer": {
-    "original_sha256": "b8abb82372678f27dbc1473a03dc2ed04e1556fe791abe9ef3a1337e366c1dcc",
+    "original_sha256": "88ea2f023d593ff28972ccdd99d0ec2f3aa61f70e0f258684dd8b6c08a9dec8c",
     "exported_terminal_rows": 1000,
     "interaction_limit": 50000,
-    "source_run": "t1_dreamer_h10_scheduled_env20_seed3501_50k",
-    "source_filename": "training_queries.csv"
+    "source_run": "dreamer_seed3501_audit_20261013",
+    "source_filename": "training_queries.csv",
+    "published_complete_log": "training_queries.csv.gz",
+    "seed": 3501,
+    "fresh_from_scratch": true,
+    "pretraining_source_hashes_verified": true
   },
   "ppo": {
-    "original_sha256": "ecee37065ad7208506a8d915b3f8d71972e74fa043dac263c25ac16f9259bcca",
+    "original_sha256": "96a90a97ad3259797c455ee1cda82076ab9eb6f1f287f5aebc359ef59482cbb6",
     "exported_terminal_rows": 1000,
     "interaction_limit": 50000,
-    "source_run": "t1_ppo_fixed_center_full_seed3004_500000q",
-    "source_filename": "training_interaction_rates.csv"
+    "source_run": "ppo_seed3501_audit_20261013_v3",
+    "source_filename": "training_interaction_rates.csv",
+    "published_complete_log": "training_interaction_rates.csv.gz",
+    "seed": 3501,
+    "fresh_from_scratch": true,
+    "pretraining_source_hashes_verified": true
   }
 }

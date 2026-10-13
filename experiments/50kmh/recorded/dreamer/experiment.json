@@ -4,7 +4,7 @@
   "terminal_record_interval": 1000,
   "real_action_budget": 50000,
   "internal_frames": 51000,
-  "baseline": "/mnt/e/fa_afdm_dreamerv3/dreamer_simple/task.json",
+  "baseline": "/mnt/e/fa_afdm_dreamerv3/deliverables/FA-Dreamer-reproduction/experiments/50kmh/source/dreamer/dreamer_simple/task.json",
   "channel": {
     "n_subcarriers": 128,
     "n_paths": 20,
@@ -59,7 +59,7 @@
     "gpu_rate_batch_size": 20,
     "gpu_rate_device": "cuda",
     "gpu_rate_backend": "rpc",
-    "gpu_rate_socket": "/tmp/afdm_dreamer_fixed_center_389.sock"
+    "gpu_rate_socket": "/tmp/fa_dreamer_50_dreamer_288.sock"
   },
   "from_checkpoint": null,
   "algorithm": "RSSM Dreamer, state-rate model, exact horizon and replay-value critic",
@@ -95,9 +95,12 @@
       "lr_decay_start": 8750,
       "lr_decay_end": 15000,
       "lr_final_fraction": 0.3333333333333333
-    }
+    },
+    "data_loaders": 0
   },
   "prefill_rng_seed": 1003504,
+  "replay_sampler_seed": 0,
+  "reconstruction": "Fresh audited 50 km/h run; original launch source could not be established",
   "jax_platform": "cuda",
   "imagined_termination": "known finite task clock"
 }

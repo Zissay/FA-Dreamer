@@ -1,5 +1,5 @@
 {
-  "source_origin": "2026-09-11 portable PPO source; original launch source and dependency lock unavailable",
+  "source_origin": "Historical PPO reconstructed for a fresh 50k seed3501 run with executed-action and physical-reward logging",
   "files": {
     "scripts/gpu_rate_server.py": {
       "sha256": "acc5e908e61cdb65745c2e56efb5afdfa4f11522e02cb2d888a1839d34ce640f",
@@ -22,8 +22,10 @@
       "bytes": 4514
     },
     "train_grpo_cuda_miso_ppo.py": {
-      "sha256": "fcd5738d1b1052e57fdc70369580cb83bc68aa46fc3d385517fa2a8cde996d00",
-      "bytes": 48668
+      "sha256": "0fbb4d039983549cc6f5654f69d7bba9c77b9540602129a681e0a7ef893eaff7",
+      "bytes": 49009,
+      "original_sha256": "fcd5738d1b1052e57fdc70369580cb83bc68aa46fc3d385517fa2a8cde996d00",
+      "local_edit": "Log executed bounded commands and raw physical rewards at full precision; learning and transition logic unchanged."
     },
     "fa_afdm_dreamerv3/truncated_gaussian_policy.py": {
       "sha256": "0818f572c8cf65aaaa5b876e7345f73622c86588c5e1cd6c655126bbcb97ec2a",
@@ -38,8 +40,10 @@
       "bytes": 3299
     },
     "fa_afdm_dreamerv3/miso_style_afdm_env.py": {
-      "sha256": "79a96d97db975c944f52bd0baf4afb0251d52745cece60c93bdb00292f2a02ae",
-      "bytes": 13611
+      "sha256": "171f5552c1e372a82c61f9383ea4039765033cbc6ffa0d40bbeca509c90fd2b4",
+      "bytes": 13802,
+      "original_sha256": "79a96d97db975c944f52bd0baf4afb0251d52745cece60c93bdb00292f2a02ae",
+      "local_edit": "Log executed bounded commands and raw physical rewards at full precision; learning and transition logic unchanged."
     }
   },
   "dependencies_restored_from_workspace": [

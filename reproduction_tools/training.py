@@ -49,13 +49,29 @@ def preserved_vendor():
     return target
 
 
+def capture_source_archive(run, manifest):
+    """Save source bytes alongside the pretraining hash list before starting processes."""
+    archive = run / "pretraining_source.tar.gz"
+    with tarfile.open(archive, "w:gz") as output:
+        for rel, digest in manifest.items():
+            path = ROOT / rel
+            if sha256(path) != digest:
+                raise RuntimeError(f"Source changed during pretraining capture: {rel}")
+            output.add(path, arcname=rel, recursive=False)
+        output.add(ROOT / "vendor/dreamerv3-installed.tar.gz", arcname="vendor/dreamerv3-installed.tar.gz", recursive=False)
+    return sha256(archive)
+
+
 def plan(speed, algorithm, run_dir, python=None, gpu_python=None):
     folder = case_dir(speed)
     protocol = read_json(folder / "configs/protocol.json")
     run = Path(run_dir).resolve()
     source = folder / "source" / algorithm
-    trainer_python = str(Path(python).resolve()) if python else sys.executable
-    gpu_python = str(Path(gpu_python).resolve()) if gpu_python else trainer_python
+    # PPO owns creation of its output directory; keep launcher provenance in the parent.
+    training_run = run / "training" if algorithm == "ppo" else run
+    # Keep virtual-environment executable symlinks: resolving them selects system Python.
+    trainer_python = str(Path(python).absolute()) if python else sys.executable
+    gpu_python = str(Path(gpu_python).absolute()) if gpu_python else trainer_python
     socket = f"/tmp/fa_dreamer_{speed}_{algorithm}_{os.getpid()}.sock"
     if algorithm == "dreamer":
         cli = ["--run-dir", str(run), "--config", str(folder / "configs/dreamer.json"),
@@ -67,7 +83,7 @@ def plan(speed, algorithm, run_dir, python=None, gpu_python=None):
         entry = source / "dreamer_simple/train.py"
     else:
         cfg = read_json(folder / "configs/ppo.json")
-        cfg.update(run_dir=str(run), gpu_rate_backend="rpc", gpu_rate_socket=socket)
+        cfg.update(run_dir=str(training_run), gpu_rate_backend="rpc", gpu_rate_socket=socket)
         if cfg["timesteps"] != protocol["training_interactions"] or cfg["timesteps"] != 50000:
             raise ValueError("The paper experiments use 50,000 real training interactions")
         if cfg["resume_run"] is not None:
@@ -78,7 +94,8 @@ def plan(speed, algorithm, run_dir, python=None, gpu_python=None):
     server = [gpu_python, str(source / "scripts/gpu_rate_server.py"), "--socket", socket]
     return {"speed_kmh": speed, "algorithm": algorithm, "run_dir": str(run),
             "source_root": str(source), "command": command, "rate_server": server,
-            "socket": socket, "training_interactions": protocol["training_interactions"]}
+            "socket": socket, "training_run_dir": str(training_run),
+            "training_interactions": protocol["training_interactions"]}
 
 
 def cuda_toolkit(interpreter, environment):
@@ -109,7 +126,10 @@ def launch(speed, algorithm, run_dir, python=None, gpu_python=None, dry_run=Fals
     run = Path(execution["run_dir"])
     if run.exists():
         raise FileExistsError(f"Fresh output directory required: {run}")
+    folder = case_dir(speed)
+    protocol = read_json(folder / "configs/protocol.json")
     env = os.environ.copy()
+    env["PYTHONHASHSEED"] = str(protocol[f"{algorithm}_seed"])
     env.update(OMP_NUM_THREADS="2", MKL_NUM_THREADS="2", OPENBLAS_NUM_THREADS="1",
                XLA_PYTHON_CLIENT_PREALLOCATE="false", XLA_PYTHON_CLIENT_MEM_FRACTION=".55")
     if algorithm == "dreamer":
@@ -121,10 +141,10 @@ def launch(speed, algorithm, run_dir, python=None, gpu_python=None, dry_run=Fals
             flags += f" --xla_gpu_cuda_data_dir={env['XLA_CUDA_DATA_DIR']}"
         env["XLA_FLAGS"] = flags
     run.mkdir(parents=True)
-    folder = case_dir(speed)
     source = Path(execution["source_root"])
-    paths = sorted([p for p in source.rglob("*") if p.is_file() and "__pycache__" not in p.parts]
-                   + list((folder / "configs").glob("*")))
+    paths = sorted([p for p in source.rglob("*") if p.is_file() and "__pycache__" not in p.parts and "output" not in p.parts]
+                   + list((folder / "configs").glob("*"))
+                   + [Path(__file__), ROOT / "reproduction_tools/records.py", ROOT / "scripts/reproduce.py"])
     manifest = {p.relative_to(ROOT).as_posix(): sha256(p) for p in paths}
     captured_configs = run / "reproduction_configs"
     captured_configs.mkdir()
@@ -134,6 +154,7 @@ def launch(speed, algorithm, run_dir, python=None, gpu_python=None, dry_run=Fals
         freeze = subprocess.check_output([interpreter, "-m", "pip", "freeze"], text=True)
         (run / f"pip-freeze-{kind}.txt").write_text(freeze, encoding="utf-8")
     provenance = {**execution, "source_sha256": manifest,
+                  "source_archive_sha256": capture_source_archive(run, manifest),
                   "launcher_sha256": sha256(__file__), "vendor_sha256": sha256(ROOT / "vendor/dreamerv3-installed.tar.gz"),
                   "environment": {k: env.get(k) for k in (
                       "OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS", "XLA_FLAGS",
@@ -143,6 +164,7 @@ def launch(speed, algorithm, run_dir, python=None, gpu_python=None, dry_run=Fals
                                       for k, p in [("trainer", execution["command"][0]), ("rate_server", execution["rate_server"][0])]},
                   "pretraining_capture": True}
     (run / "reproduction_launch.json").write_text(json.dumps(provenance, indent=2) + "\n", encoding="utf-8")
+    shutil.copyfile(__file__, run / "reproduction_launcher.py")
     socket = Path(execution["socket"])
     with (run / "rate_server.log").open("w") as server_log:
         server = subprocess.Popen(execution["rate_server"], cwd=source, env=env, stdout=server_log, stderr=subprocess.STDOUT)
