@@ -1,4 +1,4 @@
-"""Entry point for preserved 50/500 km/h experiments; legacy scripts remain available."""
+"""Entry point for the 50/500 km/h paper experiments."""
 from __future__ import annotations
 
 import argparse
@@ -21,7 +21,6 @@ def main():
     train.add_argument("--run-dir", type=Path, required=True)
     train.add_argument("--python", help="Trainer interpreter; defaults to the current interpreter")
     train.add_argument("--gpu-python", help="GPU rate-server interpreter; defaults to trainer interpreter")
-    train.add_argument("--paper-prefix", action="store_true", help="Stop the original 500k 50 km/h PPO protocol at the plotted 50k prefix")
     train.add_argument("--dry-run", action="store_true", help="Print commands without training or creating a run")
     plot = sub.add_parser("plot", help="Reconstruct one training panel from preserved or new online logs")
     plot.add_argument("--speed", type=int, choices=(50, 500), required=True)
@@ -48,7 +47,7 @@ def main():
         print(json.dumps(verify_all(physics=args.physics), indent=2))
     elif args.command == "train":
         from reproduction_tools.training import launch
-        launch(args.speed, args.algorithm, args.run_dir, args.python, args.gpu_python, args.paper_prefix, args.dry_run)
+        launch(args.speed, args.algorithm, args.run_dir, args.python, args.gpu_python, args.dry_run)
     elif args.command == "plot":
         from reproduction_tools.plotting import plot_training
         plot_training(args.speed, args.output_dir, args.dreamer_run, args.ppo_run, args.font_dir)

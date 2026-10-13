@@ -4,10 +4,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REFERENCE = ROOT / 'output/pdf/exhaustive_matched_center_grid21.json'
-PPO = ROOT / 'runs/user/t1_ppo_fixed_center_full_seed3004_500000q'
 
 
-def validate_ppo(meta, ppo_dir=PPO):
+def validate_ppo(meta, ppo_dir):
     ppo = json.loads((ppo_dir / 'config.json').read_text())
     channel = meta['channel']
     # The common environment constructs unspecified channel fields from defaults.

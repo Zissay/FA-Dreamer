@@ -45,15 +45,16 @@ class ReproductionChecks(unittest.TestCase):
         low, high = channel_for(50), channel_for(500)
         self.assertAlmostEqual(high.cfg.fixed_doppler_hz / low.cfg.fixed_doppler_hz, 10)
 
-    def test_original_ppo_budget_is_not_silently_relabelled(self):
-        original = plan(50, "ppo", ROOT / "runs/test")
-        prefix = plan(50, "ppo", ROOT / "runs/test", paper_prefix=True)
-        old = original["command"]
-        new = prefix["command"]
-        self.assertEqual(old[old.index("--timesteps") + 1], "500000")
-        self.assertEqual(new[new.index("--timesteps") + 1], "50000")
-        self.assertEqual(old[old.index("--ent-coef-anneal-steps") + 1], "20000")
-        self.assertEqual(new[new.index("--ent-coef-anneal-steps") + 1], "20000")
+    def test_all_paper_training_budgets_are_50k(self):
+        for speed in (50, 500):
+            for algorithm in ("dreamer", "ppo"):
+                execution = plan(speed, algorithm, ROOT / "runs/test")
+                command = execution["command"]
+                flag = "--queries" if algorithm == "dreamer" else "--timesteps"
+                self.assertEqual(command[command.index(flag) + 1], "50000")
+                self.assertEqual(execution["training_interactions"], 50000)
+                if algorithm == "ppo":
+                    self.assertEqual(command[command.index("--ent-coef-anneal-steps") + 1], "20000")
 
     def test_new_log_loader_checks_channel_before_plotting(self):
         for speed in (50, 500):

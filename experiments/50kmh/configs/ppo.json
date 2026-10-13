@@ -1,6 +1,6 @@
 {
-  "run_dir": "runs/user/t1_ppo_fixed_center_full_seed3004_500000q",
-  "timesteps": 500000,
+  "run_dir": "runs/50kmh/ppo_seed3004",
+  "timesteps": 50000,
   "resume_run": null,
   "resume_learning_rate_override": false,
   "resume_rollout_steps_override": false,

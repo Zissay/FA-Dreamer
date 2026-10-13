@@ -15,6 +15,11 @@ def verify_all(physics=False):
         hp = read_json(folder / "configs/dreamer.json")
         original = read_json(folder / "recorded/dreamer/experiment.json")
         ppo = read_json(folder / "configs/ppo.json")
+        assert ppo["timesteps"] == protocol["training_interactions"] == protocol["plotted_real_interactions"] == 50000
+        recorded_ppo = read_json(folder / "recorded/ppo/config.json")
+        for key, value in recorded_ppo.items():
+            if key not in ("timesteps", "run_dir"):
+                assert ppo[key] == value, f"PPO parameter changed: {speed} km/h {key}"
         assert hp == original["hyperparameters"]
         assert protocol["channel"] == original["channel"]
         assert protocol["channel"]["seed"] == ppo["channel_seed"] == 7
@@ -42,7 +47,7 @@ def verify_all(physics=False):
             assert math.isclose(actual[key], value, abs_tol=1e-10), (speed, key, actual[key], value)
         summary[str(speed)] = {"source_file_hash_checks": count, "results": actual,
                                "source_provenance": protocol["source_provenance"],
-                               "recovered_dependencies": recovered, "status": "PASS"}
+                               "recovered_dependencies": recovered, "training_interactions": 50000, "status": "PASS"}
         if physics:
             from .baselines import validate_reference_positions
             summary[str(speed)]["physics"] = validate_reference_positions(speed)

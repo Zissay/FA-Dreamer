@@ -1,5 +1,5 @@
 {
-  "run_dir": "runs/user/t1_ppo_fixed_center_speed500kmh_env20_seed5215_50k",
+  "run_dir": "runs/500kmh/ppo_seed5215",
   "timesteps": 50000,
   "resume_run": null,
   "resume_learning_rate_override": false,

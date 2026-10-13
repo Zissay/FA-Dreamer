@@ -7,7 +7,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 from report_dreamer_fixed_center_matched import records,grouped
-from matched_curve_reference import PPO, validate_ppo, reference_for, draw_reference
+from matched_curve_reference import validate_ppo, reference_for, draw_reference
 
 p=argparse.ArgumentParser()
 p.add_argument('--run-dir',type=Path,required=True)

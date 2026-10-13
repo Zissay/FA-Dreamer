@@ -3,8 +3,8 @@
 Paper panel (a), and the 50 km/h group of panel (c).
 
 * Dreamer: seed 3501, 50,000 genuine interactions, H=10, 20 environments.
-* PPO: seed 3004. The original run has 500,000 interactions; the figure uses
-  its first 50,000. The preserved JSON retains the original 500k total.
+* PPO: seed 3004, 50,000 genuine interactions, with the recorded learning
+  parameters and absolute 20k entropy schedule.
 * Channel seed 7, Doppler 1297.193703548369 Hz, 1 mm action increments,
   50-action center-start episodes. Complete configs are under `configs/`.
 * Source: 2026-09-11 portable historical package. Original launch source
@@ -16,11 +16,11 @@ Paper panel (a), and the 50 km/h group of panel (c).
 ```bash
 python scripts/reproduce.py plot --speed 50
 python scripts/reproduce.py train --speed 50 --algorithm dreamer --run-dir runs/50kmh/dreamer_seed3501 --dry-run
-python scripts/reproduce.py train --speed 50 --algorithm ppo --paper-prefix --run-dir runs/50kmh/ppo_seed3004 --dry-run
+python scripts/reproduce.py train --speed 50 --algorithm ppo --run-dir runs/50kmh/ppo_seed3004 --dry-run
 ```
 
 Remove `--dry-run` only after installing the separate training environments
-described in the root README. Omit `--paper-prefix` to keep the full 500k PPO run.
+described in the root README. Both learners use the paper's 50k budget.
 
 Expected final-window means (bps/Hz): Dreamer 18.837550331174892;
 PPO 15.441476879350997. See `expected_results.json` for all independent references.

@@ -6,8 +6,10 @@
       "bytes": 11635
     },
     "scripts/matched_curve_reference.py": {
-      "sha256": "9b1f4639504fd129316f75678a42a983eba7e3b618fcef748e06d7ffceed54de",
-      "bytes": 2395
+      "sha256": "f93c8dc7f053c2f58236f215e677fd76fbc9bcc657f95b1a0994dab005095125",
+      "bytes": 2324,
+      "original_sha256": "9b1f4639504fd129316f75678a42a983eba7e3b618fcef748e06d7ffceed54de",
+      "local_edit": "Remove unused historical PPO path; require explicit comparison run directory. Training logic unchanged."
     },
     "fa_afdm_dreamerv3/channel.py": {
       "sha256": "ed47d81f1369d9a247c91e54775c81f6d41d63a3115f8b2a19b8c1faa1c930c4",
@@ -26,8 +28,10 @@
       "bytes": 5614
     },
     "scripts/plot_dreamer_intermediate_snapshot.py": {
-      "sha256": "d1dfc4c212bc99511ce07b3f5afe505d34385c9116b7802db3cbbf3b74f8ce51",
-      "bytes": 3055
+      "sha256": "2a1384a6f97d86cd7e675a92fae14dd7f1f234a3d8023902f10f062fe7f4fd43",
+      "bytes": 3050,
+      "original_sha256": "d1dfc4c212bc99511ce07b3f5afe505d34385c9116b7802db3cbbf3b74f8ce51",
+      "local_edit": "Remove unused historical PPO path; require explicit comparison run directory. Training logic unchanged."
     },
     "scripts/gpu_rate_server.py": {
       "sha256": "acc5e908e61cdb65745c2e56efb5afdfa4f11522e02cb2d888a1839d34ce640f",
