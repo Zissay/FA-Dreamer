@@ -1,5 +1,7 @@
 # 50 km/h 与 500 km/h 论文结果复现说明
 
+> **恢复版完整运行：** 已完成50k，Dreamer为15.263647 bps/Hz，原目标18.837550，仍未复现。源码与物理核验通过；详细结果见 `docs/recovered_source_50kmh_result.json`，本次日志保存在 `experiments/50kmh/reproduction_attempts/recovered_source_20261013/`。
+
 > **复现状态：未成功。** 原 50 km/h 目标为 Dreamer 18.837550、PPO 15.441477 bps/Hz。当前 `recorded/` 中的 15.242103 / 13.739768 是未达到原结果的真实尝试，不能替换论文结果。原 PPO seed 为3004；后续两种方法统一3501，旧数据不会改标 seed。见 `experiments/50kmh/reproduction_status.json`。
 
 论文图 4 的三个子图分别是 50 km/h 训练曲线、500 km/h 训练曲线，以及两种速度的最终速率柱状图。

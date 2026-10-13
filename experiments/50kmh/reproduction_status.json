@@ -31,9 +31,36 @@
   },
   "active_attempt": {
     "run": "dreamer_seed3501_recovered_source_20261013",
-    "status": "RUNNING",
+    "status": "COMPLETE",
     "seed": 3501,
     "data_loaders": 2,
-    "acceptance": "Final-5k terminal mean rounds to18.84; same historical metric. This does not by itself prove exact trajectory or PPO common-seed reproduction."
-  }
+    "acceptance": "Final-5k terminal mean rounds to18.84; same historical metric. This does not by itself prove exact trajectory or PPO common-seed reproduction.",
+    "real_actions": 50000,
+    "mean": 15.263647258107483,
+    "authenticity": "PASS",
+    "historical_comparison": {
+      "status": "NOT_REPRODUCED",
+      "metric": "Mean terminal AFDM rate over the final 5k of the first 50k real interactions",
+      "historical_mean": 18.837550331174892,
+      "new_mean": 15.263647258107484,
+      "difference": -3.5739030730674077,
+      "relative_final_mean_difference_percent": -18.972228396135115,
+      "within_0_1_bps_per_hz": false,
+      "same_final_reported_mean": false,
+      "curve_mean_absolute_difference": 1.8869486049703048,
+      "curve_max_absolute_difference": 3.5739030730674095,
+      "criterion": "Same final-5k terminal metric, rounds to18.84 at2 decimals; no checkpoint initialization",
+      "complete_50k": true,
+      "fresh_initialization": true,
+      "same_dreamer_seed": true,
+      "same_data_loaders": true,
+      "same_historical_learning_parameters_and_channel": true,
+      "recovered_train_and_agent_source_match": true,
+      "training_log_sha256": "29224a0f5043363c0fc763db779a179668c72a76ba75788759f2ba02d0ddfc14",
+      "trajectory_reproduced": false,
+      "ppo_common_seed_comparison_reproduced": false
+    },
+    "published_evidence": "reproduction_attempts/recovered_source_20261013"
+  },
+  "paper_replacement_accepted": false
 }

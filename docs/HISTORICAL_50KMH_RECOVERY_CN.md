@@ -65,3 +65,10 @@ python scripts/reproduce.py compare-historical --dreamer-run runs/50kmh/dreamer_
 按论文两位小数检查是否仍为18.84，并同时核对恢复源码、原学习参数、信道及seed。
 该检查只判定已报告的Dreamer最终均值；完整轨迹与同seed PPO比较仍需分别报告。
 失败尝试全部保留，不能反复抽取线程时序或挑选高分运行宣称复现。
+
+## 恢复版完整运行结果
+
+恢复版已从零完成50k交互，Dreamer最后5k终点均值为 **15.26364726 bps/Hz**。
+与原18.83755033相差 **-3.57390307 bps/Hz**，按论文两位小数检查状态为 `NOT_REPRODUCED`。
+源码、配置、完整动作和物理速率核验通过；该核验不代替性能复现。统一seed3501的PPO实跑均值为13.73976793，旧15.44147688对应seed3004。
+本次记录单独发布于`experiments/50kmh/reproduction_attempts/recovered_source_20261013/`，不替换论文图4。
