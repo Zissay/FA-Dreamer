@@ -1,5 +1,6 @@
 """Check reproduction of the historical reported result independently of integrity."""
 from pathlib import Path
+import numpy as np
 from .records import case_dir, curve, read_json, sha256
 
 
@@ -8,7 +9,9 @@ def compare_historical_50(dreamer_run):
     metadata = read_json(run / "experiment.json")
     status = read_json(case_dir(50) / "reproduction_status.json")
     target = status["historical"]["dreamer"]
-    actual = curve(run / "training_queries.csv")["last_5k_mean"]
+    current_curve = curve(run / "training_queries.csv")
+    historical_curve = curve(case_dir(50) / "historical_target/dreamer/terminal_interactions.csv")
+    actual = current_curve["last_5k_mean"]
     complete = read_json(run / "training_complete.json")["real_actions"] == 50000
     fresh = metadata["from_checkpoint"] is None
     same_seed = metadata["seed"] == target["seed"] == status["required_common_seed"]
@@ -27,6 +30,11 @@ def compare_historical_50(dreamer_run):
                 same_loaders, same_parameters, same_source, reported_value_matches)) else "NOT_REPRODUCED",
             "metric": status["metric"], "historical_mean": target["last_5k_mean"],
             "new_mean": actual, "difference": actual - target["last_5k_mean"],
+            "relative_final_mean_difference_percent": 100 * (actual / target["last_5k_mean"] - 1),
+            "within_0_1_bps_per_hz": abs(actual - target["last_5k_mean"]) <= 0.1,
+            "same_final_reported_mean": reported_value_matches,
+            "curve_mean_absolute_difference": float(np.mean(np.abs(current_curve["displayed"] - historical_curve["displayed"]))),
+            "curve_max_absolute_difference": float(np.max(np.abs(current_curve["displayed"] - historical_curve["displayed"]))),
             "criterion": "Same final-5k terminal metric, rounds to18.84 at2 decimals; no checkpoint initialization",
             "complete_50k": complete, "fresh_initialization": fresh,
             "same_dreamer_seed": same_seed, "same_data_loaders": same_loaders,
