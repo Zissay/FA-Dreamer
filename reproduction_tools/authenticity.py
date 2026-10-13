@@ -36,8 +36,10 @@ def audit_run(speed, algorithm, run, physical_samples=128):
     assert read_json(run / "reproduction_exit.json")["returncode"] == 0
     source = case_dir(speed) / "source" / algorithm
     repo = case_dir(speed).parents[1]
-    for rel, digest in launch["source_sha256"].items():
-        assert sha256(repo / rel) == digest, f"Source or launch config changed since training: {rel}"
+    # Past runs are authenticated against their captured launch bytes. Legitimate
+    # later source recovery must not invalidate or relabel an earlier attempt.
+    current_source_matches = all((repo / rel).exists() and sha256(repo / rel) == digest
+                                 for rel, digest in launch["source_sha256"].items())
     assert sha256(run / "reproduction_launcher.py") == launch["launcher_sha256"]
     assert sha256(repo / "vendor/dreamerv3-installed.tar.gz") == launch["vendor_sha256"]
     if (run / "source_snapshot_manifest.json").is_file():
@@ -142,7 +144,7 @@ def audit_run(speed, algorithm, run, physical_samples=128):
             values = [float(r[name]) for r in metrics if name in r]
             assert values and np.isfinite(values).all() and max(values) > 0
         report.update(prefill_rng_seed=metadata["prefill_rng_seed"], seeded_prefill_verified=True,
-                      replay_sampler_seed=metadata["replay_sampler_seed"], data_loaders=metadata["hyperparameters"]["data_loaders"],
+                      replay_sampler_seed=metadata.get("replay_sampler_seed"), data_loaders=metadata["hyperparameters"]["data_loaders"],
                       nonzero_finite_actor_model_critic_gradients=True)
     else:
         updates = [json.loads(line) for line in (data_dir / "ppo_updates.jsonl").read_text().splitlines()]
@@ -150,4 +152,5 @@ def audit_run(speed, algorithm, run, physical_samples=128):
         assert all(np.isfinite(float(r["head_weight_update_norm"])) for r in updates)
         assert any(float(r["head_weight_update_norm"]) > 0 for r in updates)
         report.update(ppo_update_records=len(updates), actual_actor_weight_updates_verified=True)
+    report["current_repository_matches_launch"] = current_source_matches
     return report

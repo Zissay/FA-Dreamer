@@ -24,6 +24,24 @@ def valid_imagination_indices(key, terminal, amount):
     return jax.lax.top_k(scores, amount)[1]
 
 
+def initial_imagination_indices(key, terminal, first, amount):
+    """Select true episode starts before other valid replay states.
+
+    Selection only uses reset and terminal flags. It never reads rewards,
+    rates, actions, or positions. The valid-state fallback keeps the operation
+    static and safe for small diagnostic batches.
+    """
+    terminal = terminal.astype(bool)
+    first = first.astype(bool)
+    count = terminal.shape[0]
+    amount = min(int(amount), count)
+    valid = ~terminal
+    preferred = valid & first
+    scores = jax.random.uniform(key, (count,), dtype=jnp.float32)
+    scores += jnp.where(preferred, 2.0, jnp.where(valid, 0.0, -jnp.inf))
+    return jax.lax.top_k(scores, amount)[1]
+
+
 def masked_percentile(values, mask, percentile):
     """Static-shape percentile excluding masked entries; finite when empty."""
     values = values.reshape(-1)
@@ -247,10 +265,16 @@ class ActorCritic(native.ImagActorCritic):
         stride = int(self.config.afdm.imagination_start_stride)
         requested = int(self.config.afdm.imagination_start_count)
         if requested > 0 or stride > 1:
-            # Selection uses terminal validity only, never rate or reward.
+            # Selection uses reset/terminal flags only, never rate or reward.
             count = start['is_terminal'].shape[0]
             amount = requested if requested > 0 else (count + stride - 1) // stride
-            indices = valid_imagination_indices(nj.rng(), start['is_terminal'], amount)
+            if self.config.afdm.imagination_start_mode == 'initial':
+                indices = initial_imagination_indices(
+                    nj.rng(), start['is_terminal'], start['is_first'], amount)
+            else:
+                assert self.config.afdm.imagination_start_mode == 'uniform'
+                indices = valid_imagination_indices(
+                    nj.rng(), start['is_terminal'], amount)
             start = jax.tree_util.tree_map(lambda value: value[indices], start)
 
         def actor_loss(start):
@@ -258,6 +282,7 @@ class ActorCritic(native.ImagActorCritic):
             traj = imagine(policy, start, self.config.imag_horizon)
             loss, metrics = self.loss(traj)
             metrics['imagination_start_count'] = jnp.asarray(start['is_terminal'].shape[0])
+            metrics['imagination_initial_start_fraction'] = start['is_first'].mean()
             metrics['imagination_transition_count'] = jnp.asarray(
                 start['is_terminal'].shape[0] * self.config.imag_horizon)
             return loss, (traj, metrics)

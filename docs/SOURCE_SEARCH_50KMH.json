@@ -15,7 +15,8 @@
     "backups/reproducibility",
     "output/packages and package_verification",
     "User Downloads/Desktop/Documents",
-    "WSL /home/user1 depth 3"
+    "WSL /home/user1 depth 3",
+    "Read-only original experiment thread history: source edit and launch records on2026-09-11"
   ],
   "historical_packages": [
     {
@@ -63,7 +64,7 @@
     "Two PPO support modules absent from portable packages"
   ],
   "original_launch_source_confirmed": false,
-  "decision": "Publish fresh, fully recorded 50k runs for both methods using seed3501; retain the original artifacts externally and in Git history. No search for a seed with better final rate.",
+  "decision": "Continue recovering historical source/settings and reproducing prior performance. The first fresh common-seed trial did not meet that objective and cannot replace paper results.",
   "fresh_run_changes": [
     "Dreamer prefill RNG fixed to 1003504; all 2260 prefill commands match the original run by per-batch action multiset",
     "Dreamer synchronous data_loaders=0 replaces implicit historical 2 workers",
@@ -92,5 +93,8 @@
       "real_actions": 0,
       "cause": "PPO output directory creation conflicted with launcher provenance directory"
     }
-  ]
+  ],
+  "next_attempt": "Restore historical Dreamer data_loaders=2 and uniform imagination-start config; keep seed3501. No pretrained initialization, seed search, or curve fitting.",
+  "recovered_prelaunch_edits": "experiments/50kmh/historical_target/source/recovery_manifest.json",
+  "source_recovery_status": "Original source reconstructed from archived package and three timestamped prelaunch edits; no original launch source hash, so performance verification still required."
 }

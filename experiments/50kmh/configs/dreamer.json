@@ -30,5 +30,5 @@
     "lr_decay_end": 15000,
     "lr_final_fraction": 0.3333333333333333
   },
-  "data_loaders": 0
+  "data_loaders": 2
 }

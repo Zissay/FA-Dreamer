@@ -113,7 +113,7 @@
     "500kmh": false
   },
   "validation_scope": "Complete fresh 50k training and complete-log/source/physical audits for both 50kmh methods; preserved 500kmh records/configs/baselines; three figure reconstruction. Full 81^4 searches and 500kmh training were not rerun.",
-  "revision": "Fresh audited 50kmh comparison using common seed3501; original 500kmh evidence retained",
+  "revision": "Correction: authentic fresh runs failed to reproduce historical 50 km/h performance",
   "cleanup_validation": {
     "legacy_workflow_removed": true,
     "extended_budget_option_removed": true,
@@ -185,5 +185,32 @@
     },
     "selection_rule": "One predetermined common seed; full 50k runs; final 5k terminal mean. No best checkpoint or seed selection.",
     "historical_results_used_in_new_curve": false
+  },
+  "historical_result_reproduced": false,
+  "reproduction_status": {
+    "status": "NOT_REPRODUCED",
+    "metric": "Mean terminal AFDM rate over the final 5k of the first 50k real interactions",
+    "historical": {
+      "dreamer": {
+        "seed": 3501,
+        "last_5k_mean": 18.837550331174892,
+        "data_loaders": 2
+      },
+      "ppo": {
+        "seed": 3004,
+        "last_5k_mean": 15.441476879350997
+      }
+    },
+    "required_common_seed": 3501,
+    "attempt_1": {
+      "status": "FAILED_TO_REPRODUCE_HISTORICAL_RESULT",
+      "dreamer": 15.24210271381839,
+      "ppo": 13.739767931943193,
+      "dreamer_data_loaders": 0,
+      "training_seed": 3501,
+      "physical_and_source_audit_passed": true
+    },
+    "acceptance": "Reproduce historical training performance using justified recovered settings. Training completion and authenticity alone do not establish reproduction. Original PPO seed3004 must not be relabelled as seed3501.",
+    "next_attempt": "Restore historical Dreamer data_loaders=2 and uniform imagination-start config; keep seed3501. No pretrained initialization, seed search, or curve fitting."
   }
 }

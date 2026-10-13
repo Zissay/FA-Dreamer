@@ -22,21 +22,24 @@ e = native.embodied
 
 
 class SeededRandomAgent:
-    """Uniform prefill with a private, recorded RNG; no rate or policy input."""
+    """Deterministic replay prefill for bounded continuous action spaces."""
 
     def __init__(self, act_space, seed):
         self.act_space = act_space
         self.random = np.random.RandomState(seed)
 
     def policy(self, obs, state=None, mode="train"):
-        amount = len(next(iter(obs.values())))
+        batch_size = len(next(iter(obs.values())))
         actions = {}
         for key, space in self.act_space.items():
             if key == "reset":
                 continue
             if not np.issubdtype(space.dtype, np.floating):
-                raise TypeError(f"Unexpected prefill action space: {key}")
-            actions[key] = self.random.uniform(space.low, space.high, (amount,) + space.shape).astype(space.dtype)
+                raise TypeError(f"Unsupported deterministic prefill space: {key} {space}")
+            shape = (batch_size,) + tuple(space.shape)
+            actions[key] = self.random.uniform(
+                space.low, space.high, shape
+            ).astype(space.dtype)
         return actions, state
 
 
@@ -52,7 +55,10 @@ def model_config(hp, seed, platform="cuda"):
             "batch_size": hp["batch_size"],
             "batch_length": hp["batch_length"],
             "replay_size": hp["replay_size"],
-            "data_loaders": hp["data_loaders"],
+            # Multiple loader threads race on the replay sampler RNG and make
+            # identical seeds consume different batches. Zero workers keeps
+            # sampling synchronous and reproducible for controlled experiments.
+            "data_loaders": hp.get("data_loaders", 2),
             "rssm.deter": units,
             "rssm.units": units,
             "encoder.mlp_units": units,
@@ -96,6 +102,7 @@ def model_config(hp, seed, platform="cuda"):
                 "replay_return_lambda": hp.get("replay_return_lambda", hp["return_lambda"]),
                 "imagination_start_stride": hp.get("imagination_start_stride", 1),
                 "imagination_start_count": hp.get("imagination_start_count", 0),
+                "imagination_start_mode": hp.get("imagination_start_mode", "uniform"),
                 "full_return_actor": hp.get("full_return_actor", False),
                 "known_kinematics": hp.get("known_kinematics", False),
                 "wavelength": 0.0107068735,
@@ -164,8 +171,6 @@ def main():
         known_kinematics=hp.get("known_kinematics", False),
         hyperparameters=hp,
         prefill_rng_seed=args.seed + 1000003,
-        replay_sampler_seed=0,
-        reconstruction="Fresh audited 50 km/h run; original launch source could not be established",
         jax_platform=args.platform,
         imagined_termination="known finite task clock",
     )

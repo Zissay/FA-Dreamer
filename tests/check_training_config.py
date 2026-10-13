@@ -40,7 +40,9 @@ else:
     hp = read_json(folder / "configs/dreamer.json")
     protocol = read_json(folder / "configs/protocol.json")
     actual = trainer.model_config(hp, protocol["dreamer_seed"], "cpu")
-    expected = YAML(typ="safe").load((folder / "recorded/dreamer/resolved_config.yaml").read_text())
+    reference = folder / ("historical_target/dreamer/resolved_config.yaml" if args.speed == 50
+                          else "recorded/dreamer/resolved_config.yaml")
+    expected = YAML(typ="safe").load(reference.read_text())
     expected = trainer.e.Config(expected).flat
     actual = actual.flat
     implicit = expected.keys() - actual.keys()

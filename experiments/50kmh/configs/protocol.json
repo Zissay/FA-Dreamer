@@ -64,7 +64,7 @@
   "random_position_samples": 100,
   "daft_grid": 81,
   "time_grid": 21,
-  "source_provenance": "fresh-audited-reconstruction",
+  "source_provenance": "historical-reconstruction-pending",
   "historical_artifact_archive": {
     "filename": "50kmh_historical_ab2c261.zip",
     "sha256": "a5adc2865de298d1429d76ff4d15f0228e0895ffdccb7eed491babbb06d2b97e",

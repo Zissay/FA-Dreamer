@@ -20,6 +20,9 @@ def main():
     audit.add_argument("--dreamer-run", type=Path, required=True)
     audit.add_argument("--ppo-run", type=Path, required=True)
     audit.add_argument("--output", type=Path)
+    comparison = sub.add_parser("compare-historical", help="Check whether a fresh50km/h Dreamer reproduces the historical reported final mean")
+    comparison.add_argument("--dreamer-run", type=Path, required=True)
+    comparison.add_argument("--output", type=Path)
     train = sub.add_parser("train", help="Start a fresh preserved training run")
     train.add_argument("--speed", type=int, choices=(50, 500), required=True)
     train.add_argument("--algorithm", choices=("dreamer", "ppo"), required=True)
@@ -33,9 +36,11 @@ def main():
     plot.add_argument("--ppo-run", type=Path)
     plot.add_argument("--output-dir", type=Path, default=ROOT / "figures/reproduced")
     plot.add_argument("--font-dir", type=Path)
+    plot.add_argument("--allow-unreproduced", action="store_true", help="Allow explicitly labelled diagnostic figures from a failed/pending50km/h attempt")
     all_plots = sub.add_parser("plot-all", help="Reconstruct the three independent paper panels")
     all_plots.add_argument("--output-dir", type=Path, default=ROOT / "figures/reproduced")
     all_plots.add_argument("--font-dir", type=Path)
+    all_plots.add_argument("--allow-unreproduced", action="store_true")
     for speed in (50, 500):
         for algorithm in ("dreamer", "ppo"):
             all_plots.add_argument(f"--{algorithm}-{speed}-run", type=Path)
@@ -50,6 +55,13 @@ def main():
     if args.command == "verify":
         from reproduction_tools.verify import verify_all
         print(json.dumps(verify_all(physics=args.physics), indent=2))
+    elif args.command == "compare-historical":
+        from reproduction_tools.comparison import compare_historical_50
+        report = compare_historical_50(args.dreamer_run)
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(report, indent=2))
     elif args.command == "audit":
         from reproduction_tools.authenticity import audit_run
         results = {a: audit_run(args.speed, a, getattr(args, f"{a}_run")) for a in ("dreamer", "ppo")}
@@ -63,9 +75,15 @@ def main():
         from reproduction_tools.training import launch
         launch(args.speed, args.algorithm, args.run_dir, args.python, args.gpu_python, args.dry_run)
     elif args.command == "plot":
+        from reproduction_tools.records import case_dir, read_json
+        if args.speed == 50 and not args.allow_unreproduced and read_json(case_dir(50) / "reproduction_status.json")["status"] != "REPRODUCED":
+            parser.error("Historical50km/h result is not reproduced. Use --allow-unreproduced for diagnostic figures; do not replace paper figures.")
         from reproduction_tools.plotting import plot_training
         plot_training(args.speed, args.output_dir, args.dreamer_run, args.ppo_run, args.font_dir)
     elif args.command == "plot-all":
+        from reproduction_tools.records import case_dir, read_json
+        if not args.allow_unreproduced and read_json(case_dir(50) / "reproduction_status.json")["status"] != "REPRODUCED":
+            parser.error("Historical50km/h result is not reproduced. Use --allow-unreproduced for diagnostic figures; do not replace paper figures.")
         from reproduction_tools.plotting import plot_training, plot_bar
         runs = [getattr(args, f"{a}_{s}_run") for s in (50, 500) for a in ("dreamer", "ppo")]
         if any(r is not None for r in runs) and not all(r is not None for r in runs):

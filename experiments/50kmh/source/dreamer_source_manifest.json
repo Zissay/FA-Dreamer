@@ -1,5 +1,5 @@
 {
-  "source_origin": "2026-09-11 historical source reconstructed for a fresh audited common-seed run; original launch source unconfirmed",
+  "source_origin": "Recovered original prelaunch source from archived package and timestamped modifications; fresh performance verification pending",
   "files": {
     "scripts/report_dreamer_fixed_center_matched.py": {
       "sha256": "02a62502cad0c774bc581aac9d71b1772e2b844c618f8e60140800c9cb21bd17",
@@ -38,14 +38,15 @@
       "bytes": 2463
     },
     "dreamer_simple/train.py": {
-      "sha256": "48eef61be5976d742a4b772ed7aeb2a58e45c586ff20f001d0d0cf2200c073ae",
-      "bytes": 12279,
+      "sha256": "636cbe88b37a7c301b3b3b64e02e836489f6189cd5a9c51fe320b9ea612ca78f",
+      "bytes": 12558,
       "original_sha256": "60308e90a9d4192e7c8e208e39088d6c2b4053815b7ee10c52361bb89162603a",
-      "local_edit": "Fresh reconstruction: seeded uniform prefill, explicit synchronous data loaders, RNG and reconstruction metadata. All learning schedules and model architecture preserved."
+      "local_edit": "Recovered original version by applying timestamped prelaunch edits to the 2026-09-11 archived package; see historical_target/source/recovery_manifest.json."
     },
     "dreamer_simple/agent.py": {
-      "sha256": "8e9203b5a3ccebdd5787c37def8e9aca5de063ec818dc3e09c1371b730b3ba76",
-      "bytes": 15865
+      "sha256": "e1fa76434ca52a273bd4a00b77e5936427b234a8c1ab9fcc2a412ea7c66b0933",
+      "bytes": 16990,
+      "local_edit": "Recovered original version by applying timestamped prelaunch edits to the 2026-09-11 archived package; see historical_target/source/recovery_manifest.json."
     },
     "dreamer_simple/schedules.py": {
       "sha256": "d5f34b4dbaab9507b777f1c7d0879808249752ead0e29fca97ac8dabfbb6856c",

@@ -49,5 +49,6 @@
   "dependencies_restored_from_workspace": [
     "fa_afdm_dreamerv3/truncated_gaussian_policy.py",
     "fa_afdm_dreamerv3/audited_ppo.py"
-  ]
+  ],
+  "historical_dependency_verification": "Both formerly missing modules confirmed byte-equivalent after newline normalization to2026-09-08 archive plus recorded prelaunch edit. See historical_target/ppo/dependency_recovery.json."
 }
