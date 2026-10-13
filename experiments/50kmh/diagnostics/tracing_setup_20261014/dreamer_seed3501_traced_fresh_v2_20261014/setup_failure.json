@@ -1,0 +1,6 @@
+{
+  "run": "dreamer_seed3501_traced_fresh_v2_20261014",
+  "real_actions": 0,
+  "completed_optimizer_updates": 0,
+  "reason": "Namespace guard failed before original trainer entry; corrected native.embodied alias in v3"
+}

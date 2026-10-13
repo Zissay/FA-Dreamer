@@ -159,7 +159,7 @@ python scripts/audit_second_rise_50.py \
 完整压缩日志、终点、模型哈希和启动快照在各自`reproduction_attempts/dreamer_seed3501_fresh_repeat*_20261014/`；模型权重保留本机。原论文数据未替换。
 完整报告：`fresh_repeat_audit_20261014.json`；本机对照图：`figures/fresh_repeats_20261014/comparison.png`。
 首次动作分歧的逐批对照见`first_actor_difference_50kmh_20261014.json`；双线程CPU采样诊断见`two_loader_order_probe_20261014.json`及`scripts/probe_replay_order_50.py`。该诊断不训练，也未向新训练提供任何历史数据。
-下一项已准备的GPU环境对照见`ORIGINAL_GPU_RUNTIME_TEST_CN.md`；须用户批准系统驱动变更后才执行，驱动影响的因果关系仍未证实。
+GPU环境对照已暂缓，当前保持驱动不变，优先检查源码及实际消费的训练批次。旧候选方案见`ORIGINAL_GPU_RUNTIME_TEST_CN.md`，驱动影响的因果关系仍未证实。
 
 仅重画已公开的完整曲线无需模型或GPU（仓库根目录）：
 
@@ -186,3 +186,28 @@ python scripts/archive_fresh_50_trials.py \
 这是使用均匀预填充输入的局部诊断，不加载模型检查点、不计作50k性能复现，也不证明它是最终性能差距的唯一原因。代码、源版本和报告在`diagnostics/fixed_batches_20261014/`。
 接下来原双线程/参数/seed保留，从空模型和空回放重新训练；`scripts/trace_fresh_50.py`记录每次更新实际消费的16个序列起始回调编号。记录模式不替换样本或改变随机调用，但IO会影响异步时序，已明确声明。
 记录器两次启动失败分别发生在2260次均匀预填充之后、任何真实优化更新之前，以及进入原训练入口之前；均保留，非性能筛选。修正模块别名后采用全新v3目录完整训练。方案见`traced_fresh_protocol_20261014.json`。
+
+### 索引记录轮已完整结束
+
+v3从随机模型、空回放开始，seed3501、原学习参数、双线程和当前驱动保持一致，完成50000真实动作。最后5k终点均值为**13.5550610094bps/Hz**，与原18.837550相差−5.282489；中段平台13.483867，后期净增仅0.071194，未出现原二次抬升。因此状态仍为**NOT_REPRODUCED**。
+
+1000个终点及125个分散动作共1125次独立CPU速率复算通过，最大误差1.03e−13；动作、奖励、非零优化更新和启动前源码快照核验通过。记录12175次真实更新，每次16个序列起始编号；记录哈希、更新连续性和采样时序可用性通过核验。记录IO可能改变异步线程时序，未声称这是完全无扰动的观察。两次记录器启动失败的日志/源码也单独公开。
+
+报告：`traced_fresh_audit_20261014.json`。完整记录：`experiments/50kmh/reproduction_attempts/dreamer_seed3501_traced_fresh_v3_20261014/`。没有修改驱动或替换原论文数据。采样顺序影响早期动作已有局部对照支持，但是否足以解释50k性能差距仍未验证，历史实际采样顺序也未找到。
+
+本机完整归档、核验及独立对照图可重建：
+
+```bash
+python scripts/archive_traced_50.py \
+  --run-dir runs/50kmh/dreamer_seed3501_traced_fresh_v3_20261014 \
+  --output docs/traced_fresh_audit_20261014.json \
+  --plot-output figures/traced_fresh_20261014/comparison.png
+```
+
+已公开曲线的重画不需要模型或GPU：
+
+```bash
+python scripts/archive_fresh_50_trials.py \
+  --recorded-report docs/traced_fresh_audit_20261014.json \
+  --plot-output figures/traced_fresh_20261014/comparison.png
+```

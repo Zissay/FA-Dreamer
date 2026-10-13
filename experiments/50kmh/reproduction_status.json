@@ -22,7 +22,7 @@
     "physical_and_source_audit_passed": true
   },
   "acceptance": "Fresh50k from random initialization and empty replay; original learning parameters and training seed3501; similar two-stage training trend and final mean near18.84. Exact pointwise or two-decimal equality is not required.",
-  "next_attempt": "Keep current GPU driver; investigate original source and actual minibatch order. A fresh original-parameter/seed3501 run now records consumed sample indices; no checkpoint or historical observation input.",
+  "next_attempt": "Keep current driver. Actual sample-order sensitivity is verified for first5 updates; full50k causal attribution remains unresolved, and historical consumed minibatch indices are unavailable. No paper replacement accepted.",
   "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
   "superseded_partial_attempt": {
     "run": "dreamer_seed3501_historical_loaders2_20261013",
@@ -66,31 +66,49 @@
     "limitation": "Used XLA deterministic flag added on2026-09-12 after the original2026-09-11 run."
   },
   "active_attempt": {
-    "run": "dreamer_seed3501_fresh_repeat2_20261014",
-    "status": "COMPLETE",
+    "run": "dreamer_seed3501_traced_fresh_v3_20261014",
     "seed": 3501,
+    "real_action_budget": 50000,
+    "fresh_initialization": true,
     "data_loaders": 2,
+    "mode": "observe_original_async_batches",
+    "status": "COMPLETE",
+    "source": "scripts/trace_fresh_50.py",
+    "setup_failures": [
+      {
+        "run": "dreamer_seed3501_traced_fresh_20261014",
+        "real_prefill_actions": 2260,
+        "completed_optimizer_updates": 0,
+        "reason": "Observer patched a duplicate dreamerv3.embodied Generic module instead of live embodied class; original learner was not changed"
+      },
+      {
+        "run": "dreamer_seed3501_traced_fresh_v2_20261014",
+        "real_actions": 0,
+        "completed_optimizer_updates": 0,
+        "reason": "Namespace guard failed before original trainer entry; corrected native.embodied alias in v3"
+      }
+    ],
     "real_actions": 50000,
-    "mean": 14.351138447327392,
+    "mean": 13.555061009418175,
     "authenticity": "PASS",
     "historical_comparison": {
       "status": "NOT_REPRODUCED",
       "metric": "Mean terminal AFDM rate over the final 5k of the first 50k real interactions",
       "historical_mean": 18.837550331174892,
-      "new_mean": 14.351138447327392,
-      "difference": -4.4864118838475004,
-      "relative_final_mean_difference_percent": -23.816323274384498,
+      "new_mean": 13.555061009418175,
+      "difference": -5.282489321756717,
+      "relative_final_mean_difference_percent": -28.042336869112695,
       "within_0_1_bps_per_hz": false,
       "same_final_reported_mean": false,
-      "curve_mean_absolute_difference": 1.5392104230597812,
-      "curve_max_absolute_difference": 4.4864118838475004,
+      "curve_mean_absolute_difference": 1.402516059585504,
+      "curve_max_absolute_difference": 5.285028803239445,
       "criterion": "Original learning parameters/seed and XLA profile; final mean within0.2bps/Hz of18.83755; initial rise and later gain at least half the historical second rise. No checkpoint initialization.",
       "final_performance_tolerance_bps_per_hz": 0.2,
       "final_performance_close": false,
       "historical_mid_training_plateau": 12.850600087616078,
-      "new_mid_training_plateau": 13.880472124876333,
+      "new_mid_training_plateau": 13.48386667530567,
       "historical_late_gain": 5.986950243558814,
-      "new_late_gain": 0.4706663224510592,
+      "new_late_gain": 0.07119433411250498,
       "two_stage_rise": false,
       "original_xla_profile_matches": true,
       "complete_50k": true,
@@ -99,13 +117,13 @@
       "same_data_loaders": true,
       "same_historical_learning_parameters_and_channel": true,
       "recovered_train_and_agent_source_match": true,
-      "training_log_sha256": "28b09701638d434fd241f116a52e2d2f9303213bddca1d73940d7a20ae53b4d9",
+      "training_log_sha256": "0b525ebde74b085704a1c3371499a83541ca32ffc71f7aaf595bece70046cb09",
       "trajectory_reproduced": false,
       "ppo_common_seed_comparison_reproduced": false
     },
-    "historical_xla_flags_restored": true,
-    "historical_gpu_driver_restored": false,
-    "published_evidence": "experiments/50kmh/reproduction_attempts/dreamer_seed3501_fresh_repeat2_20261014"
+    "published_evidence": "experiments/50kmh/reproduction_attempts/dreamer_seed3501_traced_fresh_v3_20261014",
+    "recorded_updates": 12175,
+    "report": "docs/traced_fresh_audit_20261014.json"
   },
   "checkpoint_restoration": {
     "status": "SECOND_RISE_AND_NEAR_FINAL_PERFORMANCE_VERIFIED_CONDITIONALLY",
@@ -185,14 +203,14 @@
   },
   "driver_test_priority": "DEFERRED; user questions causal basis; no driver change authorized or performed",
   "fixed_batch_diagnostic": "docs/fixed_batch_update_check_50kmh_20261014.json",
-  "ongoing_attempt": {
+  "traced_fresh_attempt": {
     "run": "dreamer_seed3501_traced_fresh_v3_20261014",
     "seed": 3501,
     "real_action_budget": 50000,
     "fresh_initialization": true,
     "data_loaders": 2,
     "mode": "observe_original_async_batches",
-    "status": "RUNNING",
+    "status": "COMPLETE",
     "source": "scripts/trace_fresh_50.py",
     "setup_failures": [
       {
@@ -207,6 +225,42 @@
         "completed_optimizer_updates": 0,
         "reason": "Namespace guard failed before original trainer entry; corrected native.embodied alias in v3"
       }
-    ]
+    ],
+    "real_actions": 50000,
+    "mean": 13.555061009418175,
+    "authenticity": "PASS",
+    "historical_comparison": {
+      "status": "NOT_REPRODUCED",
+      "metric": "Mean terminal AFDM rate over the final 5k of the first 50k real interactions",
+      "historical_mean": 18.837550331174892,
+      "new_mean": 13.555061009418175,
+      "difference": -5.282489321756717,
+      "relative_final_mean_difference_percent": -28.042336869112695,
+      "within_0_1_bps_per_hz": false,
+      "same_final_reported_mean": false,
+      "curve_mean_absolute_difference": 1.402516059585504,
+      "curve_max_absolute_difference": 5.285028803239445,
+      "criterion": "Original learning parameters/seed and XLA profile; final mean within0.2bps/Hz of18.83755; initial rise and later gain at least half the historical second rise. No checkpoint initialization.",
+      "final_performance_tolerance_bps_per_hz": 0.2,
+      "final_performance_close": false,
+      "historical_mid_training_plateau": 12.850600087616078,
+      "new_mid_training_plateau": 13.48386667530567,
+      "historical_late_gain": 5.986950243558814,
+      "new_late_gain": 0.07119433411250498,
+      "two_stage_rise": false,
+      "original_xla_profile_matches": true,
+      "complete_50k": true,
+      "fresh_initialization": true,
+      "same_dreamer_seed": true,
+      "same_data_loaders": true,
+      "same_historical_learning_parameters_and_channel": true,
+      "recovered_train_and_agent_source_match": true,
+      "training_log_sha256": "0b525ebde74b085704a1c3371499a83541ca32ffc71f7aaf595bece70046cb09",
+      "trajectory_reproduced": false,
+      "ppo_common_seed_comparison_reproduced": false
+    },
+    "published_evidence": "experiments/50kmh/reproduction_attempts/dreamer_seed3501_traced_fresh_v3_20261014",
+    "recorded_updates": 12175,
+    "report": "docs/traced_fresh_audit_20261014.json"
   }
 }
