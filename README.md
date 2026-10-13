@@ -8,6 +8,8 @@ Preserved configurations, training sources and online terminal records for the t
 
 **[中文复现说明](docs/REPRODUCTION_CN.md)** · [原50km/h源码恢复进展](docs/HISTORICAL_50KMH_RECOVERY_CN.md) · [50 km/h](experiments/50kmh/README.md) · [500 km/h](experiments/500kmh/README.md)
 
+**[统一30k＋20k恢复训练入口](docs/STAGED_RECOVERY_50KMH_CN.md)**：`scripts/recover_staged_50.py resume`统一输入校验、20k恢复训练、物理核验及两阶段汇总；`plan`检查输入，`assemble`汇总已完成阶段。该流程依赖原30k检查点，保留恢复标识。
+
 ## Rebuild the paper figures
 
 Run from the repository root. Rebuilding recorded attempts requires no training or GPU; these50km/h attempt figures are not accepted paper replacements.
