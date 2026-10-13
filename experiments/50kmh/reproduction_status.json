@@ -21,7 +21,7 @@
     "training_seed": 3501,
     "physical_and_source_audit_passed": true
   },
-  "acceptance": "Same original learning parameters and training seed; similar two-stage training trend and final performance near18.84. Exact pointwise or two-decimal equality is not required by the user.",
+  "acceptance": "Fresh50k from random initialization and empty replay; original learning parameters and training seed3501; similar two-stage training trend and final mean near18.84. Exact pointwise or two-decimal equality is not required.",
   "next_attempt": "Resolve remaining runtime/early-exploration divergence before another from-zero trial; retain original parameters, seed3501 and every failed trial. GPU driver was591.86, now610.88; causation is not established.",
   "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
   "superseded_partial_attempt": {
@@ -120,5 +120,11 @@
     "exact_historical_resume": false,
     "published_evidence": "reproduction_attempts/restore30k_20261013",
     "limitation": "Historical replay queues and pre-update policy carry were not saved; reconstructed continuation."
+  },
+  "fresh_validation_protocol": "docs/fresh_repeat_protocol_20261014.json",
+  "original_initialization_evidence": {
+    "from_checkpoint": null,
+    "real_actions": 50000,
+    "source": "Original experiment.json and timestamped2026-09-11 launch record with fresh-directory guard"
   }
 }
