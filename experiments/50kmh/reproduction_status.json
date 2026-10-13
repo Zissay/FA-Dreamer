@@ -22,7 +22,7 @@
     "physical_and_source_audit_passed": true
   },
   "acceptance": "Fresh50k from random initialization and empty replay; original learning parameters and training seed3501; similar two-stage training trend and final mean near18.84. Exact pointwise or two-decimal equality is not required.",
-  "next_attempt": "Resolve remaining runtime/early-exploration divergence before another from-zero trial; retain original parameters, seed3501 and every failed trial. GPU driver was591.86, now610.88; causation is not established.",
+  "next_attempt": "Prepared originalGPU-driver runtime comparison, pending explicit user approval for host driver change; see docs/ORIGINAL_GPU_RUNTIME_TEST_CN.md. No driver modified, no system restart.",
   "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
   "superseded_partial_attempt": {
     "run": "dreamer_seed3501_historical_loaders2_20261013",
@@ -66,6 +66,68 @@
     "limitation": "Used XLA deterministic flag added on2026-09-12 after the original2026-09-11 run."
   },
   "active_attempt": {
+    "run": "dreamer_seed3501_fresh_repeat2_20261014",
+    "status": "COMPLETE",
+    "seed": 3501,
+    "data_loaders": 2,
+    "real_actions": 50000,
+    "mean": 14.351138447327392,
+    "authenticity": "PASS",
+    "historical_comparison": {
+      "status": "NOT_REPRODUCED",
+      "metric": "Mean terminal AFDM rate over the final 5k of the first 50k real interactions",
+      "historical_mean": 18.837550331174892,
+      "new_mean": 14.351138447327392,
+      "difference": -4.4864118838475004,
+      "relative_final_mean_difference_percent": -23.816323274384498,
+      "within_0_1_bps_per_hz": false,
+      "same_final_reported_mean": false,
+      "curve_mean_absolute_difference": 1.5392104230597812,
+      "curve_max_absolute_difference": 4.4864118838475004,
+      "criterion": "Original learning parameters/seed and XLA profile; final mean within0.2bps/Hz of18.83755; initial rise and later gain at least half the historical second rise. No checkpoint initialization.",
+      "final_performance_tolerance_bps_per_hz": 0.2,
+      "final_performance_close": false,
+      "historical_mid_training_plateau": 12.850600087616078,
+      "new_mid_training_plateau": 13.880472124876333,
+      "historical_late_gain": 5.986950243558814,
+      "new_late_gain": 0.4706663224510592,
+      "two_stage_rise": false,
+      "original_xla_profile_matches": true,
+      "complete_50k": true,
+      "fresh_initialization": true,
+      "same_dreamer_seed": true,
+      "same_data_loaders": true,
+      "same_historical_learning_parameters_and_channel": true,
+      "recovered_train_and_agent_source_match": true,
+      "training_log_sha256": "28b09701638d434fd241f116a52e2d2f9303213bddca1d73940d7a20ae53b4d9",
+      "trajectory_reproduced": false,
+      "ppo_common_seed_comparison_reproduced": false
+    },
+    "historical_xla_flags_restored": true,
+    "historical_gpu_driver_restored": false,
+    "published_evidence": "experiments/50kmh/reproduction_attempts/dreamer_seed3501_fresh_repeat2_20261014"
+  },
+  "checkpoint_restoration": {
+    "status": "SECOND_RISE_AND_NEAR_FINAL_PERFORMANCE_VERIFIED_CONDITIONALLY",
+    "run": "diagnostic_continue30k_seed3501_20261013_v2",
+    "seed": 3501,
+    "historical_checkpoint_actions": 30000,
+    "additional_real_actions": 20000,
+    "mean": 18.672516919507533,
+    "historical_mean_difference": -0.16503341166735908,
+    "authenticity": "PASS",
+    "fresh_from_scratch": false,
+    "exact_historical_resume": false,
+    "published_evidence": "reproduction_attempts/restore30k_20261013",
+    "limitation": "Historical replay queues and pre-update policy carry were not saved; reconstructed continuation."
+  },
+  "fresh_validation_protocol": "docs/fresh_repeat_protocol_20261014.json",
+  "original_initialization_evidence": {
+    "from_checkpoint": null,
+    "real_actions": 50000,
+    "source": "Original experiment.json and timestamped2026-09-11 launch record with fresh-directory guard"
+  },
+  "original_runtime_attempt": {
     "run": "dreamer_seed3501_original_runtime_20261013",
     "status": "COMPLETE",
     "seed": 3501,
@@ -107,24 +169,18 @@
     "historical_gpu_driver_restored": false,
     "published_evidence": "reproduction_attempts/original_runtime_20261013"
   },
-  "checkpoint_restoration": {
-    "status": "SECOND_RISE_AND_NEAR_FINAL_PERFORMANCE_VERIFIED_CONDITIONALLY",
-    "run": "diagnostic_continue30k_seed3501_20261013_v2",
-    "seed": 3501,
-    "historical_checkpoint_actions": 30000,
-    "additional_real_actions": 20000,
-    "mean": 18.672516919507533,
-    "historical_mean_difference": -0.16503341166735908,
-    "authenticity": "PASS",
-    "fresh_from_scratch": false,
-    "exact_historical_resume": false,
-    "published_evidence": "reproduction_attempts/restore30k_20261013",
-    "limitation": "Historical replay queues and pre-update policy carry were not saved; reconstructed continuation."
-  },
-  "fresh_validation_protocol": "docs/fresh_repeat_protocol_20261014.json",
-  "original_initialization_evidence": {
-    "from_checkpoint": null,
-    "real_actions": 50000,
-    "source": "Original experiment.json and timestamped2026-09-11 launch record with fresh-directory guard"
+  "fresh_repeats_20261014": {
+    "protocol_sha256": "d0281782a6f878fd3176477bdde3851e5dbe284ba013294421e1ec8c44211d4f",
+    "complete_trials": 2,
+    "all_registered_trials_reported": true,
+    "all_from_random_initialization": true,
+    "rates": [
+      13.623687179652313,
+      14.351138447327392
+    ],
+    "all_source_action_physics_audits": "PASS",
+    "performance_status": "NOT_REPRODUCED",
+    "independent_cpu_rate_checks_total": 2250,
+    "report": "docs/fresh_repeat_audit_20261014.json"
   }
 }

@@ -147,3 +147,33 @@ python scripts/audit_second_rise_50.py \
 完整resolved config与原配置逐字段相同，63个当前库源码/配置文件与保留副本逐字节相同，见`full_runtime_config_check_20261014.json`。文件时间均早于原实验，但mtime不是原启动哈希证明。
 已在结果产生前登记两轮原参数/seed3501的独立从零试验：`fresh_repeat_protocol_20261014.json`。每轮50k，顺序执行；无论分数高低均完成并报告，禁止只保留最高分。
 原双线程回放时序未记录，当前GPU驱动也不同；本轮用于观察相同配方的运行波动，不改变学习率、熵调度或seed，不加载任何原模型/经验。
+
+### 两轮完整结果
+
+| 从零试验 | 最后5k均值（bps/Hz） | 复现原性能/二次抬升 |
+|---|---:|---|
+| fresh repeat1 | 13.623687 | 未达到 |
+| fresh repeat2 | 14.351138 | 未达到 |
+
+两轮各50000新动作、1000终点，共2250次独立CPU速率复算通过；最大误差1.12e−13bps/Hz。两轮预填充、真实位置变化、原奖励定义、非零优化器更新及启动前源码快照均通过核验。
+完整压缩日志、终点、模型哈希和启动快照在各自`reproduction_attempts/dreamer_seed3501_fresh_repeat*_20261014/`；模型权重保留本机。原论文数据未替换。
+完整报告：`fresh_repeat_audit_20261014.json`；本机对照图：`figures/fresh_repeats_20261014/comparison.png`。
+首次动作分歧的逐批对照见`first_actor_difference_50kmh_20261014.json`；双线程CPU采样诊断见`two_loader_order_probe_20261014.json`及`scripts/probe_replay_order_50.py`。该诊断不训练，也未向新训练提供任何历史数据。
+下一项已准备的GPU环境对照见`ORIGINAL_GPU_RUNTIME_TEST_CN.md`；须用户批准系统驱动变更后才执行，驱动影响的因果关系仍未证实。
+
+仅重画已公开的完整曲线无需模型或GPU（仓库根目录）：
+
+```bash
+python scripts/archive_fresh_50_trials.py \
+  --recorded-report docs/fresh_repeat_audit_20261014.json \
+  --plot-output figures/fresh_repeats_20261014/comparison.png
+```
+
+本机原运行目录中的完整归档与图可以这样重建：
+
+```bash
+python scripts/archive_fresh_50_trials.py \
+  --protocol docs/fresh_repeat_protocol_20261014.json \
+  --output docs/fresh_repeat_audit_20261014.json \
+  --plot-output figures/fresh_repeats_20261014/comparison.png
+```
