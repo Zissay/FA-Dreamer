@@ -1,0 +1,13 @@
+{
+  "original_gpu": "NVIDIA GeForce RTX4060",
+  "original_driver": "591.86",
+  "current_driver": "610.88",
+  "original_evidence": "Read-only historical command outputs nvidia-smi,2026-08-30/09-01/09-03, before2026-09-11 training",
+  "current_evidence": "Current nvidia-smi; Windows setupapi.dev.log",
+  "windows_update_install_start_local": "2026-10-09 21:36:27.423",
+  "new_windows_driver_version": "32.0.16.1088",
+  "old_windows_driver_version": "32.0.15.9186",
+  "setupapi_section": "Device Install (Install Windows Update driver) - pci\\ven_10de&dev_2882",
+  "causes_training_gap": "NOT_ESTABLISHED",
+  "system_driver_modified_by_this_task": false
+}

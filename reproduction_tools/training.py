@@ -129,22 +129,27 @@ def launch(speed, algorithm, run_dir, python=None, gpu_python=None, dry_run=Fals
     folder = case_dir(speed)
     protocol = read_json(folder / "configs/protocol.json")
     env = os.environ.copy()
-    env["PYTHONHASHSEED"] = str(protocol[f"{algorithm}_seed"])
+    runtime_profile = protocol.get("runtime", {})
+    if speed == 50 and algorithm == "dreamer" and runtime_profile.get("pythonhashseed") is None:
+        env.pop("PYTHONHASHSEED", None)
+    else:
+        env["PYTHONHASHSEED"] = str(protocol[f"{algorithm}_seed"])
     env.update(OMP_NUM_THREADS="2", MKL_NUM_THREADS="2", OPENBLAS_NUM_THREADS="1",
                XLA_PYTHON_CLIENT_PREALLOCATE="false", XLA_PYTHON_CLIENT_MEM_FRACTION=".55")
     if algorithm == "dreamer":
         env["XLA_CUDA_DATA_DIR"] = cuda_toolkit(execution["command"][0], env)
         runtime = preserved_vendor()
         env["PYTHONPATH"] = str(runtime) + os.pathsep + env.get("PYTHONPATH", "")
-        flags = "--xla_gpu_enable_triton_gemm=false --xla_gpu_deterministic_ops"
-        if env.get("XLA_CUDA_DATA_DIR"):
-            flags += f" --xla_gpu_cuda_data_dir={env['XLA_CUDA_DATA_DIR']}"
+        flags = f"--xla_gpu_cuda_data_dir={env['XLA_CUDA_DATA_DIR']} --xla_gpu_enable_triton_gemm=false"
+        if runtime_profile.get("xla_gpu_deterministic_ops", True):
+            flags += " --xla_gpu_deterministic_ops"
         env["XLA_FLAGS"] = flags
     run.mkdir(parents=True)
     source = Path(execution["source_root"])
     paths = sorted([p for p in source.rglob("*") if p.is_file() and "__pycache__" not in p.parts and "output" not in p.parts]
                    + list((folder / "configs").glob("*"))
-                   + [Path(__file__), ROOT / "reproduction_tools/records.py", ROOT / "scripts/reproduce.py"])
+                   + [Path(__file__), ROOT / "reproduction_tools/records.py", ROOT / "scripts/reproduce.py"]
+                   + [Path(p) for p in execution.get("capture_extra_sources", [])])
     manifest = {p.relative_to(ROOT).as_posix(): sha256(p) for p in paths}
     captured_configs = run / "reproduction_configs"
     captured_configs.mkdir()
@@ -163,6 +168,13 @@ def launch(speed, algorithm, run_dir, python=None, gpu_python=None, dry_run=Fals
                   "python_versions": {k: subprocess.check_output([p, "--version"], text=True).strip()
                                       for k, p in [("trainer", execution["command"][0]), ("rate_server", execution["rate_server"][0])]},
                   "pretraining_capture": True}
+    smi = shutil.which("nvidia-smi") or "/usr/lib/wsl/lib/nvidia-smi"
+    try:
+        provenance["gpu_inventory"] = subprocess.check_output(
+            [smi, "--query-gpu=name,driver_version,memory.total", "--format=csv,noheader"],
+            text=True, timeout=15).strip()
+    except (OSError, subprocess.SubprocessError) as error:
+        provenance["gpu_inventory"] = {"unavailable": type(error).__name__}
     (run / "reproduction_launch.json").write_text(json.dumps(provenance, indent=2) + "\n", encoding="utf-8")
     shutil.copyfile(__file__, run / "reproduction_launcher.py")
     socket = Path(execution["socket"])

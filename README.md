@@ -1,6 +1,6 @@
 # FA-Dreamer: 50 km/h and 500 km/h experiments
 
-> **恢复版完整运行：** 已完成50k，Dreamer为15.263647 bps/Hz，原目标18.837550，仍未复现。源码与物理核验通过；详细结果见 `docs/recovered_source_50kmh_result.json`，本次日志保存在 `experiments/50kmh/reproduction_attempts/recovered_source_20261013/`。
+> **最新核验：** 原30k检查点恢复后，新增20k真实交互再次出现第二次抬升，最后5k为 **18.672517 bps/Hz**（原18.837550，差−0.165033）。这是有检查点条件的续训验证。从零50k最新尝试为13.122292，仍未复现。见[恢复与续训说明](docs/HISTORICAL_50KMH_RECOVERY_CN.md)。
 
 > **复现状态：未成功。** 原 50 km/h 目标为 Dreamer 18.837550、PPO 15.441477 bps/Hz。当前 `recorded/` 中的 15.242103 / 13.739768 是未达到原结果的真实尝试，不能替换论文结果。原 PPO seed 为3004；后续两种方法统一3501，旧数据不会改标 seed。见 `experiments/50kmh/reproduction_status.json`。
 
@@ -62,7 +62,7 @@ All four training commands stop after 50k real interactions. PPO retains the rec
 
 ## Provenance and reproducibility
 
-The **50 km/h** case is a fresh reconstruction trained from scratch with **seed 3501 for both methods**, using the published code and captured dependency environments. The original launch source could not be established; the search and reconstruction changes are recorded in [source search](docs/SOURCE_SEARCH_50KMH.json). The historical results are preserved in Git history and a separately hashed local archive. They are not mixed into the fresh comparison.
+The **50 km/h recorded attempt** was trained from scratch with **seed3501 for both methods**. It failed to reproduce the historical result. Later recovered-source trials and a checkpoint continuation are archived separately under `reproduction_attempts/`. Original train.py/agent.py were reconstructed from the archived package and timestamped prelaunch edits. Source recovery, restored XLA settings and remaining runtime differences are documented in [recovery](docs/HISTORICAL_50KMH_RECOVERY_CN.md). The historical results are preserved in Git history and a separately hashed local archive. They are not mixed into the fresh comparison.
 
 The new case publishes complete compressed 50k-action logs, terminal records, optimizer diagnostics, launch records, source copies verified against pretraining hashes and an independent physical audit. The failed attempt used seeded uniform prefill and data_loaders0; active configs now restore historical data_loaders2 and recovered original train/agent sources; its model sizes, H10, batch settings, training ratio and learning schedules are retained. PPO uses the same training seed and records executed actions and raw physical rewards. The **500 km/h** trainers and results retain their original pretraining provenance.
 

@@ -1,6 +1,6 @@
-# 50 km/h: fresh audited common-seed experiment
+# 50 km/h: historical recovery and authentic reproduction attempts
 
-> **恢复版完整运行：** 已完成50k，Dreamer为15.263647 bps/Hz，原目标18.837550，仍未复现。源码与物理核验通过；详细结果见 `docs/recovered_source_50kmh_result.json`，本次日志保存在 `experiments/50kmh/reproduction_attempts/recovered_source_20261013/`。
+> **最新核验：** 原30k检查点恢复后，新增20k真实交互再次出现第二次抬升，最后5k为 **18.672517 bps/Hz**（原18.837550，差−0.165033）。这是有检查点条件的续训验证。从零50k最新尝试为13.122292，仍未复现。见[恢复与续训说明](../../docs/HISTORICAL_50KMH_RECOVERY_CN.md)。
 
 > **复现状态：未成功。** 原 50 km/h 目标为 Dreamer 18.837550、PPO 15.441477 bps/Hz。当前 `recorded/` 中的 15.242103 / 13.739768 是未达到原结果的真实尝试，不能替换论文结果。原 PPO seed 为3004；后续两种方法统一3501，旧数据不会改标 seed。见 `experiments/50kmh/reproduction_status.json`。
 
@@ -12,9 +12,8 @@ Paper panel (a), and the 50 km/h group of panel (c).
 * Channel seed 7, Doppler 1297.193703548369 Hz, 1 mm action increments,
   50-action center-start episodes. Complete configs are under `configs/`.
 * Source: a reconstruction based on the 2026-09-11 historical package;
-  the original launch source could not be confirmed. Both methods are trained
-  from scratch with this published code and captured environments.
-  Dreamer uses seeded uniform prefill (1003504) and restored historical data_loaders=2 for the next attempt.
+  train.py/agent.py were recovered using timestamped prelaunch edits. Fresh trials and checkpoint continuation are explicitly separated.
+  Dreamer uses seeded uniform prefill (1003504) and restored historical data_loaders=2 in the current recovered version.
   The retained model sizes, H10, batch16, train ratio256 and schedules are explicit.
   See `docs/SOURCE_SEARCH_50KMH.json` and the source manifests for all changes.
 
