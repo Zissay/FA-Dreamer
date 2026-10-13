@@ -1,0 +1,386 @@
+{
+  "scope": "All locally recorded threads,2026-09-11 05:00--11:31:43 UTC, relevant source command references",
+  "items": [
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-0705d04e-254f-4d56-ba88-e6f79d7a2163",
+      "utc": "2026-09-11T05:02:00.900000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "channel.py",
+        "dreamer_truncated_actor",
+        "gpu_rate_server"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-7e21d6c0-df5f-41ce-b185-61f04adf1526",
+      "utc": "2026-09-11T05:02:13.895000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-c2b514b5-517b-48bb-8582-b50bd0841970",
+      "utc": "2026-09-11T05:02:56.846000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-fe387eba-982e-4a48-b54e-a2e26836b585",
+      "utc": "2026-09-11T05:17:28.616000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_matched_env",
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-9d6cdc9d-1bcf-4d0d-99bf-dc5ce338c4e8",
+      "utc": "2026-09-11T05:19:55.604000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "agent.py",
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-efef4c0f-e988-45e6-be32-e2c726b8826d",
+      "utc": "2026-09-11T05:20:07.176000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-0900e8fc-2fd2-4085-8229-3889bf3d9f98",
+      "utc": "2026-09-11T05:33:53.133000+00:00",
+      "kind": "possible_source_mutation",
+      "referenced_modules": [
+        "channel.py",
+        "dreamer_matched_env",
+        "dreamer_simple",
+        "dreamer_truncated_actor",
+        "gpu_rate_server",
+        "miso_style_afdm_env"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-1649f09e-e2df-44c5-84aa-f85a2184c3d6",
+      "utc": "2026-09-11T05:36:29.300000+00:00",
+      "kind": "possible_source_mutation",
+      "referenced_modules": [
+        "channel.py",
+        "dreamer_matched_env",
+        "dreamer_simple",
+        "dreamer_truncated_actor",
+        "gpu_rate_server",
+        "miso_style_afdm_env"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-187713ad-e1fb-45cf-9431-29cc30bf0d0c",
+      "utc": "2026-09-11T05:43:33.446000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-f1caf331-2427-4631-b240-5448a972e55f",
+      "utc": "2026-09-11T05:45:02.715000+00:00",
+      "kind": "possible_source_mutation",
+      "referenced_modules": [
+        "channel.py",
+        "dreamer_matched_env",
+        "dreamer_simple",
+        "dreamer_truncated_actor",
+        "gpu_rate_server",
+        "miso_style_afdm_env"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-34747b61-7ab2-4743-a2a8-871bfd6a17d3",
+      "utc": "2026-09-11T05:45:21.250000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-9b748681-8a5a-4aa9-8f3e-e4738bcc7d7f",
+      "utc": "2026-09-11T06:02:13.332000+00:00",
+      "kind": "possible_source_mutation",
+      "referenced_modules": [
+        "agent.py",
+        "channel.py",
+        "dreamer_matched_env",
+        "dreamer_simple",
+        "dreamer_truncated_actor",
+        "gpu_rate_server",
+        "kinematics.py",
+        "miso_style_afdm_env",
+        "schedules.py",
+        "train.py"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-38eb2556-64fc-4f76-a732-e19e4262b9a5",
+      "utc": "2026-09-11T06:03:50.924000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-248cbef8-e353-4cec-bb34-265e7249a152",
+      "utc": "2026-09-11T06:07:13.545000+00:00",
+      "kind": "possible_source_mutation",
+      "referenced_modules": [
+        "agent.py",
+        "channel.py",
+        "dreamer_matched_env",
+        "dreamer_simple",
+        "dreamer_truncated_actor",
+        "gpu_rate_server",
+        "kinematics.py",
+        "miso_style_afdm_env",
+        "schedules.py",
+        "train.py"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-b163c8d3-1773-4649-b50c-69502cb0e932",
+      "utc": "2026-09-11T07:59:24.804000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple",
+        "gpu_rate_server"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-ffd56f7f-5568-4a94-b6df-1fc2a215f45b",
+      "utc": "2026-09-11T08:06:05.927000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-1adcb175-6a04-4b39-bd0f-e5a2c03def3c",
+      "utc": "2026-09-11T08:06:27.812000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-db329742-7bf2-40fa-a2fe-18b82002a785",
+      "utc": "2026-09-11T08:06:51.096000+00:00",
+      "kind": "possible_source_mutation",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-0074bcf2-5e5c-424f-9603-dfe378c1551d",
+      "utc": "2026-09-11T08:07:09.661000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple",
+        "gpu_rate_server"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-2b301cbd-6e09-47ab-9b4d-118784700853",
+      "utc": "2026-09-11T08:54:54.832000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "agent.py",
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-9ed0311a-7377-459e-ad58-69d8b543dd9c",
+      "utc": "2026-09-11T09:01:25.285000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-75f05123-4590-4b4f-928b-6ac94de606ab",
+      "utc": "2026-09-11T09:02:05.574000+00:00",
+      "kind": "possible_source_mutation",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-6d6fc34b-2dcf-4816-a52b-c452da421e2c",
+      "utc": "2026-09-11T09:03:06.033000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "agent.py",
+        "dreamer_simple",
+        "train.py"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-85dcd02d-38b7-4af5-8afd-3fb57895a920",
+      "utc": "2026-09-11T09:03:21.517000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "agent.py",
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-ca7459d2-2f5f-4214-b50e-03465d03b8bf",
+      "utc": "2026-09-11T09:03:35.411000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "agent.py"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-5cec80ea-e9c7-4551-952a-5a41d5ccce5e",
+      "utc": "2026-09-11T09:04:08.822000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple",
+        "train.py"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-a9d2eb84-0661-4c4e-9d6e-affec25962dd",
+      "utc": "2026-09-11T09:05:00.371000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-d9e46558-8cfe-4cbd-babe-f53da7f956e8",
+      "utc": "2026-09-11T09:11:10.515000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-f32ca98c-affe-4871-89ea-d8539951d29a",
+      "utc": "2026-09-11T09:11:51.438000+00:00",
+      "kind": "possible_source_mutation",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-0fd52376-3344-4994-8bf4-0d34521e4b8e",
+      "utc": "2026-09-11T09:38:54.294000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple",
+        "train.py"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-06912759-52e3-48c1-a220-8b87e5cb8624",
+      "utc": "2026-09-11T09:39:20.651000+00:00",
+      "kind": "possible_source_mutation",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-eef5c24f-1a68-449d-9183-47264a8ac201",
+      "utc": "2026-09-11T10:42:01.353000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple",
+        "train.py"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-5d715f4f-da6b-44c2-85f4-b377413e3f60",
+      "utc": "2026-09-11T10:43:03.009000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "agent.py",
+        "dreamer_simple",
+        "train.py"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-20026084-ab15-4847-90e6-8be76c580191",
+      "utc": "2026-09-11T10:43:20.586000+00:00",
+      "kind": "possible_source_mutation",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-8299d8e0-9afa-4fae-8962-6a8e0a284858",
+      "utc": "2026-09-11T10:55:16.532000+00:00",
+      "kind": "possible_source_mutation",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-c084072c-dd13-48fb-81fb-8eb00355243c",
+      "utc": "2026-09-11T11:21:46.918000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    },
+    {
+      "thread_id": "01a05128-32ba-7f62-9236-d3186bb65e7f",
+      "item_id": "exec-7d7f9e1b-9588-401d-844e-52718b7bb881",
+      "utc": "2026-09-11T11:24:46.393000+00:00",
+      "kind": "source_reference",
+      "referenced_modules": [
+        "dreamer_simple"
+      ]
+    }
+  ]
+}
