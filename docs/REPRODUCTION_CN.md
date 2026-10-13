@@ -20,7 +20,7 @@
 | Dreamer replay lambda | 0.95 | 1 |
 | Dreamer data loaders | 2（历史值） | 0 |
 | Dreamer prefill | 历史随机 prefill | 10k stratified-goal prefill |
-| PPO 原始完整训练预算 | 500k | 50k |
+| Dreamer/PPO 训练预算 | 50k | 50k |
 
 完整学习率、熵系数、调度、网络配置、动作分布与 replay 参数在各速度目录的 `configs/` 中。
 `recorded/dreamer/resolved_config.yaml` 是原运行实际保存的完整模型配置。
@@ -54,13 +54,13 @@ python3.12 -m venv .venv-ppo
 .venv-dreamer/bin/python scripts/reproduce.py train --speed 50 --algorithm dreamer --run-dir runs/50kmh/dreamer_seed3501
 .venv-dreamer/bin/python scripts/reproduce.py train --speed 500 --algorithm dreamer --run-dir runs/500kmh/dreamer_seed5215
 
-.venv-ppo/bin/python scripts/reproduce.py train --speed 50 --algorithm ppo --paper-prefix --gpu-python .venv-dreamer/bin/python --run-dir runs/50kmh/ppo_seed3004
+.venv-ppo/bin/python scripts/reproduce.py train --speed 50 --algorithm ppo --gpu-python .venv-dreamer/bin/python --run-dir runs/50kmh/ppo_seed3004
 .venv-ppo/bin/python scripts/reproduce.py train --speed 500 --algorithm ppo --gpu-python .venv-dreamer/bin/python --run-dir runs/500kmh/ppo_seed5215
 ```
 
-50 km/h 的 PPO 原图来自 500k 原训练的前 50k。上面的 `--paper-prefix` 只将停止预算改为 50k，
-保留原种子和全部其他参数，包括按真实 timestep 计数的 20k 熵调度。
-若需执行原始完整 500k 协议，去掉 `--paper-prefix`。
+两种速度的 Dreamer 与 PPO 均固定训练 50k 真实环境交互。
+PPO 保留原种子和其他训练参数，包括按真实 timestep 计数的 20k 熵调度。
+`configs/` 用于当前实验运行，`recorded/` 中的原始元数据用于核验已发布曲线的数据来源。
 先加 `--dry-run` 可以检查命令，不会启动训练。
 
 输出目录必须是新目录；启动时保存源码哈希、配置、依赖列表、运行命令和环境信息。
@@ -77,7 +77,7 @@ python scripts/reproduce.py plot-all --dreamer-50-run runs/50kmh/dreamer_seed350
 
 两组图实际采用 `N=128`、`P=20`、`P_t=1.5 W`、噪声 `-95 dBm`、波长 `0.0107068735 m`。
 50/500 km/h 的固定 Doppler 分别为约 1297.19/12971.94 Hz。完整参数以各 `protocol.json` 为准。
-这是原始运行保存的设置，不能用旧版根目录脚本的默认值替代。
+这些参数分别保存在各速度的实验配置中。
 
 搜索坐标范围均为 `[-0.05,0.05] m` 的四维可达区域。DAFT 域：81 点/坐标、1.25 mm、`81^4` 次查询。
 时域：21 点/坐标、5 mm、`21^4` 次查询。
@@ -105,6 +105,8 @@ python scripts/reproduce.py baseline --speed 500 --method daft --device cuda --o
 * JAX/CUDA、异步数据加载和硬件可能影响新的训练轨迹。新训练应报告实际结果，不能强制对齐旧曲线。
 
 两个速度的所有源码、配置、基线和终点数据都有 SHA-256 清单。
+附带的绘图辅助脚本已删除不用的历史 PPO 默认路径，比较曲线必须显式指定运行目录。
+这些编辑在源码清单中同时保留原哈希和当前哈希，训练逻辑保持原实现。
 
 ## 检查训练配置
 

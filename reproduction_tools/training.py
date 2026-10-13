@@ -49,9 +49,7 @@ def preserved_vendor():
     return target
 
 
-def plan(speed, algorithm, run_dir, python=None, gpu_python=None, paper_prefix=False):
-    if paper_prefix and (speed != 50 or algorithm != "ppo"):
-        raise ValueError("--paper-prefix applies to the original 500k PPO run at 50 km/h")
+def plan(speed, algorithm, run_dir, python=None, gpu_python=None):
     folder = case_dir(speed)
     protocol = read_json(folder / "configs/protocol.json")
     run = Path(run_dir).resolve()
@@ -70,8 +68,8 @@ def plan(speed, algorithm, run_dir, python=None, gpu_python=None, paper_prefix=F
     else:
         cfg = read_json(folder / "configs/ppo.json")
         cfg.update(run_dir=str(run), gpu_rate_backend="rpc", gpu_rate_socket=socket)
-        if paper_prefix:
-            cfg["timesteps"] = protocol["plotted_real_interactions"]
+        if cfg["timesteps"] != protocol["training_interactions"] or cfg["timesteps"] != 50000:
+            raise ValueError("The paper experiments use 50,000 real training interactions")
         if cfg["resume_run"] is not None:
             raise ValueError("The preserved experiments start from empty models")
         cli = arguments(cfg)
@@ -80,8 +78,7 @@ def plan(speed, algorithm, run_dir, python=None, gpu_python=None, paper_prefix=F
     server = [gpu_python, str(source / "scripts/gpu_rate_server.py"), "--socket", socket]
     return {"speed_kmh": speed, "algorithm": algorithm, "run_dir": str(run),
             "source_root": str(source), "command": command, "rate_server": server,
-            "socket": socket, "paper_prefix": paper_prefix,
-            "historical_budget": protocol[f"{algorithm}_historical_budget"]}
+            "socket": socket, "training_interactions": protocol["training_interactions"]}
 
 
 def cuda_toolkit(interpreter, environment):
@@ -102,8 +99,8 @@ def cuda_toolkit(interpreter, environment):
     return str(root.resolve())
 
 
-def launch(speed, algorithm, run_dir, python=None, gpu_python=None, paper_prefix=False, dry_run=False):
-    execution = plan(speed, algorithm, run_dir, python, gpu_python, paper_prefix)
+def launch(speed, algorithm, run_dir, python=None, gpu_python=None, dry_run=False):
+    execution = plan(speed, algorithm, run_dir, python, gpu_python)
     if dry_run:
         print(json.dumps(execution, indent=2))
         return execution

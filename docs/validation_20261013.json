@@ -18,6 +18,7 @@
           "fa_afdm_dreamerv3/audited_ppo.py"
         ]
       },
+      "training_interactions": 50000,
       "status": "PASS",
       "physics": {
         "speed_kmh": 50,
@@ -39,6 +40,7 @@
         "dreamer": [],
         "ppo": []
       },
+      "training_interactions": 50000,
       "status": "PASS",
       "physics": {
         "speed_kmh": 500,
@@ -49,12 +51,13 @@
   },
   "unit_tests": {
     "passed": 5,
-    "command": "python -m unittest discover -s tests -v"
+    "command": "python -m unittest discover -s tests -v",
+    "coverage": "Five tests including fixed 50k budgets, preserved entropy schedules, causal aggregation and channel matching."
   },
   "resolved_trainer_config_checks": {
     "50_dreamer": "PASS; one documented implicit uniform-start field",
     "500_dreamer": "PASS; complete resolved config match except check-only CPU platform",
-    "50_ppo": "PASS; all parsed preserved arguments",
+    "50_ppo": "PASS; paper budget 50k and all other recorded learning parameters preserved",
     "500_ppo": "PASS; all parsed preserved arguments"
   },
   "cuda_rate_service_checks": {
@@ -97,9 +100,17 @@
     "pdf_and_png_visual_inspection": "PASS"
   },
   "source_archives": {
-    "500_snapshot_hashes_and_selected_bytes": "PASS",
+    "500_snapshot_hashes_and_selected_bytes": "Original snapshot hashes and unchanged training-source bytes verified; four plot-only helper edits recorded in source manifests.",
     "50_original_launch_snapshot_available": false
   },
   "full_training_rerun_performed": false,
-  "validation_scope": "Preserved records, full available resolved configs, CPU physics, CUDA rate services, reference positions, causality and figure reconstruction; no complete new learning run or full 81^4 search."
+  "validation_scope": "Preserved records, full available resolved configs, CPU physics, CUDA rate services, reference positions, causality and figure reconstruction; no complete new learning run or full 81^4 search.",
+  "revision": "Only the 50/500 km/h paper experiments; all executable training budgets 50k",
+  "cleanup_validation": {
+    "legacy_workflow_removed": true,
+    "extended_budget_option_removed": true,
+    "trainer_config_checks_after_cleanup": "PASS for all four cases",
+    "archived_figure_rebuild_after_cleanup": "PASS",
+    "published_artifact_count": 99
+  }
 }

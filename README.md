@@ -37,9 +37,9 @@ Dreamer/PPO rates average terminal episodes during the final 5k of the first 50k
 | Maximum coordinate displacement per action | 1 mm | 1 mm |
 | Dreamer imagination horizon | 10 | 50 |
 | Dreamer batch size / train ratio | 16 / 256 | 8 / 128 |
-| Dreamer original budget | 50k | 50k |
-| PPO original budget | **500k** | 50k |
-| Budget shown in Fig. 4 | first 50k | first 50k |
+| Dreamer training budget | 50k | 50k |
+| PPO training budget | 50k | 50k |
+| Budget shown in Fig. 4 | 50k | 50k |
 
 All original learning rates, entropy schedules, replay settings, network sizes, task constraints and physical channel parameters are in `experiments/<speed>/configs/`. Recorded Dreamer `resolved_config.yaml` files retain the full model configurations. Actual channel settings are `N=128`, `P=20`, transmit power 1.5 W and noise −95 dBm.
 
@@ -50,17 +50,19 @@ Training uses Linux/WSL, Python 3.12 and an NVIDIA CUDA GPU. Create separate Dre
 ```bash
 .venv-dreamer/bin/python scripts/reproduce.py train --speed 50 --algorithm dreamer --run-dir runs/50kmh/dreamer_seed3501
 .venv-dreamer/bin/python scripts/reproduce.py train --speed 500 --algorithm dreamer --run-dir runs/500kmh/dreamer_seed5215
-.venv-ppo/bin/python scripts/reproduce.py train --speed 50 --algorithm ppo --paper-prefix --gpu-python .venv-dreamer/bin/python --run-dir runs/50kmh/ppo_seed3004
+.venv-ppo/bin/python scripts/reproduce.py train --speed 50 --algorithm ppo --gpu-python .venv-dreamer/bin/python --run-dir runs/50kmh/ppo_seed3004
 .venv-ppo/bin/python scripts/reproduce.py train --speed 500 --algorithm ppo --gpu-python .venv-dreamer/bin/python --run-dir runs/500kmh/ppo_seed5215
 ```
 
-For 50 km/h PPO, `--paper-prefix` stops after the plotted 50k interactions while preserving all other parameters, including the absolute 20k entropy schedule. Omit it to run the original 500k protocol. Add `--dry-run` to inspect a command. Every run requires a fresh directory and records configurations, source hashes, dependency inventories and launch settings before training. See the Chinese guide for CUDA setup, baseline search and plotting new training logs.
+All four training commands stop after 50k real interactions. PPO retains the recorded absolute 20k entropy schedule. Add `--dry-run` to inspect a command. Every run requires a fresh directory and records configurations, source hashes, dependency inventories and launch settings before training. See the Chinese guide for CUDA setup, baseline search and plotting new training logs.
 
 ## Provenance and reproducibility
 
 Archived records and figure values are directly verifiable. The **500 km/h** trainers come from their respective pretraining source snapshots; archive hashes and original Git heads are recorded in the case directory. The **50 km/h** sources come from the 2026-09-11 historical package, with two missing PPO dependencies recovered from the retained workspace. Its original launch snapshot and dependency lock are unavailable, so this is a runnable reconstruction candidate rather than a guarantee of the original training trajectory. Source manifests identify every recovered file.
 
 New trajectories can vary with JAX/CUDA, hardware and asynchronous data loading. Plot new runs from their own recorded data. No pretrained weights are distributed.
+
+The snapshot plotting helpers have had their unused historical PPO default path removed. Their original and current hashes are recorded in the source manifests; training logic is unchanged.
 
 ```text
 experiments/50kmh/       Configs, selected historical sources, terminal records and references
@@ -72,4 +74,4 @@ scripts/reproduce.py    Entry point for verify/train/plot/plot-all/baseline
 tests/                  Record causality, protocol and trainer-config checks
 ```
 
-The originally uploaded root modules and scripts remain available; their earlier instructions are retained in [legacy workflow](docs/LEGACY_WORKFLOW.md). Use the experiment-specific entry point above for these two Fig. 4 cases.
+The repository contains the code and records needed for these two Fig. 4 experiments. Archived metadata under `recorded/` retains the original data provenance; executable experiment settings are in `configs/`.

@@ -11,12 +11,4 @@ This writes `training_curve_50.pdf`, `training_curve_500.pdf` and
 The three panels have identical axis-frame dimensions and a shared PDF crop.
 Their underlying terminal records are tracked under `experiments/`.
 
-## Earlier uploaded workflow
-
-The plotting scripts write final `pdf`, `png`, and `svg` files here:
-
-- `rate.pdf`
-- `channel.pdf`
-- `generalization.pdf`
-
-The files are generated artifacts and are ignored by git.
+Generated figures are ignored by Git.
