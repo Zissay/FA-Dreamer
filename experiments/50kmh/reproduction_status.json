@@ -137,7 +137,10 @@
     "fresh_from_scratch": false,
     "exact_historical_resume": false,
     "published_evidence": "reproduction_attempts/restore30k_20261013",
-    "limitation": "Historical replay queues and pre-update policy carry were not saved; reconstructed continuation."
+    "limitation": "Historical replay queues and pre-update policy carry were not saved; reconstructed continuation.",
+    "unified_workflow": "scripts/recover_staged_50.py",
+    "unified_workflow_guide": "docs/STAGED_RECOVERY_50KMH_CN.md",
+    "consolidated_record_report": "docs/staged_recovery_result_20261014.json"
   },
   "fresh_validation_protocol": "docs/fresh_repeat_protocol_20261014.json",
   "original_initialization_evidence": {
