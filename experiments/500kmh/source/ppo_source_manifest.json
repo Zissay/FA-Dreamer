@@ -1,0 +1,46 @@
+{
+  "source_origin": "t1_ppo_fixed_center_speed500kmh_env20_seed5215_50k_20261008T141936Z_pretrain.zip",
+  "files": {
+    "scripts/gpu_rate_server.py": {
+      "sha256": "acc5e908e61cdb65745c2e56efb5afdfa4f11522e02cb2d888a1839d34ce640f",
+      "bytes": 2463
+    },
+    "fa_afdm_dreamerv3/channel.py": {
+      "sha256": "ed47d81f1369d9a247c91e54775c81f6d41d63a3115f8b2a19b8c1faa1c930c4",
+      "bytes": 23890
+    },
+    "fa_afdm_dreamerv3/__init__.py": {
+      "sha256": "821cda432fb2bcc9780e406d64eec4036b752bec9c20fb1e98dea0f048af56d4",
+      "bytes": 275
+    },
+    "fa_afdm_dreamerv3/env.py": {
+      "sha256": "5244872111eb6e7dd566f6a122bded67412a102ea61b265bce25b964819921bc",
+      "bytes": 28378
+    },
+    "fa_afdm_dreamerv3/gpu_rate_batcher.py": {
+      "sha256": "30596d14b40288a1030c008e0077118d7be015ca9d299463cd3bccaaa7442689",
+      "bytes": 5614
+    },
+    "train_grpo_cuda_miso_ppo.py": {
+      "sha256": "db761e0fa84fadac145843df912b4f9af0bc54d0bb3839afd79342e15634b2f0",
+      "bytes": 49313
+    },
+    "fa_afdm_dreamerv3/truncated_gaussian_policy.py": {
+      "sha256": "0818f572c8cf65aaaa5b876e7345f73622c86588c5e1cd6c655126bbcb97ec2a",
+      "bytes": 15439
+    },
+    "fa_afdm_dreamerv3/ppo_position_features.py": {
+      "sha256": "41b1956a2408acdacc788e33f1745f6c74945bbcd9dbd1bae1db7e06c626e8ca",
+      "bytes": 3316
+    },
+    "fa_afdm_dreamerv3/audited_ppo.py": {
+      "sha256": "b724424ea2402d451ba60d3e2779148cb7bd9e4ef519dcec723b760624f9398d",
+      "bytes": 3299
+    },
+    "fa_afdm_dreamerv3/miso_style_afdm_env.py": {
+      "sha256": "3220536536ee118e095001a8476b2d959a3f46ece67a986ce1aabcf48fbd40c5",
+      "bytes": 13880
+    }
+  },
+  "dependencies_restored_from_workspace": []
+}

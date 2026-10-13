@@ -1,0 +1,33 @@
+{
+  "batch_size": 16,
+  "batch_length": 64,
+  "train_ratio": 256,
+  "replay_size": 200000,
+  "units": 256,
+  "actor_lr": 3e-05,
+  "model_lr": 0.0003,
+  "critic_lr": 0.0001,
+  "actor_warmup": 4000,
+  "actor_clip": 10,
+  "model_clip": 100,
+  "minstd": 0.02,
+  "maxstd": 0.5,
+  "entropy": 0.001,
+  "imag_horizon": 10,
+  "replay_value_scale": 1,
+  "return_lambda": 0.95,
+  "reward_loss_scale": 1,
+  "vector_loss_scale": 0.1,
+  "known_kinematics": true,
+  "retain_milestone_checkpoints": true,
+  "schedule": {
+    "enabled": true,
+    "entropy_initial": 0.01,
+    "entropy_final": 0.001,
+    "entropy_decay_start": 6250,
+    "entropy_decay_end": 10000,
+    "lr_decay_start": 8750,
+    "lr_decay_end": 15000,
+    "lr_final_fraction": 0.3333333333333333
+  }
+}

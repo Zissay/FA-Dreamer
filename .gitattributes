@@ -1,0 +1,9 @@
+* text=auto
+*.py text eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+# Frozen sources, recorded data and configs retain their exact published bytes.
+experiments/** -text -whitespace
+reproduction_tools/physics.py -text -whitespace
+vendor/** -text -whitespace
+requirements/locks/*.txt -text -whitespace
