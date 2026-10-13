@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-13",
+  "verification": {
+    "50": {
+      "source_file_hash_checks": 26,
+      "results": {
+        "dreamer": 18.837550331174892,
+        "ppo": 15.441476879351,
+        "daft": 19.41627979996462,
+        "time": 13.257986055740973,
+        "random": 5.919825906855486
+      },
+      "source_provenance": "historical-candidate",
+      "recovered_dependencies": {
+        "dreamer": [],
+        "ppo": [
+          "fa_afdm_dreamerv3/truncated_gaussian_policy.py",
+          "fa_afdm_dreamerv3/audited_ppo.py"
+        ]
+      },
+      "status": "PASS",
+      "physics": {
+        "speed_kmh": 50,
+        "random_mean": 5.919825906855485,
+        "reference_position_check": "PASS"
+      }
+    },
+    "500": {
+      "source_file_hash_checks": 31,
+      "results": {
+        "dreamer": 18.301657504417648,
+        "ppo": 15.277229841515,
+        "daft": 19.41846511969392,
+        "time": 13.252066652596431,
+        "random": 5.920892547055837
+      },
+      "source_provenance": "pretraining-snapshots",
+      "recovered_dependencies": {
+        "dreamer": [],
+        "ppo": []
+      },
+      "status": "PASS",
+      "physics": {
+        "speed_kmh": 500,
+        "random_mean": 5.920892547055836,
+        "reference_position_check": "PASS"
+      }
+    }
+  },
+  "unit_tests": {
+    "passed": 5,
+    "command": "python -m unittest discover -s tests -v"
+  },
+  "resolved_trainer_config_checks": {
+    "50_dreamer": "PASS; one documented implicit uniform-start field",
+    "500_dreamer": "PASS; complete resolved config match except check-only CPU platform",
+    "50_ppo": "PASS; all parsed preserved arguments",
+    "500_ppo": "PASS; all parsed preserved arguments"
+  },
+  "cuda_rate_service_checks": {
+    "positions_per_case": 20,
+    "hardware": "NVIDIA GeForce RTX 4060",
+    "max_absolute_error_bps_per_hz": {
+      "50_dreamer": 9.237055564881302e-14,
+      "50_ppo": 9.237055564881302e-14,
+      "500_dreamer": 7.37188088351104e-14,
+      "500_ppo": 7.37188088351104e-14
+    }
+  },
+  "small_grid_search_check": {
+    "speed_kmh": 500,
+    "method": "time",
+    "points_per_coordinate": 3,
+    "queries": 81,
+    "status": "PASS"
+  },
+  "figures": {
+    "pdf_page_size_pt": {
+      "rate_bar_50kmh_vs_500kmh.pdf": [
+        570.41,
+        406.5
+      ],
+      "training_curve_50.pdf": [
+        570.41,
+        406.5
+      ],
+      "training_curve_500.pdf": [
+        570.41,
+        406.5
+      ]
+    },
+    "axes_frame_size_pt": [
+      490.6,
+      365.4
+    ],
+    "spine_width_pt": 1.4,
+    "pdf_and_png_visual_inspection": "PASS"
+  },
+  "source_archives": {
+    "500_snapshot_hashes_and_selected_bytes": "PASS",
+    "50_original_launch_snapshot_available": false
+  },
+  "full_training_rerun_performed": false,
+  "validation_scope": "Preserved records, full available resolved configs, CPU physics, CUDA rate services, reference positions, causality and figure reconstruction; no complete new learning run or full 81^4 search."
+}

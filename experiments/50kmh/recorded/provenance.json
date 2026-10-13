@@ -1,0 +1,16 @@
+{
+  "dreamer": {
+    "original_sha256": "b8abb82372678f27dbc1473a03dc2ed04e1556fe791abe9ef3a1337e366c1dcc",
+    "exported_terminal_rows": 1000,
+    "interaction_limit": 50000,
+    "source_run": "t1_dreamer_h10_scheduled_env20_seed3501_50k",
+    "source_filename": "training_queries.csv"
+  },
+  "ppo": {
+    "original_sha256": "ecee37065ad7208506a8d915b3f8d71972e74fa043dac263c25ac16f9259bcca",
+    "exported_terminal_rows": 1000,
+    "interaction_limit": 50000,
+    "source_run": "t1_ppo_fixed_center_full_seed3004_500000q",
+    "source_filename": "training_interaction_rates.csv"
+  }
+}

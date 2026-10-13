@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv*/
+.pytest_cache/
+vendor/runtime/
+experiments/*/source/*/output/
+runs/**
+!runs/README.md
+figures/**
+!figures/README.md
+# Historical paper records and parameter snapshots under experiments/ are intentionally tracked.
+*.pkl
+*.pt
+*.pth
+*.zip
+*.log

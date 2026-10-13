@@ -1,0 +1,16 @@
+{
+  "dreamer": {
+    "original_sha256": "7bae99ebc511e9258632af3893c57fc67b44a1c44c23a705256049fe614b21bc",
+    "exported_terminal_rows": 1000,
+    "interaction_limit": 50000,
+    "source_run": "v500_step1mm_dreamer_h50_tuneBX_feedbackgrad_seed5215_50k",
+    "source_filename": "training_queries.csv"
+  },
+  "ppo": {
+    "original_sha256": "dd973c53614dc0fcc7d5072b94cbf31829775af5afa402b2b9b55239f18a394c",
+    "exported_terminal_rows": 1000,
+    "interaction_limit": 50000,
+    "source_run": "t1_ppo_fixed_center_speed500kmh_env20_seed5215_50k",
+    "source_filename": "training_interaction_rates.csv"
+  }
+}

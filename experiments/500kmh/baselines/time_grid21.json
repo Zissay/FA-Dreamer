@@ -1,0 +1,63 @@
+{
+  "method": "exact_time_domain_exhaustive_cartesian_grid",
+  "selection_objective": "time_domain_sinr_h",
+  "evaluation_metric": "afdm_rate",
+  "channel": {
+    "n_subcarriers": 128,
+    "n_paths": 20,
+    "channel_memory": 5,
+    "carrier_wavelength": 0.0107068735,
+    "bandwidth": 10000000.0,
+    "tx_region": 0.5,
+    "rx_region": 0.5,
+    "transmit_power": 1.5,
+    "noise_power": 0.01,
+    "noise_power_dbm": -95.0,
+    "channel_gain_scale": 1.5915494309189537e-05,
+    "extra_path_loss_db": 0.0,
+    "link_distance_m": 0.0,
+    "link_distance_min_m": 500.0,
+    "link_distance_max_m": 1200.0,
+    "path_loss_ref_distance_m": 100.0,
+    "path_loss_ref_db": null,
+    "path_loss_exponent": 2.0,
+    "doppler_scale": 1.0,
+    "fixed_doppler_hz": 12971.93703548369,
+    "angle_dependent_doppler": false,
+    "velocity_direction_deg": 0.0,
+    "delay_error_samples": 0.0,
+    "tx_angle_error_deg": 0.0,
+    "rx_angle_error_deg": 0.0,
+    "c2": 0.010309278350515464,
+    "seed": 7
+  },
+  "start_position_m": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "episode_steps": 50,
+  "action_step_m": 0.001,
+  "reachable_bounds_m": [
+    -0.05,
+    0.05
+  ],
+  "grid_points_per_coordinate": 21,
+  "grid_spacing_m": 0.0049999999999999975,
+  "query_count": 194481,
+  "status": "complete",
+  "best_time_domain_value": 0.07809268607703543,
+  "best_position_m": [
+    0.0049999999999999975,
+    -0.045000000000000005,
+    0.020000000000000004,
+    -0.010000000000000002
+  ],
+  "selected_afdm_rate_bps_per_hz": 13.252066652596431,
+  "cpu_verified_time_domain_value": 0.07809268607703573,
+  "max_cpu_gpu_error": 3.0531133177191805e-16,
+  "wall_seconds": 1.8874008440000125,
+  "training_data_used": false,
+  "purpose": "Plot-only time-domain selection baseline; never used by learning."
+}
