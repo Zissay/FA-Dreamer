@@ -1,0 +1,22 @@
+{
+  "dreamer": {
+    "terminal_records": 1000,
+    "independent_cpu_terminal_checks": 1000,
+    "max_rate_error": 9.947598300641403e-14,
+    "last_5k_mean": 18.837550331174892,
+    "raw_source_sha256": "b8abb82372678f27dbc1473a03dc2ed04e1556fe791abe9ef3a1337e366c1dcc",
+    "source_run": "t1_dreamer_h10_scheduled_env20_seed3501_50k",
+    "seed": 3501,
+    "scope": "Historical data physical consistency; does not establish fresh reproduction or original launch source hash."
+  },
+  "ppo": {
+    "terminal_records": 1000,
+    "independent_cpu_terminal_checks": 1000,
+    "max_rate_error": 6.276579256336845e-11,
+    "last_5k_mean": 15.441476879351,
+    "raw_source_sha256": "ecee37065ad7208506a8d915b3f8d71972e74fa043dac263c25ac16f9259bcca",
+    "source_run": "t1_ppo_fixed_center_full_seed3004_500000q",
+    "seed": 3004,
+    "scope": "Historical data physical consistency; does not establish fresh reproduction or original launch source hash."
+  }
+}
