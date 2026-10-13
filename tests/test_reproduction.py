@@ -1,6 +1,7 @@
 """Small checks for temporal leakage and experiment/source confusion."""
 import csv
 import json
+import os
 from pathlib import Path
 import sys
 import tempfile
@@ -56,25 +57,49 @@ class ReproductionChecks(unittest.TestCase):
                 if algorithm == "ppo":
                     self.assertEqual(command[command.index("--ent-coef-anneal-steps") + 1], "20000")
 
+    def test_learning_methods_use_the_same_seed(self):
+        for speed in (50, 500):
+            cfg = read_json(case_dir(speed) / "configs/protocol.json")
+            self.assertEqual(cfg["dreamer_seed"], cfg["ppo_seed"])
+            for algorithm in ("dreamer", "ppo"):
+                command = plan(speed, algorithm, ROOT / "runs/test")["command"]
+                self.assertEqual(command[command.index("--seed") + 1], str(cfg["dreamer_seed"]))
+
+    @unittest.skipIf(os.name == "nt", "Linux virtual environments use executable symlinks")
+    def test_python_virtual_environment_symlink_is_preserved(self):
+        with tempfile.TemporaryDirectory() as directory:
+            link = Path(directory) / "python"
+            link.symlink_to(sys.executable)
+            execution = plan(50, "ppo", ROOT / "runs/test", python=link, gpu_python=link)
+            self.assertEqual(execution["command"][0], str(link))
+            self.assertEqual(execution["rate_server"][0], str(link))
+            self.assertNotEqual(Path(execution["rate_server"][0]).resolve(), link)
+
     def test_new_log_loader_checks_channel_before_plotting(self):
         for speed in (50, 500):
             folder = case_dir(speed)
             with tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
-                dreamer, ppo = root / "dreamer", root / "ppo"
+                dreamer, ppo_root = root / "dreamer", root / "ppo"
+                ppo = ppo_root / "training"
                 dreamer.mkdir()
-                ppo.mkdir()
+                ppo.mkdir(parents=True)
                 shutil.copyfile(folder / "recorded/dreamer/experiment.json", dreamer / "experiment.json")
                 shutil.copyfile(folder / "recorded/dreamer/terminal_interactions.csv", dreamer / "training_queries.csv")
                 shutil.copyfile(folder / "recorded/ppo/config.json", ppo / "config.json")
                 shutil.copyfile(folder / "recorded/ppo/terminal_interactions.csv", ppo / "training_interaction_rates.csv")
-                result = load_results(speed, dreamer, ppo)
+                result = load_results(speed, dreamer, ppo_root)
                 self.assertAlmostEqual(result["dreamer"]["last_5k_mean"], read_json(folder / "expected_results.json")["dreamer"])
                 config = read_json(ppo / "config.json")
                 config["fixed_doppler_hz"] *= 2
                 (ppo / "config.json").write_text(json.dumps(config))
                 with self.assertRaisesRegex(ValueError, "channel"):
-                    load_results(speed, dreamer, ppo)
+                    load_results(speed, dreamer, ppo_root)
+                config["fixed_doppler_hz"] /= 2
+                config["seed"] += 1
+                (ppo / "config.json").write_text(json.dumps(config))
+                with self.assertRaisesRegex(ValueError, "seed"):
+                    load_results(speed, dreamer, ppo_root)
 
 
 if __name__ == "__main__":

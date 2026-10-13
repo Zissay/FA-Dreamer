@@ -58,11 +58,16 @@
   },
   "plotted_real_interactions": 50000,
   "dreamer_seed": 3501,
-  "ppo_seed": 3004,
+  "ppo_seed": 3501,
   "training_interactions": 50000,
   "random_position_seed": 20260926,
   "random_position_samples": 100,
   "daft_grid": 81,
   "time_grid": 21,
-  "source_provenance": "historical-candidate"
+  "source_provenance": "fresh-audited-reconstruction",
+  "historical_artifact_archive": {
+    "filename": "50kmh_historical_ab2c261.zip",
+    "sha256": "a5adc2865de298d1429d76ff4d15f0228e0895ffdccb7eed491babbb06d2b97e",
+    "git_commit": "ab2c261b7dc30fb976d962f2d4e1d7599cdffeaa"
+  }
 }

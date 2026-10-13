@@ -254,7 +254,10 @@ class MISOStyleFAAFDMEnv(gym.Env):
         reward -= self.cfg.boundary_penalty * boundary_distance / self.cfg.max_steps
         if horizon_reached:
             reward += self.cfg.terminal_rate_weight * self.rate
-        return self._observation(), float(reward), terminated, truncated, self._info(boundary_distance)
+        info = self._info(boundary_distance)
+        # Audit the executed command and physical reward before VecNormalize.
+        info.update(executed_action=action.astype(float).tolist(), raw_reward=float(reward))
+        return self._observation(), float(reward), terminated, truncated, info
 
     def _info(self, boundary_distance: float) -> dict:
         return {

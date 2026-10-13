@@ -557,17 +557,20 @@ def main() -> None:
         def _on_training_start(self) -> None:
             self.handle = self.path.open("a" if args.resume_run else "w", encoding="utf-8")
             if not args.resume_run:
-                self.handle.write("steps,env_index,rate,episode_terminal,u_x,u_y,q_x,q_y\n")
+                self.handle.write("steps,env_index,rate,episode_terminal,u_x,u_y,q_x,q_y,episode_step,reward,a0,a1,a2,a3,source\n")
 
         def _on_step(self) -> bool:
             infos = self.locals.get("infos", [])
             first_step = int(self.num_timesteps) - len(infos) + 1
             for index, info in enumerate(infos):
                 self.handle.write(
-                    f"{first_step + index},{index},{float(info['rate']):.12g},"
+                    f"{first_step + index},{index},{float(info['rate']):.17g},"
                     f"{int((not args.continuing_task) and info.get('step', 0) == args.episode_steps)},"
-                    f"{float(info['u'][0]):.12g},{float(info['u'][1]):.12g},"
-                    f"{float(info['q'][0]):.12g},{float(info['q'][1]):.12g}\n"
+                    f"{float(info['u'][0]):.17g},{float(info['u'][1]):.17g},"
+                    f"{float(info['q'][0]):.17g},{float(info['q'][1]):.17g},"
+                    f"{int(info['step'])},{float(info['raw_reward']):.17g},"
+                    f"{float(info['executed_action'][0]):.17g},{float(info['executed_action'][1]):.17g},"
+                    f"{float(info['executed_action'][2]):.17g},{float(info['executed_action'][3]):.17g},actor_policy\n"
                 )
                 self.pending += 1
             if self.pending >= 1000:

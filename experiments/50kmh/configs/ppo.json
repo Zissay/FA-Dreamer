@@ -1,5 +1,5 @@
 {
-  "run_dir": "runs/50kmh/ppo_seed3004",
+  "run_dir": "runs/50kmh/ppo_seed3501",
   "timesteps": 50000,
   "resume_run": null,
   "resume_learning_rate_override": false,
@@ -10,7 +10,7 @@
   "resume_fixed_start_override": false,
   "critic_adaptation_steps": 0,
   "terminal_potential_alpha": 0.8333333333333334,
-  "seed": 3004,
+  "seed": 3501,
   "n_envs": 20,
   "recurrent": false,
   "bounded_beta_policy": true,

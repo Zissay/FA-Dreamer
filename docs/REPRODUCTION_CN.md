@@ -8,7 +8,7 @@
 | 参数 | 50 km/h | 500 km/h |
 |---|---:|---:|
 | Dreamer 训练 seed | 3501 | 5215 |
-| PPO 训练 seed | 3004 | 5215 |
+| PPO 训练 seed | 3501 | 5215 |
 | 信道 seed | 7 | 7 |
 | 并行环境 | 20 | 20 |
 | 回合真实动作数 | 50 | 50 |
@@ -18,8 +18,8 @@
 | Dreamer batch size | 16 | 8 |
 | Dreamer train ratio | 256 | 128 |
 | Dreamer replay lambda | 0.95 | 1 |
-| Dreamer data loaders | 2（历史值） | 0 |
-| Dreamer prefill | 历史随机 prefill | 10k stratified-goal prefill |
+| Dreamer data loaders | 0（同步） | 0 |
+| Dreamer prefill | 2260 动作，固定 RNG seed 1003504 | 10k stratified-goal prefill |
 | Dreamer/PPO 训练预算 | 50k | 50k |
 
 完整学习率、熵系数、调度、网络配置、动作分布与 replay 参数在各速度目录的 `configs/` 中。
@@ -54,7 +54,7 @@ python3.12 -m venv .venv-ppo
 .venv-dreamer/bin/python scripts/reproduce.py train --speed 50 --algorithm dreamer --run-dir runs/50kmh/dreamer_seed3501
 .venv-dreamer/bin/python scripts/reproduce.py train --speed 500 --algorithm dreamer --run-dir runs/500kmh/dreamer_seed5215
 
-.venv-ppo/bin/python scripts/reproduce.py train --speed 50 --algorithm ppo --gpu-python .venv-dreamer/bin/python --run-dir runs/50kmh/ppo_seed3004
+.venv-ppo/bin/python scripts/reproduce.py train --speed 50 --algorithm ppo --gpu-python .venv-dreamer/bin/python --run-dir runs/50kmh/ppo_seed3501
 .venv-ppo/bin/python scripts/reproduce.py train --speed 500 --algorithm ppo --gpu-python .venv-dreamer/bin/python --run-dir runs/500kmh/ppo_seed5215
 ```
 
@@ -64,13 +64,14 @@ PPO 保留原种子和其他训练参数，包括按真实 timestep 计数的 20
 先加 `--dry-run` 可以检查命令，不会启动训练。
 
 输出目录必须是新目录；启动时保存源码哈希、配置、依赖列表、运行命令和环境信息。
-训练器仍保存自己的模型 checkpoint 与 replay，新的大文件在 `runs/` 中，不纳入 Git。
+训练器保存自己的模型 checkpoint 与 replay，权重和 replay 大文件在 `runs/` 中，不纳入 Git。
+PPO 的训练文件位于指定运行目录的 `training/` 子目录，启动记录位于其父目录；绘图入口自动识别。
 新训练的图使用实际新日志重画：
 
 ```bash
-python scripts/reproduce.py plot --speed 50 --dreamer-run runs/50kmh/dreamer_seed3501 --ppo-run runs/50kmh/ppo_seed3004 --output-dir figures/new_run
+python scripts/reproduce.py plot --speed 50 --dreamer-run runs/50kmh/dreamer_seed3501 --ppo-run runs/50kmh/ppo_seed3501 --output-dir figures/new_run
 
-python scripts/reproduce.py plot-all --dreamer-50-run runs/50kmh/dreamer_seed3501 --ppo-50-run runs/50kmh/ppo_seed3004 --dreamer-500-run runs/500kmh/dreamer_seed5215 --ppo-500-run runs/500kmh/ppo_seed5215 --output-dir figures/new_all
+python scripts/reproduce.py plot-all --dreamer-50-run runs/50kmh/dreamer_seed3501 --ppo-50-run runs/50kmh/ppo_seed3501 --dreamer-500-run runs/500kmh/dreamer_seed5215 --ppo-500-run runs/500kmh/ppo_seed5215 --output-dir figures/new_all
 ```
 
 ## 信道与离线基线
@@ -97,11 +98,12 @@ python scripts/reproduce.py baseline --speed 500 --method daft --device cuda --o
 
 * 原始终点记录、曲线聚合规则和最终数值可直接核验和重绘。
 * 500 km/h 的 Dreamer 与 PPO 源码取自各自训练前快照，完整依赖记录保存在 `requirements/locks/`。
-* 50 km/h 的超参数和终点记录完整，源码采用 2026-09-11 历史包；缺少原训练启动快照和原依赖锁。
-  两个 PPO 依赖模块从保留的工作区恢复，文件名与哈希写入 `ppo_source_manifest.json`。
-  这条路径是可运行的历史复现候选，不能宣称原始训练曲线必然逐点或逐位重现。
-  历史源码尚未显式命名 `afdm.imagination_start_mode`；原配置为 `uniform`、start count 为 0，
-  历史实现直接使用全部 replay starts。这一配置字段差异由检查脚本明确列出。
+* 50 km/h 的原始启动源码无法确认，已使用当前代码重新从零训练两种方法，统一 seed 3501。
+  查找范围、历史包哈希、原始记录备份和重建改动见 `docs/SOURCE_SEARCH_50KMH.json`。
+  新结果采用实际新日志，不以原曲线的数值作为需要达到的目标。
+  Dreamer 固定预填充 RNG，并将历史隐式的两线程加载改为同步加载；主要学习参数保持原值。
+  PPO 的两个依赖模块来源与日志扩展在源码清单中标明，seed 从历史 3004 改为与 Dreamer 一致的 3501。
+  原结果保留在 Git 历史和独立存档中，新的比较采用新的完整记录。
 * JAX/CUDA、异步数据加载和硬件可能影响新的训练轨迹。新训练应报告实际结果，不能强制对齐旧曲线。
 
 两个速度的所有源码、配置、基线和终点数据都有 SHA-256 清单。
@@ -120,7 +122,7 @@ python -m unittest discover -s tests -v
 .venv-ppo/bin/python tests/check_training_config.py --speed 500 --algorithm ppo
 ```
 
-Dreamer 检查会把实际训练器生成的完整配置与原运行保存的 YAML 对照；50 km/h 的一个历史隐式字段单独报告。
+Dreamer 检查会把实际训练器生成的完整配置与当前发布运行保存的 YAML 对照。
 PPO 检查会把启动参数解析结果与原 JSON 对照。已执行的验证范围见 `docs/validation_20261013.json`。
 
 GPU 速率服务可以单独检查：
@@ -131,3 +133,17 @@ GPU 速率服务可以单独检查：
 ```
 
 这个检查启动临时服务，将该训练源码的 20 组位置的 CUDA 速率与其 CPU 计算比较，不进行学习。
+
+## 50 km/h 完整记录核验
+
+当前 50 km/h 对比的完整动作日志以 gzip 保存。核验入口会检查两种方法均使用 seed 3501，
+各有 50k 连续动作、20 个环境及 1000 个终点；复算动作位移、物理奖励和全部终点的 AFDM 速率，
+核对种子生成的预填充、优化器更新以及启动前源码哈希。最终均值是最后 5k 的真实终点平均值。
+
+```bash
+OPENBLAS_NUM_THREADS=1 python scripts/reproduce.py audit --dreamer-run experiments/50kmh/recorded/dreamer --ppo-run experiments/50kmh/recorded/ppo
+```
+
+训练结束后的 PPO 确定性评估记录单独保存，不用于训练曲线和柱状图数值。
+本次来源核验先保存启动前哈希，再保存与这些哈希逐字节一致的源码副本；源快照清单明确注明时间顺序。
+后续启动器会在训练开始前直接保存源码压缩包、哈希和依赖记录。

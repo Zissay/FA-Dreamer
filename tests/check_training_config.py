@@ -43,8 +43,9 @@ else:
     expected = YAML(typ="safe").load((folder / "recorded/dreamer/resolved_config.yaml").read_text())
     expected = trainer.e.Config(expected).flat
     actual = actual.flat
-    implicit = {"afdm.imagination_start_mode"} if args.speed == 50 else set()
+    implicit = expected.keys() - actual.keys()
     if implicit:
+        assert args.speed == 50 and implicit == {"afdm.imagination_start_mode"}
         assert expected["afdm.imagination_start_mode"] == "uniform"
         assert expected["afdm.imagination_start_count"] == 0
     # The older 50 km/h candidate uses all replay starts; this named mode was added later.

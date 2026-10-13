@@ -1,0 +1,27 @@
+{
+  "algorithm": "ppo",
+  "seed": 3501,
+  "channel_seed": 7,
+  "real_actions": 50000,
+  "terminal_records": 1000,
+  "parallel_envs": 20,
+  "last_5k_mean": 13.73976793194319,
+  "source_counts": {
+    "actor_policy": 50000
+  },
+  "max_transition_error_m": 5.364418024372819e-10,
+  "max_reward_error": 0.0,
+  "independent_cpu_rate_checks": 1125,
+  "max_cpu_gpu_rate_error": 1.1191048088221578e-13,
+  "raw_log_sha256": "96a90a97ad3259797c455ee1cda82076ab9eb6f1f287f5aebc359ef59482cbb6",
+  "launch_sha256": "d36eab2d7a5318b5a5221a06a7919861c7fdb495d667bc61bbaeaa11bf06a11f",
+  "verified_source_archive_sha256": "176f17d58e9d767734b46c4ee241e6d914a5f589f3f44780566db8be7022f76a",
+  "fresh_initialization": true,
+  "source_and_config_match_pretraining_hashes": true,
+  "checkpoint_restore_used": false,
+  "status": "PASS",
+  "ppo_update_records": 50,
+  "actual_actor_weight_updates_verified": true,
+  "local_final_model_sha256": "23edd43cbf168bb8424de2cb4389623d8f02d78441635db244163d6519428427",
+  "local_final_model_bytes": 5042400
+}

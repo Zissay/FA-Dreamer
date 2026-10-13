@@ -18,9 +18,10 @@ def verify_all(physics=False):
         assert ppo["timesteps"] == protocol["training_interactions"] == protocol["plotted_real_interactions"] == 50000
         recorded_ppo = read_json(folder / "recorded/ppo/config.json")
         for key, value in recorded_ppo.items():
-            if key not in ("timesteps", "run_dir"):
+            if key not in ("timesteps", "run_dir", "gpu_rate_socket"):
                 assert ppo[key] == value, f"PPO parameter changed: {speed} km/h {key}"
         assert hp == original["hyperparameters"]
+        assert ppo["seed"] == original["seed"] == protocol["dreamer_seed"] == protocol["ppo_seed"]
         assert protocol["channel"] == original["channel"]
         assert protocol["channel"]["seed"] == ppo["channel_seed"] == 7
         assert ppo["fixed_doppler_hz"] == protocol["channel"]["fixed_doppler_hz"]

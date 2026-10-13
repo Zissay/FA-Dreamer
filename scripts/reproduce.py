@@ -15,6 +15,11 @@ def main():
     sub = parser.add_subparsers(dest="command", required=True)
     verify = sub.add_parser("verify", help="Check archived terminal records, source hashes and references")
     verify.add_argument("--physics", action="store_true", help="Recompute 100 random positions and each stored best position on CPU")
+    audit = sub.add_parser("audit", help="Audit the fresh 50 km/h reconstruction, transitions and source hashes")
+    audit.add_argument("--speed", type=int, choices=(50,), default=50)
+    audit.add_argument("--dreamer-run", type=Path, required=True)
+    audit.add_argument("--ppo-run", type=Path, required=True)
+    audit.add_argument("--output", type=Path)
     train = sub.add_parser("train", help="Start a fresh preserved training run")
     train.add_argument("--speed", type=int, choices=(50, 500), required=True)
     train.add_argument("--algorithm", choices=("dreamer", "ppo"), required=True)
@@ -45,6 +50,15 @@ def main():
     if args.command == "verify":
         from reproduction_tools.verify import verify_all
         print(json.dumps(verify_all(physics=args.physics), indent=2))
+    elif args.command == "audit":
+        from reproduction_tools.authenticity import audit_run
+        results = {a: audit_run(args.speed, a, getattr(args, f"{a}_run")) for a in ("dreamer", "ppo")}
+        if results["dreamer"]["seed"] != results["ppo"]["seed"]:
+            parser.error("The fresh comparison requires the same Dreamer/PPO training seed")
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(results, indent=2))
     elif args.command == "train":
         from reproduction_tools.training import launch
         launch(args.speed, args.algorithm, args.run_dir, args.python, args.gpu_python, args.dry_run)

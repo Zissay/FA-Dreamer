@@ -1,6 +1,6 @@
 {
-  "run_dir": "runs/user/t1_ppo_fixed_center_full_seed3004_500000q",
-  "timesteps": 500000,
+  "run_dir": "/mnt/e/fa_afdm_dreamerv3/deliverables/FA-Dreamer-reproduction/runs/50kmh/ppo_seed3501_audit_20261013_v3/training",
+  "timesteps": 50000,
   "resume_run": null,
   "resume_learning_rate_override": false,
   "resume_rollout_steps_override": false,
@@ -10,7 +10,7 @@
   "resume_fixed_start_override": false,
   "critic_adaptation_steps": 0,
   "terminal_potential_alpha": 0.8333333333333334,
-  "seed": 3004,
+  "seed": 3501,
   "n_envs": 20,
   "recurrent": false,
   "bounded_beta_policy": true,
@@ -85,5 +85,5 @@
   "gpu_rate_batch_size": 20,
   "gpu_rate_device": "cuda",
   "gpu_rate_backend": "rpc",
-  "gpu_rate_socket": "/tmp/grpo_style_afdm_gpu_rate_439.sock"
+  "gpu_rate_socket": "/tmp/fa_dreamer_50_ppo_1012.sock"
 }
