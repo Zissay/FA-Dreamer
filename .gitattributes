@@ -7,3 +7,5 @@ experiments/** -text -whitespace
 reproduction_tools/physics.py -text -whitespace
 vendor/** -text -whitespace
 requirements/locks/*.txt -text -whitespace
+# Preserve the registered protocol bytes referenced by the completed trial audit.
+docs/fresh_repeat_protocol_20261014.json -text -whitespace
