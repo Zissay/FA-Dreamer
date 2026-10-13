@@ -1,6 +1,8 @@
 # 50 km/h 与 500 km/h 论文结果复现说明
 
-当前图 4 的三个子图分别是 50 km/h 训练曲线、500 km/h 训练曲线，以及两种速度的最终速率柱状图。
+> **复现状态：未成功。** 原 50 km/h 目标为 Dreamer 18.837550、PPO 15.441477 bps/Hz。当前 `recorded/` 中的 15.242103 / 13.739768 是未达到原结果的真实尝试，不能替换论文结果。原 PPO seed 为3004；后续两种方法统一3501，旧数据不会改标 seed。见 `experiments/50kmh/reproduction_status.json`。
+
+论文图 4 的三个子图分别是 50 km/h 训练曲线、500 km/h 训练曲线，以及两种速度的最终速率柱状图。
 每种速度分别训练，并非将同一个 50 km/h 模型直接用于 500 km/h 泛化测试。
 
 ## 对应实验
@@ -18,7 +20,7 @@
 | Dreamer batch size | 16 | 8 |
 | Dreamer train ratio | 256 | 128 |
 | Dreamer replay lambda | 0.95 | 1 |
-| Dreamer data loaders | 0（同步） | 0 |
+| Dreamer data loaders | 2（恢复历史设置） | 0 |
 | Dreamer prefill | 2260 动作，固定 RNG seed 1003504 | 10k stratified-goal prefill |
 | Dreamer/PPO 训练预算 | 50k | 50k |
 
@@ -32,7 +34,7 @@
 ```bash
 python -m pip install -r requirements/analysis.txt
 OPENBLAS_NUM_THREADS=1 python scripts/reproduce.py verify --physics
-python scripts/reproduce.py plot-all --output-dir figures/reproduced
+python scripts/reproduce.py plot-all --allow-unreproduced --output-dir figures/failed_attempt
 ```
 
 生成三个独立、统一裁边的 PDF/PNG。CSV 和 audit.json 一并输出。
@@ -69,9 +71,9 @@ PPO 的训练文件位于指定运行目录的 `training/` 子目录，启动记
 新训练的图使用实际新日志重画：
 
 ```bash
-python scripts/reproduce.py plot --speed 50 --dreamer-run runs/50kmh/dreamer_seed3501 --ppo-run runs/50kmh/ppo_seed3501 --output-dir figures/new_run
+python scripts/reproduce.py plot --speed 50 --allow-unreproduced --dreamer-run runs/50kmh/dreamer_seed3501 --ppo-run runs/50kmh/ppo_seed3501 --output-dir figures/new_run
 
-python scripts/reproduce.py plot-all --dreamer-50-run runs/50kmh/dreamer_seed3501 --ppo-50-run runs/50kmh/ppo_seed3501 --dreamer-500-run runs/500kmh/dreamer_seed5215 --ppo-500-run runs/500kmh/ppo_seed5215 --output-dir figures/new_all
+python scripts/reproduce.py plot-all --allow-unreproduced --dreamer-50-run runs/50kmh/dreamer_seed3501 --ppo-50-run runs/50kmh/ppo_seed3501 --dreamer-500-run runs/500kmh/dreamer_seed5215 --ppo-500-run runs/500kmh/ppo_seed5215 --output-dir figures/new_all
 ```
 
 ## 信道与离线基线
@@ -100,8 +102,8 @@ python scripts/reproduce.py baseline --speed 500 --method daft --device cuda --o
 * 500 km/h 的 Dreamer 与 PPO 源码取自各自训练前快照，完整依赖记录保存在 `requirements/locks/`。
 * 50 km/h 的原始启动源码无法确认，已使用当前代码重新从零训练两种方法，统一 seed 3501。
   查找范围、历史包哈希、原始记录备份和重建改动见 `docs/SOURCE_SEARCH_50KMH.json`。
-  新结果采用实际新日志，不以原曲线的数值作为需要达到的目标。
-  Dreamer 固定预填充 RNG，并将历史隐式的两线程加载改为同步加载；主要学习参数保持原值。
+  新结果采用实际新日志，验收目标是恢复原实验并复现先前的性能；当前尚未达到。
+  首次失败尝试改用了同步加载。当前已恢复 data_loaders=2，并通过原训练线程的三次启动前修改恢复 train.py/agent.py，正在核验原结果。
   PPO 的两个依赖模块来源与日志扩展在源码清单中标明，seed 从历史 3004 改为与 Dreamer 一致的 3501。
   原结果保留在 Git 历史和独立存档中，新的比较采用新的完整记录。
 * JAX/CUDA、异步数据加载和硬件可能影响新的训练轨迹。新训练应报告实际结果，不能强制对齐旧曲线。
@@ -147,3 +149,16 @@ OPENBLAS_NUM_THREADS=1 python scripts/reproduce.py audit --dreamer-run experimen
 训练结束后的 PPO 确定性评估记录单独保存，不用于训练曲线和柱状图数值。
 本次来源核验先保存启动前哈希，再保存与这些哈希逐字节一致的源码副本；源快照清单明确注明时间顺序。
 后续启动器会在训练开始前直接保存源码压缩包、哈希和依赖记录。
+
+## 原50km/h结果验收
+
+完整训练后另行检查原结果：
+
+```bash
+python scripts/reproduce.py compare-historical --dreamer-run runs/50kmh/dreamer_seed3501_recovered_source_20261013 --output runs/50kmh/historical_comparison.json
+```
+
+按论文报告的两位小数判定最终5k终点均值是否仍为18.84，训练完成或数据核验通过不能代替此检查。
+完整轨迹是否重现、统一seed后的PPO是否达到旧性能，需分别报告。
+`plot/plot-all` 默认拒绝尚未复现的50km/h结果；加 `--allow-unreproduced` 仅用于查看诊断图。
+原版训练源及启动前修改记录位于 `experiments/50kmh/historical_target/source/`。

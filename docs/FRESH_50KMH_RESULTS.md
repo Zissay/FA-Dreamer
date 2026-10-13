@@ -1,4 +1,4 @@
-# 50 km/h 实验更新
+# 50 km/h 首次尝试：未复现原结果
 
 无法确认原 50 km/h 运行的完整启动源码，查找证据见 `SOURCE_SEARCH_50KMH.json`。
 当前发布结果来自本次使用仓库代码从零执行的两次完整训练，Dreamer 与 PPO 均使用 seed **3501**、
@@ -12,9 +12,10 @@
 | DAFT 81点网格参考 | 19.41627979996462 |
 | Dreamer 与 DAFT 参考的差距 | 4.174177086146230 |
 
-原 50 km/h 图中的 **18.84 / 15.44** 已由新运行的 **15.24 / 13.74** 替换。
-论文中对应的约 **3.40** 提升及约 **0.58** DAFT 差距，应相应改为约 **1.50** 和 **4.17**。
-500 km/h 的已有结果保持 **18.30 / 15.28**，本次未重新训练该组。
+原 50 km/h 目标为 **18.837550 / 15.441477**。这次 **15.242103 / 13.739768** 未达到原结果，不能替换论文中的图表、提升数值或相关文字。
+原 Dreamer seed3501，原 PPO seed3004；旧 PPO 记录不会冒称 seed3501。
+继续按统一 seed3501 的要求查找并恢复原设置，首先恢复 Dreamer 历史 `data_loaders=2`。
+500 km/h 历史结果为18.30 /15.28，本次未重训。
 
 ## 核验结果
 
@@ -29,15 +30,7 @@
 主要学习参数保留历史 H10、batch16、train ratio256 及原学习率/熵调度；PPO 改用与 Dreamer 相同的种子。
 这些结果是一组匹配种子的实跑对比，不能把它们描述为多个种子的统计结论。
 
-## 图 4 注释参考
+## 论文使用限制
 
-```latex
-\caption{Training performance comparison at receiver speeds of
-(a) 50 km/h and (b) 500 km/h, and (c) average terminal rates over the
-final 5k training interactions. Each learning method uses 50k real
-environment interactions, with a common training seed within each
-speed setting (3501 at 50 km/h and 5215 at 500 km/h).}
-```
-
-数据核验入口与使用说明见 `REPRODUCTION_CN.md`。图形重建使用原始训练终点记录的因果平均，
-柱状图直接采用最后 5k 的平均值；PPO 的训练后确定性评估不参与这些图表数值。
+在原结果复现成功且同种子比较完成前，不将本次低分记录用于更新论文图4或正文。
+`expected_results.json` 仅用于核对这次记录的算术汇总；复现目标及失败状态另见 `reproduction_status.json`。

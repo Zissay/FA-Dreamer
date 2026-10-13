@@ -1,23 +1,25 @@
 # FA-Dreamer: 50 km/h and 500 km/h experiments
 
+> **复现状态：未成功。** 原 50 km/h 目标为 Dreamer 18.837550、PPO 15.441477 bps/Hz。当前 `recorded/` 中的 15.242103 / 13.739768 是未达到原结果的真实尝试，不能替换论文结果。原 PPO seed 为3004；后续两种方法统一3501，旧数据不会改标 seed。见 `experiments/50kmh/reproduction_status.json`。
+
 Preserved configurations, training sources and online terminal records for the three panels of Fig. 4: training at 50 km/h, training at 500 km/h, and final-rate comparison. Each mobility case has its own channel configuration and independently trained policies.
 
 **[中文复现说明](docs/REPRODUCTION_CN.md)** · [50 km/h](experiments/50kmh/README.md) · [500 km/h](experiments/500kmh/README.md)
 
 ## Rebuild the paper figures
 
-Run from the repository root. Rebuilding the archived figures requires no training or GPU.
+Run from the repository root. Rebuilding recorded attempts requires no training or GPU; these50km/h attempt figures are not accepted paper replacements.
 
 ```bash
 python -m pip install -r requirements/analysis.txt
 OPENBLAS_NUM_THREADS=1 python scripts/reproduce.py verify --physics
-python scripts/reproduce.py plot-all --output-dir figures/reproduced
+python scripts/reproduce.py plot-all --allow-unreproduced --output-dir figures/failed_attempt
 ```
 
 On Windows PowerShell, set `$env:OPENBLAS_NUM_THREADS='1'` before running `verify`.
 The three independent PDF/PNG panels share the same axis-frame dimensions, spine widths, typography and crop. Times New Roman is selected from Windows fonts when available; use `--font-dir` with `times.ttf` and `timesbd.ttf` to obtain the same font elsewhere. Original bar colors and the label **Random Position** are preserved. CSV and plot-audit files are also exported.
 
-### Expected rates (bps/Hz)
+### Recorded attempt rates (bps/Hz), not reproduced historical targets
 
 | Speed | Dreamer | PPO | DAFT grid | Time-selected positions, AFDM rate | Random positions |
 |---|---:|---:|---:|---:|---:|
@@ -41,7 +43,7 @@ Dreamer/PPO rates average terminal episodes during the final 5k of the first 50k
 | PPO training budget | 50k | 50k |
 | Budget shown in Fig. 4 | 50k | 50k |
 
-All original learning rates, entropy schedules, replay settings, network sizes, task constraints and physical channel parameters are in `experiments/<speed>/configs/`. Recorded Dreamer `resolved_config.yaml` files retain the full model configurations. Actual channel settings are `N=128`, `P=20`, transmit power 1.5 W and noise −95 dBm.
+The learning rates, entropy schedules, replay settings, network sizes, task constraints and physical channel parameters are in `experiments/<speed>/configs/`. Recorded Dreamer `resolved_config.yaml` files retain the full model configurations. Actual channel settings are `N=128`, `P=20`, transmit power 1.5 W and noise −95 dBm.
 
 ### Train from scratch
 
@@ -60,7 +62,7 @@ All four training commands stop after 50k real interactions. PPO retains the rec
 
 The **50 km/h** case is a fresh reconstruction trained from scratch with **seed 3501 for both methods**, using the published code and captured dependency environments. The original launch source could not be established; the search and reconstruction changes are recorded in [source search](docs/SOURCE_SEARCH_50KMH.json). The historical results are preserved in Git history and a separately hashed local archive. They are not mixed into the fresh comparison.
 
-The new case publishes complete compressed 50k-action logs, terminal records, optimizer diagnostics, launch records, source copies verified against pretraining hashes and an independent physical audit. Dreamer uses seeded uniform prefill and synchronous replay loading (`data_loaders=0`); its model sizes, H10, batch settings, training ratio and learning schedules are retained. PPO uses the same training seed and records executed actions and raw physical rewards. The **500 km/h** trainers and results retain their original pretraining provenance.
+The new case publishes complete compressed 50k-action logs, terminal records, optimizer diagnostics, launch records, source copies verified against pretraining hashes and an independent physical audit. The failed attempt used seeded uniform prefill and data_loaders0; active configs now restore historical data_loaders2 and recovered original train/agent sources; its model sizes, H10, batch settings, training ratio and learning schedules are retained. PPO uses the same training seed and records executed actions and raw physical rewards. The **500 km/h** trainers and results retain their original pretraining provenance.
 
 New trajectories can vary with JAX/CUDA, hardware and asynchronous data loading. Plot new runs from their own recorded data. No pretrained weights are distributed.
 

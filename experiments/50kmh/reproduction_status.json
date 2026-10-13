@@ -1,0 +1,39 @@
+{
+  "status": "NOT_REPRODUCED",
+  "metric": "Mean terminal AFDM rate over the final 5k of the first 50k real interactions",
+  "historical": {
+    "dreamer": {
+      "seed": 3501,
+      "last_5k_mean": 18.837550331174892,
+      "data_loaders": 2
+    },
+    "ppo": {
+      "seed": 3004,
+      "last_5k_mean": 15.441476879350997
+    }
+  },
+  "required_common_seed": 3501,
+  "attempt_1": {
+    "status": "FAILED_TO_REPRODUCE_HISTORICAL_RESULT",
+    "dreamer": 15.24210271381839,
+    "ppo": 13.739767931943193,
+    "dreamer_data_loaders": 0,
+    "training_seed": 3501,
+    "physical_and_source_audit_passed": true
+  },
+  "acceptance": "Reproduce historical training performance using justified recovered settings. Training completion and authenticity alone do not establish reproduction. Original PPO seed3004 must not be relabelled as seed3501.",
+  "next_attempt": "Fresh seed3501 training with recovered original train.py/agent.py and historical data_loaders2. Exact source bytes captured before launch.",
+  "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
+  "superseded_partial_attempt": {
+    "run": "dreamer_seed3501_historical_loaders2_20261013",
+    "reason": "Original source recovered while this approximate version was running. Stopped before final-performance selection.",
+    "status": "SUPERSEDED_INCOMPLETE"
+  },
+  "active_attempt": {
+    "run": "dreamer_seed3501_recovered_source_20261013",
+    "status": "RUNNING",
+    "seed": 3501,
+    "data_loaders": 2,
+    "acceptance": "Final-5k terminal mean rounds to18.84; same historical metric. This does not by itself prove exact trajectory or PPO common-seed reproduction."
+  }
+}

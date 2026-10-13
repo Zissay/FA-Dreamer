@@ -20,7 +20,15 @@ def verify_all(physics=False):
         for key, value in recorded_ppo.items():
             if key not in ("timesteps", "run_dir", "gpu_rate_socket"):
                 assert ppo[key] == value, f"PPO parameter changed: {speed} km/h {key}"
-        assert hp == original["hyperparameters"]
+        recorded_hp = original["hyperparameters"]
+        if speed == 50:
+            status = read_json(folder / "reproduction_status.json")
+            assert recorded_hp["data_loaders"] == status["attempt_1"]["dreamer_data_loaders"] == 0
+            assert hp["data_loaders"] == status["historical"]["dreamer"]["data_loaders"] == 2
+            assert {k: v for k, v in hp.items() if k != "data_loaders"} == {
+                k: v for k, v in recorded_hp.items() if k != "data_loaders"}
+        else:
+            assert hp == recorded_hp
         assert ppo["seed"] == original["seed"] == protocol["dreamer_seed"] == protocol["ppo_seed"]
         assert protocol["channel"] == original["channel"]
         assert protocol["channel"]["seed"] == ppo["channel_seed"] == 7
@@ -48,7 +56,9 @@ def verify_all(physics=False):
             assert math.isclose(actual[key], value, abs_tol=1e-10), (speed, key, actual[key], value)
         summary[str(speed)] = {"source_file_hash_checks": count, "results": actual,
                                "source_provenance": protocol["source_provenance"],
-                               "recovered_dependencies": recovered, "training_interactions": 50000, "status": "PASS"}
+                               "recovered_dependencies": recovered, "training_interactions": 50000,
+                               "record_integrity": "PASS",
+                               "historical_reproduction": "NOT_REPRODUCED" if speed == 50 else "NOT_RERUN"}
         if physics:
             from .baselines import validate_reference_positions
             summary[str(speed)]["physics"] = validate_reference_positions(speed)
