@@ -1,0 +1,6 @@
+{
+  "run": "dreamer_seed3501_traced_fresh_20261014",
+  "real_prefill_actions": 2260,
+  "completed_optimizer_updates": 0,
+  "reason": "Observer patched a duplicate dreamerv3.embodied Generic module instead of live embodied class; original learner was not changed"
+}
