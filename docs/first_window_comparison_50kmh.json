@@ -1,0 +1,27 @@
+{
+  "scope": "First logged training window: source/config reconstruction agrees, sampling/trajectory not identical",
+  "original": {
+    "step": 2420,
+    "train/actor_opt_grad_steps": 15.5,
+    "train/scheduled_actor_learning_rate": 1.087500010932274e-07,
+    "train/scheduled_entropy_coefficient": 0.009999999776482582,
+    "train/imagination_start_count": 1024.0,
+    "train/imagination_initial_start_fraction": 0.03512369791666667,
+    "train/model_opt_loss": 48.40529098510742,
+    "train/actor_opt_loss": -0.01812125531335672
+  },
+  "recovered_attempt": {
+    "step": 2420,
+    "train/actor_opt_grad_steps": 15.5,
+    "train/scheduled_actor_learning_rate": 1.087500010932274e-07,
+    "train/scheduled_entropy_coefficient": 0.009999999776482582,
+    "train/imagination_start_count": 1024.0,
+    "train/imagination_initial_start_fraction": 0.03512369791666667,
+    "train/model_opt_loss": 48.39495366414388,
+    "train/actor_opt_loss": -0.018062746431678534
+  },
+  "known_nondeterminism": "Two prefetch workers share the uniform replay RNG; assignment of draws to batch slots and replay eligibility depend on thread timing.",
+  "historical_replay_order_trace_available": false,
+  "historical_sampler_rng_state_saved": false,
+  "causality_claim": "Asynchronous replay is a verified nondeterministic mechanism; this alone does not establish that it explains the entire final-rate gap."
+}

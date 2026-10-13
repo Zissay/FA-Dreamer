@@ -20,5 +20,8 @@
     "seed": 3501,
     "fresh_from_scratch": true,
     "pretraining_source_hashes_verified": true
-  }
+  },
+  "comparison_status": "FAILED_TO_REPRODUCE_HISTORICAL_RESULT",
+  "paper_replacement_accepted": false,
+  "historical_target_location": "../historical_target"
 }

@@ -4,7 +4,7 @@
 
 Preserved configurations, training sources and online terminal records for the three panels of Fig. 4: training at 50 km/h, training at 500 km/h, and final-rate comparison. Each mobility case has its own channel configuration and independently trained policies.
 
-**[中文复现说明](docs/REPRODUCTION_CN.md)** · [50 km/h](experiments/50kmh/README.md) · [500 km/h](experiments/500kmh/README.md)
+**[中文复现说明](docs/REPRODUCTION_CN.md)** · [原50km/h源码恢复进展](docs/HISTORICAL_50KMH_RECOVERY_CN.md) · [50 km/h](experiments/50kmh/README.md) · [500 km/h](experiments/500kmh/README.md)
 
 ## Rebuild the paper figures
 
