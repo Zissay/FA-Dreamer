@@ -1,0 +1,328 @@
+{
+  "diagnostic_only": true,
+  "weights_loaded_into_agent": false,
+  "optimizer_updates_performed": 0,
+  "all10_milestones_match": true,
+  "records": [
+    {
+      "milestone": "checkpoint_005000.pkl",
+      "historical_callback_frames": 5120,
+      "new_callback_frames": 5120,
+      "integer_update_counters_match": true,
+      "historical_counters": {
+        "10": 705,
+        "31": 705,
+        "33": 705,
+        "34": 705,
+        "35": 705,
+        "38": 705,
+        "55": 705,
+        "72": 705,
+        "113": 705,
+        "244": 705
+      },
+      "new_counters": {
+        "10": 705,
+        "31": 705,
+        "33": 705,
+        "34": 705,
+        "35": 705,
+        "38": 705,
+        "55": 705,
+        "72": 705,
+        "113": 705,
+        "244": 705
+      },
+      "historical_checkpoint_sha256": "9385547f6f7575c6b728de9929ff67e5fda28675fa0a1f78d5ead419e4bf1feb",
+      "new_checkpoint_sha256": "3483bc929a8bd2b341339f321e567d0f9c9814d166661a42f0cca98e0ce7c281"
+    },
+    {
+      "milestone": "checkpoint_010000.pkl",
+      "historical_callback_frames": 10220,
+      "new_callback_frames": 10220,
+      "integer_update_counters_match": true,
+      "historical_counters": {
+        "10": 1980,
+        "31": 1980,
+        "33": 1980,
+        "34": 1980,
+        "35": 1980,
+        "38": 1980,
+        "55": 1980,
+        "72": 1980,
+        "113": 1980,
+        "244": 1980
+      },
+      "new_counters": {
+        "10": 1980,
+        "31": 1980,
+        "33": 1980,
+        "34": 1980,
+        "35": 1980,
+        "38": 1980,
+        "55": 1980,
+        "72": 1980,
+        "113": 1980,
+        "244": 1980
+      },
+      "historical_checkpoint_sha256": "7f49b7f87e3d7caf0d4732f46f4324ac45325415c445010d50a2679d97ba9ca0",
+      "new_checkpoint_sha256": "6e44ab738246c09cd99dd9b49727d4d42592d484cf4a7101259045025c2a6f14"
+    },
+    {
+      "milestone": "checkpoint_015000.pkl",
+      "historical_callback_frames": 15320,
+      "new_callback_frames": 15320,
+      "integer_update_counters_match": true,
+      "historical_counters": {
+        "10": 3255,
+        "31": 3255,
+        "33": 3255,
+        "34": 3255,
+        "35": 3255,
+        "38": 3255,
+        "55": 3255,
+        "72": 3255,
+        "113": 3255,
+        "244": 3255
+      },
+      "new_counters": {
+        "10": 3255,
+        "31": 3255,
+        "33": 3255,
+        "34": 3255,
+        "35": 3255,
+        "38": 3255,
+        "55": 3255,
+        "72": 3255,
+        "113": 3255,
+        "244": 3255
+      },
+      "historical_checkpoint_sha256": "a7b747d8df791b72c38cc496d7d74a5ddc3810b6ee8c650626f6bd4cf0e8e115",
+      "new_checkpoint_sha256": "f6ca8837c64a240998880c6d00987ec40727f60dc779585092814208116b1bfd"
+    },
+    {
+      "milestone": "checkpoint_020000.pkl",
+      "historical_callback_frames": 20420,
+      "new_callback_frames": 20420,
+      "integer_update_counters_match": true,
+      "historical_counters": {
+        "10": 4530,
+        "31": 4530,
+        "33": 4530,
+        "34": 4530,
+        "35": 4530,
+        "38": 4530,
+        "55": 4530,
+        "72": 4530,
+        "113": 4530,
+        "244": 4530
+      },
+      "new_counters": {
+        "10": 4530,
+        "31": 4530,
+        "33": 4530,
+        "34": 4530,
+        "35": 4530,
+        "38": 4530,
+        "55": 4530,
+        "72": 4530,
+        "113": 4530,
+        "244": 4530
+      },
+      "historical_checkpoint_sha256": "42c0a537437b42a8125feba3df087e4b045ade4bc86061e6ba1e4acdcc663f7a",
+      "new_checkpoint_sha256": "f9eeb683154e2b24463a3c5a85e0f58b84cff133429e8d79c7fb1c6eb8761315"
+    },
+    {
+      "milestone": "checkpoint_025000.pkl",
+      "historical_callback_frames": 25520,
+      "new_callback_frames": 25520,
+      "integer_update_counters_match": true,
+      "historical_counters": {
+        "10": 5805,
+        "31": 5805,
+        "33": 5805,
+        "34": 5805,
+        "35": 5805,
+        "38": 5805,
+        "55": 5805,
+        "72": 5805,
+        "113": 5805,
+        "244": 5805
+      },
+      "new_counters": {
+        "10": 5805,
+        "31": 5805,
+        "33": 5805,
+        "34": 5805,
+        "35": 5805,
+        "38": 5805,
+        "55": 5805,
+        "72": 5805,
+        "113": 5805,
+        "244": 5805
+      },
+      "historical_checkpoint_sha256": "4a0782646bef7be5750e7deee4520c9ac8cb0c3880b844a364c22694bca37b09",
+      "new_checkpoint_sha256": "e868eb38173ba0ed82deecd89616ac734906f46d7db853a62acabf6a8fc82078"
+    },
+    {
+      "milestone": "checkpoint_030000.pkl",
+      "historical_callback_frames": 30620,
+      "new_callback_frames": 30620,
+      "integer_update_counters_match": true,
+      "historical_counters": {
+        "10": 7080,
+        "31": 7080,
+        "33": 7080,
+        "34": 7080,
+        "35": 7080,
+        "38": 7080,
+        "55": 7080,
+        "72": 7080,
+        "113": 7080,
+        "244": 7080
+      },
+      "new_counters": {
+        "10": 7080,
+        "31": 7080,
+        "33": 7080,
+        "34": 7080,
+        "35": 7080,
+        "38": 7080,
+        "55": 7080,
+        "72": 7080,
+        "113": 7080,
+        "244": 7080
+      },
+      "historical_checkpoint_sha256": "cf5df546a46e043c09b1c8279f1618f38b67d7ef50d165d172fff8ea66cee29e",
+      "new_checkpoint_sha256": "38e05c56287744f4d7afd3adf9ac69033281274687b1a9791c041cbd1275cc36"
+    },
+    {
+      "milestone": "checkpoint_035000.pkl",
+      "historical_callback_frames": 35720,
+      "new_callback_frames": 35720,
+      "integer_update_counters_match": true,
+      "historical_counters": {
+        "10": 8355,
+        "31": 8355,
+        "33": 8355,
+        "34": 8355,
+        "35": 8355,
+        "38": 8355,
+        "55": 8355,
+        "72": 8355,
+        "113": 8355,
+        "244": 8355
+      },
+      "new_counters": {
+        "10": 8355,
+        "31": 8355,
+        "33": 8355,
+        "34": 8355,
+        "35": 8355,
+        "38": 8355,
+        "55": 8355,
+        "72": 8355,
+        "113": 8355,
+        "244": 8355
+      },
+      "historical_checkpoint_sha256": "26d7a16f208ad128c117e68df37c28a2c7aad1be447007819f8c10de5f256fa7",
+      "new_checkpoint_sha256": "f83724a9f9e299c165359af956e6cdc8cf7c4645b429eddd6ff2fbf8941266a5"
+    },
+    {
+      "milestone": "checkpoint_040000.pkl",
+      "historical_callback_frames": 40820,
+      "new_callback_frames": 40820,
+      "integer_update_counters_match": true,
+      "historical_counters": {
+        "10": 9630,
+        "31": 9630,
+        "33": 9630,
+        "34": 9630,
+        "35": 9630,
+        "38": 9630,
+        "55": 9630,
+        "72": 9630,
+        "113": 9630,
+        "244": 9630
+      },
+      "new_counters": {
+        "10": 9630,
+        "31": 9630,
+        "33": 9630,
+        "34": 9630,
+        "35": 9630,
+        "38": 9630,
+        "55": 9630,
+        "72": 9630,
+        "113": 9630,
+        "244": 9630
+      },
+      "historical_checkpoint_sha256": "489523b0c97419c48ba2f47fcaffd9a86ad9ce2364c8c5227eb0633133c722bf",
+      "new_checkpoint_sha256": "235101ff4ff450ca4e2044847d380658ed8dcbfce46c22e125bf99fd8374206c"
+    },
+    {
+      "milestone": "checkpoint_045000.pkl",
+      "historical_callback_frames": 45920,
+      "new_callback_frames": 45920,
+      "integer_update_counters_match": true,
+      "historical_counters": {
+        "10": 10905,
+        "31": 10905,
+        "33": 10905,
+        "34": 10905,
+        "35": 10905,
+        "38": 10905,
+        "55": 10905,
+        "72": 10905,
+        "113": 10905,
+        "244": 10905
+      },
+      "new_counters": {
+        "10": 10905,
+        "31": 10905,
+        "33": 10905,
+        "34": 10905,
+        "35": 10905,
+        "38": 10905,
+        "55": 10905,
+        "72": 10905,
+        "113": 10905,
+        "244": 10905
+      },
+      "historical_checkpoint_sha256": "4ae29edc1bd20abf6b8cbf63a571822d3ead49e23808f2e91edeb0d2d7a3a8c6",
+      "new_checkpoint_sha256": "62ca3bddf7fb6e99f8916cf2fb4dd41fc882886184fd4cf1c9ba1602b3cf4a74"
+    },
+    {
+      "milestone": "checkpoint_050000.pkl",
+      "historical_callback_frames": 51000,
+      "new_callback_frames": 51000,
+      "integer_update_counters_match": true,
+      "historical_counters": {
+        "10": 12175,
+        "31": 12175,
+        "33": 12175,
+        "34": 12175,
+        "35": 12175,
+        "38": 12175,
+        "55": 12175,
+        "72": 12175,
+        "113": 12175,
+        "244": 12175
+      },
+      "new_counters": {
+        "10": 12175,
+        "31": 12175,
+        "33": 12175,
+        "34": 12175,
+        "35": 12175,
+        "38": 12175,
+        "55": 12175,
+        "72": 12175,
+        "113": 12175,
+        "244": 12175
+      },
+      "historical_checkpoint_sha256": "3d4fbbbd0c53fd25c6d6b13b4a8ec0ecbd98cbb41358fee6028818ec6f6f9d83",
+      "new_checkpoint_sha256": "93a26c7ee4164959fdddc11ca79a050b311fd517cad62de39213e3822407c765"
+    }
+  ]
+}
