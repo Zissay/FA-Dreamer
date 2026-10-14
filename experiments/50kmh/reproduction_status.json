@@ -22,7 +22,7 @@
     "physical_and_source_audit_passed": true
   },
   "acceptance": "Fresh50k from random initialization and empty replay; original learning parameters and training seed3501; similar two-stage training trend and final mean near18.84. Exact pointwise or two-decimal equality is not required.",
-  "next_attempt": "Fixed-input intermediate matrix precision diagnostic after full scheduling controls failed; further fresh trials require prospective registration.",
+  "next_attempt": "Registered approximate initial creator lead control, chosen from early diagnostic fingerprints only, running fresh complete50k. No temporary weights or historical observations.",
   "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
   "superseded_partial_attempt": {
     "run": "dreamer_seed3501_historical_loaders2_20261013",
@@ -319,12 +319,20 @@
     "report": "docs/integrated_fresh_audit_20261014.json"
   },
   "ongoing_attempt": {
-    "status": "RUNNING_DIAGNOSTIC",
-    "protocol": "docs/tf32_micro_protocol_20261014.json",
-    "numeric_runtime": "tensorfloat32",
-    "optimizer_updates_per_control": 5,
-    "new_environment_actions": 0,
-    "temporary_weights_used_for_full_training": false
+    "status": "RUNNING",
+    "protocol": "docs/loader_lead_protocol_20261014.json",
+    "run": "dreamer_seed3501_loader_lead32_20261014",
+    "seed": 3501,
+    "real_action_budget": 50000,
+    "external_training_inputs": [],
+    "learning_parameters_unchanged": true,
+    "creator_schedule": {
+      "first": 0,
+      "lead": 32,
+      "block": 16
+    },
+    "historical_creator_execution_order_known": false,
+    "driver_changed": false
   },
   "continuous_trace_pair_20261014": {
     "status": "COMPLETE",
@@ -368,5 +376,19 @@
     "all_registered_trials_reported": true,
     "all_action_source_trace_audits": "PASS",
     "report": "docs/loader_cycle_pair_audit_20261014.json"
+  },
+  "tf32_micro_20261014": {
+    "status": "COMPLETE",
+    "known_control_next_action_max_errors": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "historical_first5_order_identified": false,
+    "new_environment_actions": 0,
+    "temporary_weights_used_for_full_training": false,
+    "result": "Explicit intermediate precision matched default exactly on four fixed inputs; full training not justified",
+    "report": "docs/tf32_micro_result_20261014.json"
   }
 }
