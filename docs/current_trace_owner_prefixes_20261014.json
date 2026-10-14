@@ -1,0 +1,709 @@
+{
+  "diagnostic_only": true,
+  "model_weights_read": false,
+  "optimizer_updates_performed": 0,
+  "new_environment_actions": 0,
+  "initial_sequence_count": 1040,
+  "uniform_seed": 0,
+  "limitation": "One feasible current owner order per trace, not unique historical scheduling recovery",
+  "trials": [
+    {
+      "run": "dreamer_seed3501_continuous_trace1_20261014",
+      "feasible_creator_owner_prefix": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "bursts": [
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 2
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 2
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 3
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 3
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 8
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 5
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 6
+        },
+        {
+          "owner": 0,
+          "length": 15
+        },
+        {
+          "owner": 1,
+          "length": 2
+        }
+      ],
+      "historical_state_identified": false,
+      "uniqueness_proved": false
+    },
+    {
+      "run": "dreamer_seed3501_continuous_trace2_20261014",
+      "feasible_creator_owner_prefix": [
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "bursts": [
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 2
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 2
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 3
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 2
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 3
+        },
+        {
+          "owner": 0,
+          "length": 6
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 2
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 2
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 2
+        },
+        {
+          "owner": 0,
+          "length": 6
+        },
+        {
+          "owner": 1,
+          "length": 1
+        },
+        {
+          "owner": 0,
+          "length": 3
+        },
+        {
+          "owner": 1,
+          "length": 4
+        },
+        {
+          "owner": 0,
+          "length": 1
+        },
+        {
+          "owner": 1,
+          "length": 1
+        }
+      ],
+      "historical_state_identified": false,
+      "uniqueness_proved": false
+    },
+    {
+      "run": "dreamer_seed3501_loader_lead32_20261014",
+      "feasible_creator_owner_prefix": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "bursts": [
+        {
+          "owner": 0,
+          "length": 32
+        },
+        {
+          "owner": 1,
+          "length": 16
+        },
+        {
+          "owner": 0,
+          "length": 16
+        },
+        {
+          "owner": 1,
+          "length": 16
+        },
+        {
+          "owner": 0,
+          "length": 16
+        },
+        {
+          "owner": 1,
+          "length": 8
+        }
+      ],
+      "historical_state_identified": false,
+      "uniqueness_proved": false
+    }
+  ]
+}
