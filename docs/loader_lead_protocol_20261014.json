@@ -1,0 +1,19 @@
+{
+  "registered_before_launch": true,
+  "additional_complete_trials": 1,
+  "run_directories": ["runs/50kmh/dreamer_seed3501_loader_lead32_20261014"],
+  "training_seed": 3501,
+  "action_budget": 50000,
+  "initialization": "Fresh original random model and empty replay; no historical model weights, observations or temporary diagnostic weights",
+  "learning_parameters": "All original learning/channel parameters unchanged, including two creators,16 lanes, prefetch4, Uniform seed0 and modelseed3501",
+  "runtime_control": "Creator0 performs32 initial sampling calls; thereafter creators alternate16 sampling calls. Original lane assignment preserved; condition never held during full queue waits.",
+  "rationale": "Among98 finite early-order diagnostic candidates, owner0 lead32 burst16 had closest historical first-updated-actor fingerprint (RMSE0.082158), but max error0.428762 means original order was NOT identified. Test this explicit approximate startup schedule in a complete fresh run. No final-rate fitting or old weights.",
+  "historical_schedule_identified": false,
+  "numeric_runtime": "Default. Intermediate TF32 microtest exactly matched default for all four fixed control inputs; no additional TF32 full training justified.",
+  "driver_modified": false,
+  "completion_rule": "Complete all50000 actions regardless of early progress. Publish all raw actions, source snapshots and actual consumed indices, including failure.",
+  "acceptance": "Unchanged original parameter/seed and performance gate: final5k within0.2bps/Hz of18.837550 and similar two-stage rise. Candidate requires independent source/action/init/trace audits, visual review and fresh computational trace replay.",
+  "limitation": "Fingerprint-informed explicit scheduling control; not recovered historical execution or proof of original typical performance. All earlier failures remain reported.",
+  "entry_point": "scripts/trace_loader_lead_50.py",
+  "status": "REGISTERED"
+}
