@@ -13,8 +13,8 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from reproduction_tools.records import read_json, sha256
-from scripts.archive_fresh_50_trials import archive, plot
+from reproduction_tools.records import read_json, sha256, curve
+from scripts.archive_fresh_50_trials import archive
 
 
 def read_rows(path):
@@ -29,6 +29,30 @@ def variable_digest(values):
         digest.update(str(array.shape).encode()); digest.update(str(array.dtype).encode())
         digest.update(array.tobytes())
     return digest.hexdigest()
+
+
+def plot_integrated(record, output):
+    from reproduction_tools.plotting import canvas, font, COLORS
+    import matplotlib.pyplot as plt
+    from matplotlib.ticker import FuncFormatter
+    output = Path(output)
+    if output.suffix.lower() != '.png':
+        raise ValueError('Use a separate diagnostic PNG')
+    old = curve(ROOT / 'experiments/50kmh/historical_target/dreamer/terminal_interactions.csv')
+    current = curve(ROOT / record['published_records'] / 'terminal_interactions.csv')
+    fig, ax = canvas('Environment Interaction Steps')
+    ax.plot(old['steps'], old['displayed'], color=COLORS[0], lw=2, label='Original uninterrupted')
+    ax.plot(current['steps'], current['displayed'], color=COLORS[1], lw=2, label='Fresh30k + own-state20k')
+    ax.axvline(30000, color='0.5', ls=':', lw=1.4)
+    ax.text(.03, .96, 'Integrated trial: own-state recovery at30k', transform=ax.transAxes,
+            fontproperties=font(14), va='top')
+    ax.set_xlim(0, 50000); ax.set_ylim(4, 20)
+    ax.xaxis.set_major_formatter(FuncFormatter(lambda value, _: '0' if value == 0 else f'{value / 1000:.0f}k'))
+    ax.legend(loc='lower right', prop=font(15), framealpha=1)
+    for label in ax.get_xticklabels() + ax.get_yticklabels():
+        label.set_fontproperties(font(13))
+    output.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output, dpi=220); plt.close(fig)
 
 
 def check_lineage(run):
@@ -122,10 +146,21 @@ def check_lineage(run):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--run-dir', type=Path, required=True)
-    parser.add_argument('--output', type=Path, required=True)
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument('--run-dir', type=Path)
+    source.add_argument('--recorded-report', type=Path)
+    parser.add_argument('--output', type=Path)
     parser.add_argument('--plot-output', type=Path)
     args = parser.parse_args()
+    if args.recorded_report:
+        if not args.plot_output:
+            parser.error('--recorded-report requires --plot-output')
+        report = read_json(args.recorded_report)
+        assert report['all_registered_trials_reported'] and report['fresh_from_scratch_lineage']
+        plot_integrated(report['trials'][0], args.plot_output)
+        return
+    if not args.output:
+        parser.error('--run-dir requires --output')
     protocol_path = ROOT / 'docs/integrated_fresh_protocol_20261014.json'
     protocol = read_json(protocol_path)
     run = args.run_dir.resolve()
@@ -169,7 +204,7 @@ def main():
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2) + '\n')
     if args.plot_output:
-        plot([record], args.plot_output)
+        plot_integrated(record, args.plot_output)
     manifest = ROOT / 'experiments/MANIFEST.sha256.json'
     manifest.write_text(json.dumps({path.relative_to(ROOT).as_posix(): sha256(path)
         for path in sorted((ROOT / 'experiments').rglob('*'))

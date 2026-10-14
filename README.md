@@ -1,6 +1,6 @@
 # FA-Dreamer: 50 km/h and 500 km/h experiments
 
-> **最新从零验证：** 保持当前驱动、原参数和seed3501，空模型/空回放完整训练50k；最后5k均值为 **13.555061 bps/Hz**，未达到原18.837550及二次抬升。完整动作/源码/物理核验通过，并保存12175次更新的实际采样索引。原30k续训仅作诊断，不计作从零复现成功。见[完整报告](docs/traced_fresh_audit_20261014.json)。前两轮真实失败结果13.623687 / 14.351138均保留。
+> **最近一次连续从零验证：** 保持当前驱动、原参数和seed3501，空模型/空回放完整训练50k；最后5k均值为 **13.555061 bps/Hz**，未达到原18.837550及二次抬升。完整动作/源码/物理核验通过，并保存12175次更新的实际采样索引。原30k续训仅作诊断，不计作从零复现成功。见[完整报告](docs/traced_fresh_audit_20261014.json)。前两轮真实失败结果13.623687 / 14.351138均保留。
 
 > **复现状态：未成功。** 原 50 km/h 目标为 Dreamer 18.837550、PPO 15.441477 bps/Hz。当前 `recorded/` 中的 15.242103 / 13.739768 是未达到原结果的真实尝试，不能替换论文结果。原 PPO seed 为3004；后续两种方法统一3501，旧数据不会改标 seed。见 `experiments/50kmh/reproduction_status.json`。
 
@@ -10,7 +10,7 @@ Preserved configurations, training sources and online terminal records for the t
 
 **[统一30k＋20k恢复训练入口](docs/STAGED_RECOVERY_50KMH_CN.md)**：`scripts/recover_staged_50.py resume`统一输入校验、20k恢复训练、物理核验及两阶段汇总；`plan`检查输入，`assemble`汇总已完成阶段。该流程依赖原30k检查点，保留恢复标识。
 
-**[从零整合30k＋本轮恢复20k](docs/INTEGRATED_FRESH_50KMH_CN.md)**：`scripts/train_integrated_50.py`先从空模型训练30k，再以本轮的模型/优化器/回放接续20k。原参数及seed3501固定；30k的采样器/carry重建边界明确记录。完整验证已登记，尚未得到结果。
+**[从零整合30k＋本轮恢复20k](docs/INTEGRATED_FRESH_50KMH_CN.md)**：`scripts/train_integrated_50.py`先从空模型训练30k，再以本轮模型/优化器/回放接续20k。原参数及seed3501固定。完整50k已完成，末段均值**13.071403bps/Hz**，未复现原二次抬升/18.84；来源及物理核验通过。30k的采样器/carry重建边界明确记录，见[报告](docs/integrated_fresh_audit_20261014.json)。
 
 ## Rebuild the paper figures
 

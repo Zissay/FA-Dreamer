@@ -1,0 +1,11 @@
+{
+  "real_actions": 50000,
+  "status": "complete",
+  "initialization": "Fresh random model, empty replay",
+  "stage_action_counts": [
+    30000,
+    20000
+  ],
+  "external_training_inputs": [],
+  "own_checkpoint_restore": true
+}

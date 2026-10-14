@@ -1,0 +1,44 @@
+[
+  {
+    "file": "checkpoint.pkl",
+    "sha256": "ee17756567ca251afe7f41741fb26143e8380479d361e63f9edbd0c0c31e812c",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "file": "checkpoint_030000.pkl",
+    "sha256": "c11a5d3205a8b40aa024233de56edda94231886d98a9b2c1260c117e8c1fbb12",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "file": "milestone_checkpoints\\checkpoint_005000.pkl",
+    "sha256": "509bc734f9bd5a725278f055f65adc394da300af3f119bfe1e2e1f4e27cdbe77",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "file": "milestone_checkpoints\\checkpoint_010000.pkl",
+    "sha256": "20c33001446409010e7d6f15090553f9784f3707c08bbc9565f64a34a4e25c16",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "file": "milestone_checkpoints\\checkpoint_015000.pkl",
+    "sha256": "f896cd784cc109b08f4d96159f9c6da429f0575c1d8090177ce236ebe9d6e28d",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "file": "milestone_checkpoints\\checkpoint_020000.pkl",
+    "sha256": "d603232a224e02b54a69608c4853ca46d81653b8b5dc3b021821785736219094",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "file": "milestone_checkpoints\\checkpoint_025000.pkl",
+    "sha256": "ee17756567ca251afe7f41741fb26143e8380479d361e63f9edbd0c0c31e812c",
+    "bytes": 51822097,
+    "weights_published": false
+  }
+]
