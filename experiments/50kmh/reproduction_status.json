@@ -265,5 +265,18 @@
     "published_evidence": "experiments/50kmh/reproduction_attempts/dreamer_seed3501_traced_fresh_v3_20261014",
     "recorded_updates": 12175,
     "report": "docs/traced_fresh_audit_20261014.json"
+  },
+  "ongoing_attempt": {
+    "run": "dreamer_seed3501_integrated_fresh_20261014",
+    "status": "REGISTERED",
+    "seed": 3501,
+    "stage_action_counts": [
+      30000,
+      20000
+    ],
+    "external_training_inputs": [],
+    "source": "scripts/train_integrated_50.py",
+    "protocol": "docs/integrated_fresh_protocol_20261014.json",
+    "protocol_change": "Own-state replay/carry reconstruction at30k; original was uninterrupted"
   }
 }
