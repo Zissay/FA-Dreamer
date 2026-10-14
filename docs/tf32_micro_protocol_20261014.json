@@ -1,0 +1,22 @@
+{
+  "registered_before_execution": true,
+  "diagnostic_only": true,
+  "execute_after": "Both loader-cycle full50k controls have completed and passed integrity audit; do not compete with training for GPU memory",
+  "numeric_setting": "JAX_DEFAULT_MATMUL_PRECISION=tensorfloat32",
+  "model_seed": 3501,
+  "optimizer_inputs": "Own actually captured uniform-prefill prefix, independently shown exactly equal to original saved prefill; no historical data/weights provided to optimization",
+  "control_traces": [
+    "dreamer_seed3501_continuous_trace1_20261014",
+    "dreamer_seed3501_continuous_trace2_20261014",
+    "dreamer_seed3501_loader_cycle0_20261014",
+    "dreamer_seed3501_loader_cycle1_20261014"
+  ],
+  "updates_per_control": 5,
+  "new_environment_actions": 0,
+  "comparison": "Compare temporary next actions with recorded default-numeric controls and original earliest updated actor fingerprint. Historical actions are comparison targets only.",
+  "temporary_weights_used_for_full_training": false,
+  "rationale": "Default and explicitFP32 arithmetic previously produce different next actions on fixed samples. Check the remaining intermediate precision mode independently of replay order.",
+  "limitations": "Historical dot precision not recorded. Improved early fingerprint is neither identification of original numerical state nor full50k reproduction. A full control, if justified, must be separately preregistered and start fresh.",
+  "script": "scripts/infer_initial_batch_order_50.py --controls-only --allow-numeric-differences",
+  "status": "REGISTERED"
+}
