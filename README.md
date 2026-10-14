@@ -10,6 +10,8 @@ Preserved configurations, training sources and online terminal records for the t
 
 **[统一30k＋20k恢复训练入口](docs/STAGED_RECOVERY_50KMH_CN.md)**：`scripts/recover_staged_50.py resume`统一输入校验、20k恢复训练、物理核验及两阶段汇总；`plan`检查输入，`assemble`汇总已完成阶段。该流程依赖原30k检查点，保留恢复标识。
 
+**[从零整合30k＋本轮恢复20k](docs/INTEGRATED_FRESH_50KMH_CN.md)**：`scripts/train_integrated_50.py`先从空模型训练30k，再以本轮的模型/优化器/回放接续20k。原参数及seed3501固定；30k的采样器/carry重建边界明确记录。完整验证已登记，尚未得到结果。
+
 ## Rebuild the paper figures
 
 Run from the repository root. Rebuilding recorded attempts requires no training or GPU; these50km/h attempt figures are not accepted paper replacements.
