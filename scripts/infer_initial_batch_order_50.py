@@ -115,12 +115,13 @@ def main():
     parser.add_argument('--initial-sequence-count', type=int, choices=[1040, 1041], default=1040)
     parser.add_argument('--neighbor-interleavings', type=int, default=0)
     parser.add_argument('--neighbor-owner-prefixes', type=Path)
+    parser.add_argument('--refine-owner-prefix', type=Path)
     args = parser.parse_args()
     assert 0 <= args.random_interleavings <= 512
     assert not args.random_only or args.random_interleavings
     assert 0 <= args.neighbor_interleavings <= 512
     assert not (args.neighbor_interleavings and args.random_interleavings)
-    assert not args.neighbor_interleavings or args.neighbor_owner_prefixes
+    assert not args.neighbor_interleavings or args.neighbor_owner_prefixes or args.refine_owner_prefix
     sys.modules['tensorflow'] = None
     from reproduction_tools.training import preserved_vendor
     sys.path.insert(0, str(preserved_vendor()))
@@ -184,17 +185,25 @@ def main():
 
     if args.neighbor_interleavings:
         assert not args.controls_only
-        recorded = json.loads(args.neighbor_owner_prefixes.read_text())
-        bases = [x for x in recorded['trials'] if 'continuous_trace' in x['run']]
-        assert len(bases) == 2
-        candidates.append(('prior_best_owner0_lead32_burst16', candidate_batches(0,32,16,args.initial_sequence_count), None))
+        if args.refine_owner_prefix:
+            selected = json.loads(args.refine_owner_prefix.read_text())
+            bases = [{'run': selected['candidate'], 'feasible_creator_owner_prefix': selected['creator_owner_prefix']}]
+            baseline = batches_from_owners(selected['creator_owner_prefix'],args.initial_sequence_count)
+            assert baseline is not None and baseline[0] == selected['sequence_start_frames']
+            candidates.append(('selected_refinement_base',baseline[0],None))
+            candidate_owners['selected_refinement_base']=baseline[1]
+        else:
+            recorded = json.loads(args.neighbor_owner_prefixes.read_text())
+            bases = [x for x in recorded['trials'] if 'continuous_trace' in x['run']]
+            assert len(bases) == 2
+            candidates.append(('prior_best_owner0_lead32_burst16', candidate_batches(0,32,16,args.initial_sequence_count), None))
         generator = np.random.default_rng(args.diagnostic_schedule_seed)
         generated = 0; attempts = 0
         seen.update(tuple(sum(x[1], [])) for x in candidates)
         while generated < args.neighbor_interleavings:
             attempts += 1
             assert attempts < 100000, 'Finite local candidate generation exhausted'
-            base = bases[int(generator.integers(0,2))]
+            base = bases[int(generator.integers(len(bases)))]
             owners = list(base['feasible_creator_owner_prefix'])
             for _ in range(int(generator.integers(1,17))):
                 positions = [i for i in range(len(owners)-1) if owners[i] != owners[i+1]]
