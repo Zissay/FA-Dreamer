@@ -22,7 +22,7 @@
     "physical_and_source_audit_passed": true
   },
   "acceptance": "Fresh50k from random initialization and empty replay; original learning parameters and training seed3501; similar two-stage training trend and final mean near18.84. Exact pointwise or two-decimal equality is not required.",
-  "next_attempt": "Keep current driver. Actual sample-order sensitivity is verified for first5 updates; full50k causal attribution remains unresolved, and historical consumed minibatch indices are unavailable. No paper replacement accepted.",
+  "next_attempt": "Actual fresh30k and own-state20k integration completed; complete50k yields13.0714 and no second rise. Further original early-learning/state provenance investigation required. Historical30k restoration cannot establish fresh reproduction.",
   "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
   "superseded_partial_attempt": {
     "run": "dreamer_seed3501_historical_loaders2_20261013",
@@ -66,49 +66,44 @@
     "limitation": "Used XLA deterministic flag added on2026-09-12 after the original2026-09-11 run."
   },
   "active_attempt": {
-    "run": "dreamer_seed3501_traced_fresh_v3_20261014",
-    "seed": 3501,
-    "real_action_budget": 50000,
-    "fresh_initialization": true,
-    "data_loaders": 2,
-    "mode": "observe_original_async_batches",
+    "run": "dreamer_seed3501_integrated_fresh_20261014",
     "status": "COMPLETE",
-    "source": "scripts/trace_fresh_50.py",
-    "setup_failures": [
-      {
-        "run": "dreamer_seed3501_traced_fresh_20261014",
-        "real_prefill_actions": 2260,
-        "completed_optimizer_updates": 0,
-        "reason": "Observer patched a duplicate dreamerv3.embodied Generic module instead of live embodied class; original learner was not changed"
-      },
-      {
-        "run": "dreamer_seed3501_traced_fresh_v2_20261014",
-        "real_actions": 0,
-        "completed_optimizer_updates": 0,
-        "reason": "Namespace guard failed before original trainer entry; corrected native.embodied alias in v3"
-      }
+    "seed": 3501,
+    "stage_action_counts": [
+      30000,
+      20000
     ],
+    "external_training_inputs": [],
+    "source": "scripts/train_integrated_50.py",
+    "protocol": "docs/integrated_fresh_protocol_20261014.json",
+    "protocol_change": "Own-state replay/carry reconstruction at30k; original was uninterrupted",
+    "first_stage_actions": 30000,
+    "three_optimizer_steps_at_boundary": 7080,
+    "own_checkpoint_sha256": "c11a5d3205a8b40aa024233de56edda94231886d98a9b2c1260c117e8c1fbb12",
+    "own_prefix_sha256": "eb88708bcb99851f1aa471a166f9cc455e2fbedcf294002149dbb03f7d8c83a5",
     "real_actions": 50000,
-    "mean": 13.555061009418175,
+    "mean": 13.071402857990817,
+    "performance_status": "NOT_REPRODUCED",
     "authenticity": "PASS",
+    "own_state_lineage": "PASS",
     "historical_comparison": {
       "status": "NOT_REPRODUCED",
       "metric": "Mean terminal AFDM rate over the final 5k of the first 50k real interactions",
       "historical_mean": 18.837550331174892,
-      "new_mean": 13.555061009418175,
-      "difference": -5.282489321756717,
-      "relative_final_mean_difference_percent": -28.042336869112695,
+      "new_mean": 13.071402857990817,
+      "difference": -5.766147473184075,
+      "relative_final_mean_difference_percent": -30.609858351069597,
       "within_0_1_bps_per_hz": false,
       "same_final_reported_mean": false,
-      "curve_mean_absolute_difference": 1.402516059585504,
-      "curve_max_absolute_difference": 5.285028803239445,
+      "curve_mean_absolute_difference": 1.392999939233124,
+      "curve_max_absolute_difference": 5.766147473184073,
       "criterion": "Original learning parameters/seed and XLA profile; final mean within0.2bps/Hz of18.83755; initial rise and later gain at least half the historical second rise. No checkpoint initialization.",
       "final_performance_tolerance_bps_per_hz": 0.2,
       "final_performance_close": false,
       "historical_mid_training_plateau": 12.850600087616078,
-      "new_mid_training_plateau": 13.48386667530567,
+      "new_mid_training_plateau": 12.784379395046594,
       "historical_late_gain": 5.986950243558814,
-      "new_late_gain": 0.07119433411250498,
+      "new_late_gain": 0.287023462944223,
       "two_stage_rise": false,
       "original_xla_profile_matches": true,
       "complete_50k": true,
@@ -117,13 +112,14 @@
       "same_data_loaders": true,
       "same_historical_learning_parameters_and_channel": true,
       "recovered_train_and_agent_source_match": true,
-      "training_log_sha256": "0b525ebde74b085704a1c3371499a83541ca32ffc71f7aaf595bece70046cb09",
+      "training_log_sha256": "a011b420cc4b234705e39ceb6e67275a637592dc343383774f1c67eb96dd7387",
       "trajectory_reproduced": false,
-      "ppo_common_seed_comparison_reproduced": false
+      "ppo_common_seed_comparison_reproduced": false,
+      "parameter_seed_performance_gate_status": "NOT_REPRODUCED",
+      "original_uninterrupted_protocol_reproduced": false
     },
-    "published_evidence": "experiments/50kmh/reproduction_attempts/dreamer_seed3501_traced_fresh_v3_20261014",
-    "recorded_updates": 12175,
-    "report": "docs/traced_fresh_audit_20261014.json"
+    "published_evidence": "experiments/50kmh/reproduction_attempts/dreamer_seed3501_integrated_fresh_20261014",
+    "report": "docs/integrated_fresh_audit_20261014.json"
   },
   "checkpoint_restoration": {
     "status": "SECOND_RISE_AND_NEAR_FINAL_PERFORMANCE_VERIFIED_CONDITIONALLY",
@@ -266,9 +262,9 @@
     "recorded_updates": 12175,
     "report": "docs/traced_fresh_audit_20261014.json"
   },
-  "ongoing_attempt": {
+  "integrated_fresh_attempt": {
     "run": "dreamer_seed3501_integrated_fresh_20261014",
-    "status": "REGISTERED",
+    "status": "COMPLETE",
     "seed": 3501,
     "stage_action_counts": [
       30000,
@@ -277,6 +273,49 @@
     "external_training_inputs": [],
     "source": "scripts/train_integrated_50.py",
     "protocol": "docs/integrated_fresh_protocol_20261014.json",
-    "protocol_change": "Own-state replay/carry reconstruction at30k; original was uninterrupted"
+    "protocol_change": "Own-state replay/carry reconstruction at30k; original was uninterrupted",
+    "first_stage_actions": 30000,
+    "three_optimizer_steps_at_boundary": 7080,
+    "own_checkpoint_sha256": "c11a5d3205a8b40aa024233de56edda94231886d98a9b2c1260c117e8c1fbb12",
+    "own_prefix_sha256": "eb88708bcb99851f1aa471a166f9cc455e2fbedcf294002149dbb03f7d8c83a5",
+    "real_actions": 50000,
+    "mean": 13.071402857990817,
+    "performance_status": "NOT_REPRODUCED",
+    "authenticity": "PASS",
+    "own_state_lineage": "PASS",
+    "historical_comparison": {
+      "status": "NOT_REPRODUCED",
+      "metric": "Mean terminal AFDM rate over the final 5k of the first 50k real interactions",
+      "historical_mean": 18.837550331174892,
+      "new_mean": 13.071402857990817,
+      "difference": -5.766147473184075,
+      "relative_final_mean_difference_percent": -30.609858351069597,
+      "within_0_1_bps_per_hz": false,
+      "same_final_reported_mean": false,
+      "curve_mean_absolute_difference": 1.392999939233124,
+      "curve_max_absolute_difference": 5.766147473184073,
+      "criterion": "Original learning parameters/seed and XLA profile; final mean within0.2bps/Hz of18.83755; initial rise and later gain at least half the historical second rise. No checkpoint initialization.",
+      "final_performance_tolerance_bps_per_hz": 0.2,
+      "final_performance_close": false,
+      "historical_mid_training_plateau": 12.850600087616078,
+      "new_mid_training_plateau": 12.784379395046594,
+      "historical_late_gain": 5.986950243558814,
+      "new_late_gain": 0.287023462944223,
+      "two_stage_rise": false,
+      "original_xla_profile_matches": true,
+      "complete_50k": true,
+      "fresh_initialization": true,
+      "same_dreamer_seed": true,
+      "same_data_loaders": true,
+      "same_historical_learning_parameters_and_channel": true,
+      "recovered_train_and_agent_source_match": true,
+      "training_log_sha256": "a011b420cc4b234705e39ceb6e67275a637592dc343383774f1c67eb96dd7387",
+      "trajectory_reproduced": false,
+      "ppo_common_seed_comparison_reproduced": false,
+      "parameter_seed_performance_gate_status": "NOT_REPRODUCED",
+      "original_uninterrupted_protocol_reproduced": false
+    },
+    "published_evidence": "experiments/50kmh/reproduction_attempts/dreamer_seed3501_integrated_fresh_20261014",
+    "report": "docs/integrated_fresh_audit_20261014.json"
   }
 }

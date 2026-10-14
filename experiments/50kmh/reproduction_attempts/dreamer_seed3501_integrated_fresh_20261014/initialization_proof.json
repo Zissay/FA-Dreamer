@@ -1,0 +1,7 @@
+{
+  "seed": 3501,
+  "fresh_random_initialization": true,
+  "external_checkpoint_restore": false,
+  "callback_frames": 0,
+  "initial_variable_digest": "7fc0f229c73437a066679e5476575dd7ce30281c1c4917bb70f3fcc421e77ab6"
+}
