@@ -1,0 +1,17 @@
+{
+  "mode": "observe_original_async_batches",
+  "training_seed": 3501,
+  "data_loaders": 2,
+  "callback_frames": 51000,
+  "recorded_optimizer_updates": 12175,
+  "attempted_updates": 12175,
+  "recorded_batch_choices": 12175,
+  "success": true,
+  "checkpoint_restore": false,
+  "historical_observations_loaded": false,
+  "trace_raw_sha256": "d050515948dd4f9a43426fd78eaecd104d161b9ac20b96eaeb2b990eba2dfb0d",
+  "trace_gzip_sha256": "7233daa455c52fc5c992bd48df2d8e6ced2c6cfafc3343bc1a7d281b8d598db7",
+  "source_sha256": "83fa117d7cc68728c504345e02e5ca9f66507a6534c5a6ff291d67b126023500",
+  "timing_limitation": "Observer writes can affect asynchronous timing; record mode does not alter selected samples or random draws",
+  "playback_limitation": "Playback repeats recorded stochastic indices using own fresh observations; separate from original async recipe"
+}
