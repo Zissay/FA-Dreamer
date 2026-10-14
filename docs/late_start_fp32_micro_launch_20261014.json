@@ -1,0 +1,8 @@
+{
+  "captured_before_execution_utc": "2026-10-14T06:26:11.391944+00:00",
+  "source_sha256": "60fbf4b2543a58a211ac7120725b7273d45a4aa157e62991ec9287651dc0fafd",
+  "shell_sha256": "36b476c43dedc174c22436e5e6fda29169c4bf1a19c0bc55efd5636169283657",
+  "protocol_sha256": "642b7635a1c37b769b16bfa237ee9dace26a13c85b33aed38e6d223cdc88ee63",
+  "status": "PREPARED_NOT_EXECUTED",
+  "candidate_count": 515
+}
