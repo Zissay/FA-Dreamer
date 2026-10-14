@@ -85,6 +85,22 @@ def random_candidate_batches(generator, available=1040):
     raise RuntimeError('Incomplete bounded diagnostic interleaving')
 
 
+def batches_from_owners(owners, available=1040):
+    import numpy as np
+    draws = np.random.default_rng(0).integers(0, available, size=len(owners)) + 1
+    counts = [0, 0]; starts = np.zeros((5, 16), int)
+    for index, (owner, start) in enumerate(zip(owners, draws)):
+        number = counts[owner]
+        if number < 40:
+            starts[number // 8, 2*(number % 8)+owner] = start
+        counts[owner] += 1
+        if abs(counts[0]-counts[1]) > 33:
+            return None
+        if min(counts) >= 40:
+            return starts.tolist(), list(owners[:index+1])
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--own-prefix', type=Path, required=True)
@@ -97,9 +113,14 @@ def main():
     parser.add_argument('--random-only', action='store_true')
     parser.add_argument('--diagnostic-schedule-seed', type=int, default=20261014)
     parser.add_argument('--initial-sequence-count', type=int, choices=[1040, 1041], default=1040)
+    parser.add_argument('--neighbor-interleavings', type=int, default=0)
+    parser.add_argument('--neighbor-owner-prefixes', type=Path)
     args = parser.parse_args()
     assert 0 <= args.random_interleavings <= 512
     assert not args.random_only or args.random_interleavings
+    assert 0 <= args.neighbor_interleavings <= 512
+    assert not (args.neighbor_interleavings and args.random_interleavings)
+    assert not args.neighbor_interleavings or args.neighbor_owner_prefixes
     sys.modules['tensorflow'] = None
     from reproduction_tools.training import preserved_vendor
     sys.path.insert(0, str(preserved_vendor()))
@@ -132,7 +153,7 @@ def main():
         candidates.append((f'actual_trace:{run.name}', batches, action_block(actual, worker_order(actual), 2300)))
     seen = set()
     for owner in (0, 1):
-        if args.controls_only or args.random_only:
+        if args.controls_only or args.random_only or args.neighbor_interleavings:
             break
         for lead in (0, 1, 2, 4, 8, 16, 24, 32, 33):
             for burst in (1, 2, 4, 8, 16, 32):
@@ -144,6 +165,7 @@ def main():
                     candidates.append((f'owner{owner}_lead{lead}_burst{burst}', batches, None)); seen.add(signature)
 
     candidate_owners = {}
+    candidate_bases = {}
     if args.random_interleavings:
         assert not args.controls_only
         baseline = candidate_batches(0, 32, 16, args.initial_sequence_count)
@@ -159,6 +181,36 @@ def main():
             label = f'variable_interleaving_{generated:04d}'
             candidates.append((label, batches, None)); candidate_owners[label] = owners
             generated += 1
+
+    if args.neighbor_interleavings:
+        assert not args.controls_only
+        recorded = json.loads(args.neighbor_owner_prefixes.read_text())
+        bases = [x for x in recorded['trials'] if 'continuous_trace' in x['run']]
+        assert len(bases) == 2
+        candidates.append(('prior_best_owner0_lead32_burst16', candidate_batches(0,32,16,args.initial_sequence_count), None))
+        generator = np.random.default_rng(args.diagnostic_schedule_seed)
+        generated = 0; attempts = 0
+        seen.update(tuple(sum(x[1], [])) for x in candidates)
+        while generated < args.neighbor_interleavings:
+            attempts += 1
+            assert attempts < 100000, 'Finite local candidate generation exhausted'
+            base = bases[int(generator.integers(0,2))]
+            owners = list(base['feasible_creator_owner_prefix'])
+            for _ in range(int(generator.integers(1,17))):
+                positions = [i for i in range(len(owners)-1) if owners[i] != owners[i+1]]
+                index = positions[int(generator.integers(len(positions)))]
+                owners[index], owners[index+1] = owners[index+1], owners[index]
+            candidate = batches_from_owners(owners,args.initial_sequence_count)
+            if candidate is None:
+                continue
+            batches, owners = candidate
+            signature = tuple(sum(batches, []))
+            if signature in seen:
+                continue
+            seen.add(signature)
+            label = f'neighbor_interleaving_{generated:04d}'
+            candidates.append((label,batches,None)); candidate_owners[label]=owners
+            candidate_bases[label]=base['run']; generated += 1
 
     def evaluate(starts):
         model.load(initial); model.rng = jaxutils.RNG(3501); model.rng.next()
@@ -187,6 +239,8 @@ def main():
                   'historical_action_max_error': float(abs(action - target).max()), 'sequence_start_frames': starts}
         if label in candidate_owners:
             result['creator_owner_prefix'] = candidate_owners[label]
+        if label in candidate_bases:
+            result['current_trace_neighbor_base'] = candidate_bases[label]
         if known_actions is not None:
             result['known_trace_action_max_error'] = float(abs(action - known_actions).max())
             if not args.allow_numeric_differences:
@@ -199,8 +253,9 @@ def main():
         'numeric_runtime_comparison': args.allow_numeric_differences,
         'candidate_count': len(results), 'new_environment_actions': 0,
         'random_interleavings': args.random_interleavings,
+        'neighbor_interleavings': args.neighbor_interleavings,
         'candidate_initial_sequence_count': args.initial_sequence_count,
-        'diagnostic_schedule_seed': args.diagnostic_schedule_seed if args.random_interleavings else None,
+        'diagnostic_schedule_seed': args.diagnostic_schedule_seed if args.random_interleavings or args.neighbor_interleavings else None,
         'diagnostic_seed_is_not_model_or_uniform_sampler_seed': True,
         'optimizer_inputs': 'Own fresh uniform-prefill replay; no historical observations or checkpoint weights',
         'historical_actions_used_as_comparison_fingerprint': True,
