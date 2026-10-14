@@ -22,7 +22,7 @@
     "physical_and_source_audit_passed": true
   },
   "acceptance": "Fresh50k from random initialization and empty replay; original learning parameters and training seed3501; similar two-stage training trend and final mean near18.84. Exact pointwise or two-decimal equality is not required.",
-  "next_attempt": "Finite variable-order forensic investigation of earliest five updates; all512 candidates and controls retained. No further full trial selected yet.",
+  "next_attempt": "Registered first-callback startup timing diagnosis; no new complete trial selected without preset early fingerprint threshold.",
   "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
   "superseded_partial_attempt": {
     "run": "dreamer_seed3501_historical_loaders2_20261013",
@@ -320,11 +320,11 @@
   },
   "ongoing_attempt": {
     "status": "RUNNING_DIAGNOSTIC",
-    "protocol": "docs/variable_order_micro_protocol_20261014.json",
-    "random_interleavings": 512,
+    "protocol": "docs/late_start_micro_protocol_20261014.json",
+    "candidate_count": 515,
+    "initial_sequence_count": 1041,
     "model_seed": 3501,
     "sampler_seed": 0,
-    "diagnostic_schedule_seed": 20261014,
     "new_environment_actions": 0,
     "temporary_weights_used_for_full_training": false
   },
@@ -397,5 +397,22 @@
       "block": 16
     },
     "historical_execution_order_known": false
+  },
+  "variable_order_micro_20261014": {
+    "status": "COMPLETE",
+    "candidate_count": 515,
+    "random_interleavings": 512,
+    "best_rmse": 0.06138474494218826,
+    "historical_state_identified": false,
+    "report": "docs/variable_order_micro_result_20261014.json"
+  },
+  "variable_order_fp32_micro_20261014": {
+    "status": "COMPLETE",
+    "candidate_count": 515,
+    "best_rmse": 0.07650461047887802,
+    "historical_state_identified": false,
+    "full_trial_trigger_met": false,
+    "report": "docs/variable_order_fp32_micro_result_20261014.json",
+    "paired_audit": "docs/variable_order_paired_audit_20261014.json"
   }
 }
