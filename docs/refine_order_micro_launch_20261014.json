@@ -1,0 +1,12 @@
+{
+  "captured_before_execution_utc": "2026-10-14T07:43:49.888498+00:00",
+  "source_input_protocol_sha256": {
+    "scripts/infer_initial_batch_order_50.py": "ef1f6ab3b5c84a8f13bf9b75bb8baa1dc11a626a49f9a8bfe38acc9308d0fc93",
+    "scripts/refine_initial_order_50.py": "cab6b08ed79a1820d7b81700e3ec925b91aee057457079bc749f7a682e0bc5c3",
+    "docs/refine_order_micro_protocol_20261014.json": "7ee81048c279b19b6defa5edfed7b7175803c2bf26c34d439a010ed53a80ea05",
+    "docs/neighbor_order_micro_result_20261014.json": "d53336365200d5fab16661c27fb29f03c6b33c7e42da78e06d42ee94d115e34b"
+  },
+  "status": "PREPARED_NOT_EXECUTED",
+  "maximum_rounds": 4,
+  "scores_per_round": 515
+}
