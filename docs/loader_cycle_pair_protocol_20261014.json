@@ -1,0 +1,23 @@
+{
+  "registered_before_launch": true,
+  "launch_after_completed_failure": "docs/loader_start_audit_20261014.json",
+  "additional_complete_trials": 2,
+  "trials": [
+    {"run": "runs/50kmh/dreamer_seed3501_loader_cycle0_20261014", "first": 0, "block": 8},
+    {"run": "runs/50kmh/dreamer_seed3501_loader_cycle1_20261014", "first": 1, "block": 8}
+  ],
+  "training_seed": 3501,
+  "action_budget_each": 50000,
+  "initialization": "Independent original random model and empty replay for each trial; no historical data or weights",
+  "learning_parameters": "All original learning and physical parameters unchanged, including two workers and16 lane sources, queue depth4, Uniform sampler seed0",
+  "runtime_control": "Serialize sampling between two original creator threads in blocks of8 calls; test both initial owners. No lock held during full-queue waits.",
+  "rationale": "Actual original consumed order is missing. Startup order changes early batches; fixed batch lane order alters learned actions. Constrain and record an explicit eligible interleaving while retaining original Uniform draws/learning math.",
+  "default_numeric_runtime": true,
+  "driver_modified": false,
+  "historical_schedule_identified": false,
+  "synthetic_check": "128 batches each for all four owner0/1 and block1/8 combinations: preserved16-lane order and uninterrupted progress, CPU-only, no optimizer/model/environment actions",
+  "completion_rule": "Run and report both full50k trials regardless of which trial performs better; retain all earlier failures",
+  "acceptance": "Original parameters/seed, previously declared final mean within0.2bps/Hz of18.837550 and similar two-stage rise. Candidate requires visual review, independent authenticity audit and fresh computational trace replay.",
+  "limitation": "Explicit scheduling controls, not recovered historical execution order. No unconditional historical trajectory claim or undisclosed trial selection.",
+  "status": "REGISTERED_CONDITIONAL_ON_PRECEDING_COMPLETE_FAILURE"
+}
