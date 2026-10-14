@@ -1,0 +1,30 @@
+{
+  "algorithm": "dreamer",
+  "seed": 3501,
+  "channel_seed": 7,
+  "real_actions": 50000,
+  "terminal_records": 1000,
+  "parallel_envs": 20,
+  "last_5k_mean": 15.28960894925014,
+  "source_counts": {
+    "uniform_prefill": 2260,
+    "actor_policy": 47740
+  },
+  "max_transition_error_m": 1.0077360161619975e-09,
+  "max_reward_error": 0.0,
+  "independent_cpu_rate_checks": 1125,
+  "max_cpu_gpu_rate_error": 9.769962616701378e-14,
+  "raw_log_sha256": "3a09fdd00a1946f987ad240b400bcd3b2f43bf111f2bb364cc1bcea26ba214e0",
+  "launch_sha256": "8b57e4370371884209d2de8144c75f382f1030d9114ce254eec7b58a041b4574",
+  "verified_source_archive_sha256": "efc9969d9076461eee2538fd136ef2e51e083a6db2734b2ba035daec6d78ce44",
+  "fresh_initialization": true,
+  "source_and_config_match_pretraining_hashes": true,
+  "checkpoint_restore_used": false,
+  "status": "PASS",
+  "prefill_rng_seed": 1003504,
+  "seeded_prefill_verified": true,
+  "replay_sampler_seed": null,
+  "data_loaders": 2,
+  "nonzero_finite_actor_model_critic_gradients": true,
+  "current_repository_matches_launch": true
+}
