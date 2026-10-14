@@ -319,10 +319,17 @@
     "report": "docs/integrated_fresh_audit_20261014.json"
   },
   "ongoing_attempt": {
-    "status": "RUNNING",
+    "status": "COMPLETE_NOT_REPRODUCED",
     "protocol": "docs/refined_owner_prefix_full_protocol_20261014.json",
+    "report": "docs/refined_owner_prefix_full_audit_20261014.json",
+    "run": "dreamer_seed3501_refined_prefix_20261014",
     "seed": 3501,
     "real_actions": 50000,
+    "final_5k_mean": 13.11538077597449,
+    "historical_difference": -5.722169555200402,
+    "two_stage_rise": false,
+    "authenticity": "PASS",
+    "trace_updates": 12175,
     "historical_state_identified": false
   },
   "continuous_trace_pair_20261014": {
@@ -435,6 +442,10 @@
     "groups": 8,
     "candidates_per_group": 99,
     "full_trial_trigger_met": false,
-    "report": "docs/sampler_warmup_micro_audit_20261014.json"
-  }
+    "report": "docs/sampler_warmup_micro_audit_20261014.json",
+    "complete_audit": "docs/sampler_warmup_micro_audit_20261014.json"
+  },
+  "completed_fresh_full_trials_count": 15,
+  "latest_status": "NOT_REPRODUCED",
+  "latest_curve": "experiments/50kmh/diagnostics/refined_owner_prefix_curve_20261014.png"
 }
