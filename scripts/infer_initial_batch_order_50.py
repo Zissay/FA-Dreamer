@@ -41,9 +41,9 @@ def action_block(records, mapping, end):
     return np.asarray([block[index] for index in mapping], np.float32)
 
 
-def candidate_batches(initial_worker, lead, burst):
+def candidate_batches(initial_worker, lead, burst, available=1040):
     import numpy as np
-    draws = np.random.default_rng(0).integers(0, 1040, size=400) + 1
+    draws = np.random.default_rng(0).integers(0, available, size=400) + 1
     owners = [initial_worker] * lead
     owner = 1 - initial_worker
     while len(owners) < len(draws):
@@ -63,10 +63,10 @@ def candidate_batches(initial_worker, lead, burst):
     raise RuntimeError('Incomplete diagnostic interleaving')
 
 
-def random_candidate_batches(generator):
+def random_candidate_batches(generator, available=1040):
     """Finite variable-burst owner schedule, bounded by original queue capacity."""
     import numpy as np
-    draws = np.random.default_rng(0).integers(0, 1040, size=160) + 1
+    draws = np.random.default_rng(0).integers(0, available, size=160) + 1
     counts = [0, 0]; starts = np.zeros((5, 16), int); owners = []
     owner = int(generator.integers(0, 2)); remaining = int(generator.integers(1, 34))
     for start in draws:
@@ -96,6 +96,7 @@ def main():
     parser.add_argument('--random-interleavings', type=int, default=0)
     parser.add_argument('--random-only', action='store_true')
     parser.add_argument('--diagnostic-schedule-seed', type=int, default=20261014)
+    parser.add_argument('--initial-sequence-count', type=int, choices=[1040, 1041], default=1040)
     args = parser.parse_args()
     assert 0 <= args.random_interleavings <= 512
     assert not args.random_only or args.random_interleavings
@@ -135,7 +136,7 @@ def main():
             break
         for lead in (0, 1, 2, 4, 8, 16, 24, 32, 33):
             for burst in (1, 2, 4, 8, 16, 32):
-                batches = candidate_batches(owner, lead, burst)
+                batches = candidate_batches(owner, lead, burst, args.initial_sequence_count)
                 if batches is None:
                     continue
                 signature = tuple(sum(batches, []))
@@ -145,12 +146,12 @@ def main():
     candidate_owners = {}
     if args.random_interleavings:
         assert not args.controls_only
-        baseline = candidate_batches(0, 32, 16)
+        baseline = candidate_batches(0, 32, 16, args.initial_sequence_count)
         candidates.append(('prior_best_owner0_lead32_burst16', baseline, None))
         generator = np.random.default_rng(args.diagnostic_schedule_seed)
         generated = 0
         while generated < args.random_interleavings:
-            batches, owners = random_candidate_batches(generator)
+            batches, owners = random_candidate_batches(generator, args.initial_sequence_count)
             signature = tuple(sum(batches, []))
             if signature in seen:
                 continue
@@ -198,6 +199,7 @@ def main():
         'numeric_runtime_comparison': args.allow_numeric_differences,
         'candidate_count': len(results), 'new_environment_actions': 0,
         'random_interleavings': args.random_interleavings,
+        'candidate_initial_sequence_count': args.initial_sequence_count,
         'diagnostic_schedule_seed': args.diagnostic_schedule_seed if args.random_interleavings else None,
         'diagnostic_seed_is_not_model_or_uniform_sampler_seed': True,
         'optimizer_inputs': 'Own fresh uniform-prefill replay; no historical observations or checkpoint weights',

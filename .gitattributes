@@ -18,3 +18,4 @@ docs/tf32_micro_protocol_20261014.json -text -whitespace
 docs/loader_lead_protocol_20261014.json -text -whitespace
 docs/variable_order_micro_protocol_20261014.json -text -whitespace
 docs/variable_order_fp32_micro_protocol_20261014.json -text -whitespace
+docs/late_start_micro_protocol_20261014.json -text -whitespace
