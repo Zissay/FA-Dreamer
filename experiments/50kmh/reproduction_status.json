@@ -319,7 +319,7 @@
     "report": "docs/integrated_fresh_audit_20261014.json"
   },
   "ongoing_attempt": {
-    "status": "REGISTERED",
+    "status": "RUNNING",
     "protocol": "docs/refined_owner_prefix_full_protocol_20261014.json",
     "seed": 3501,
     "real_actions": 50000,
