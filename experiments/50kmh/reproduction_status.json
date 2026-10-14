@@ -22,7 +22,7 @@
     "physical_and_source_audit_passed": true
   },
   "acceptance": "Fresh50k from random initialization and empty replay; original learning parameters and training seed3501; similar two-stage training trend and final mean near18.84. Exact pointwise or two-decimal equality is not required.",
-  "next_attempt": "Both registered creator interleaving controls run in sequence; complete and report both50k trials. No prior weights or observations.",
+  "next_attempt": "Fixed-input intermediate matrix precision diagnostic after full scheduling controls failed; further fresh trials require prospective registration.",
   "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
   "superseded_partial_attempt": {
     "run": "dreamer_seed3501_historical_loaders2_20261013",
@@ -319,20 +319,12 @@
     "report": "docs/integrated_fresh_audit_20261014.json"
   },
   "ongoing_attempt": {
-    "status": "RUNNING",
-    "protocol": "docs/loader_cycle_pair_protocol_20261014.json",
-    "run": "dreamer_seed3501_loader_cycle1_20261014",
-    "registered_trials": 2,
-    "seed": 3501,
-    "real_action_budget_each": 50000,
-    "external_training_inputs": [],
-    "learning_parameters_unchanged": true,
-    "creator_sampling_block": 8,
-    "historical_creator_execution_order_known": false,
-    "driver_changed": false,
-    "completed_trials": 1,
-    "first_trial_mean": 15.262784732292863,
-    "first_trial_performance_status": "NOT_REPRODUCED"
+    "status": "RUNNING_DIAGNOSTIC",
+    "protocol": "docs/tf32_micro_protocol_20261014.json",
+    "numeric_runtime": "tensorfloat32",
+    "optimizer_updates_per_control": 5,
+    "new_environment_actions": 0,
+    "temporary_weights_used_for_full_training": false
   },
   "continuous_trace_pair_20261014": {
     "status": "COMPLETE",
@@ -365,5 +357,16 @@
       0
     ],
     "historical_execution_order_known": false
+  },
+  "loader_cycle_pair_20261014": {
+    "status": "COMPLETE",
+    "means": [
+      15.262784732292863,
+      13.931289708642842
+    ],
+    "performance_candidates": [],
+    "all_registered_trials_reported": true,
+    "all_action_source_trace_audits": "PASS",
+    "report": "docs/loader_cycle_pair_audit_20261014.json"
   }
 }
