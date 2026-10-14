@@ -1,0 +1,14 @@
+{
+  "captured_before_execution_utc": "2026-10-14T08:02:31.679302+00:00",
+  "source_input_protocol_sha256": {
+    "scripts/infer_initial_batch_order_50.py": "3e0c7323a023aab9c4e3cc14fcb5eadba6d7966d03250c42fd9a6bee011f395e",
+    "docs/refined_precision_micro_protocol_20261014.json": "d6532633c829762444255f933d90093ac6b6ee4604815057df103c821674d3ff",
+    "docs/refined_fixed_parent_20261014.json": "8239abb7d1f8207fbd9475652898b7f4a71cd2c19d3294b7b0990baa2b70ecdb"
+  },
+  "status": "PREPARED_NOT_EXECUTED",
+  "numeric_modes": [
+    "default",
+    "float32"
+  ],
+  "scores_each": 3
+}

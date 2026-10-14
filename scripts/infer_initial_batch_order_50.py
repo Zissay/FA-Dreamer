@@ -116,6 +116,7 @@ def main():
     parser.add_argument('--neighbor-interleavings', type=int, default=0)
     parser.add_argument('--neighbor-owner-prefixes', type=Path)
     parser.add_argument('--refine-owner-prefix', type=Path)
+    parser.add_argument('--fixed-owner-prefix', type=Path)
     args = parser.parse_args()
     assert 0 <= args.random_interleavings <= 512
     assert not args.random_only or args.random_interleavings
@@ -167,6 +168,12 @@ def main():
 
     candidate_owners = {}
     candidate_bases = {}
+    if args.fixed_owner_prefix:
+        selected=json.loads(args.fixed_owner_prefix.read_text())
+        fixed=batches_from_owners(selected['creator_owner_prefix'],args.initial_sequence_count)
+        assert fixed is not None and fixed[0]==selected['sequence_start_frames']
+        candidates.append(('fixed_selected_prefix',fixed[0],None))
+        candidate_owners['fixed_selected_prefix']=fixed[1]
     if args.random_interleavings:
         assert not args.controls_only
         baseline = candidate_batches(0, 32, 16, args.initial_sequence_count)
