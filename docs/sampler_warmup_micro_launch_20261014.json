@@ -1,0 +1,20 @@
+{
+  "captured_before_execution_utc": "2026-10-14T08:17:14.216004+00:00",
+  "source_input_protocol_sha256": {
+    "scripts/infer_initial_batch_order_50.py": "4abf9eea3e29eb06f102a6f6f52c74585c47c399f56e42eebf47fc79f17612d4",
+    "docs/sampler_warmup_micro_protocol_20261014.json": "c8798a340712d36e6c0207039c63584d3417ece6e33989de81440f69e322c752",
+    "docs/refined_fixed_parent_20261014.json": "8239abb7d1f8207fbd9475652898b7f4a71cd2c19d3294b7b0990baa2b70ecdb"
+  },
+  "shell_sha256": "bbd89d418dfcbc55d5d8039ff39e6873cda4eb1df237bb462edd03fd26f60677",
+  "status": "PREPARED_NOT_EXECUTED",
+  "discard_draw_counts": [
+    0,
+    16,
+    32,
+    64,
+    128,
+    144,
+    256,
+    512
+  ]
+}

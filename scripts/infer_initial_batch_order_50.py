@@ -41,9 +41,9 @@ def action_block(records, mapping, end):
     return np.asarray([block[index] for index in mapping], np.float32)
 
 
-def candidate_batches(initial_worker, lead, burst, available=1040):
+def candidate_batches(initial_worker, lead, burst, available=1040, discard=0):
     import numpy as np
-    draws = np.random.default_rng(0).integers(0, available, size=400) + 1
+    draws = np.random.default_rng(0).integers(0, available, size=400+discard)[discard:] + 1
     owners = [initial_worker] * lead
     owner = 1 - initial_worker
     while len(owners) < len(draws):
@@ -63,10 +63,10 @@ def candidate_batches(initial_worker, lead, burst, available=1040):
     raise RuntimeError('Incomplete diagnostic interleaving')
 
 
-def random_candidate_batches(generator, available=1040):
+def random_candidate_batches(generator, available=1040, discard=0):
     """Finite variable-burst owner schedule, bounded by original queue capacity."""
     import numpy as np
-    draws = np.random.default_rng(0).integers(0, available, size=160) + 1
+    draws = np.random.default_rng(0).integers(0, available, size=160+discard)[discard:] + 1
     counts = [0, 0]; starts = np.zeros((5, 16), int); owners = []
     owner = int(generator.integers(0, 2)); remaining = int(generator.integers(1, 34))
     for start in draws:
@@ -85,9 +85,9 @@ def random_candidate_batches(generator, available=1040):
     raise RuntimeError('Incomplete bounded diagnostic interleaving')
 
 
-def batches_from_owners(owners, available=1040):
+def batches_from_owners(owners, available=1040, discard=0):
     import numpy as np
-    draws = np.random.default_rng(0).integers(0, available, size=len(owners)) + 1
+    draws = np.random.default_rng(0).integers(0, available, size=len(owners)+discard)[discard:] + 1
     counts = [0, 0]; starts = np.zeros((5, 16), int)
     for index, (owner, start) in enumerate(zip(owners, draws)):
         number = counts[owner]
@@ -117,6 +117,7 @@ def main():
     parser.add_argument('--neighbor-owner-prefixes', type=Path)
     parser.add_argument('--refine-owner-prefix', type=Path)
     parser.add_argument('--fixed-owner-prefix', type=Path)
+    parser.add_argument('--sampler-discard-draws',type=int,choices=[0,16,32,64,128,144,256,512],default=0)
     args = parser.parse_args()
     assert 0 <= args.random_interleavings <= 512
     assert not args.random_only or args.random_interleavings
@@ -159,7 +160,7 @@ def main():
             break
         for lead in (0, 1, 2, 4, 8, 16, 24, 32, 33):
             for burst in (1, 2, 4, 8, 16, 32):
-                batches = candidate_batches(owner, lead, burst, args.initial_sequence_count)
+                batches = candidate_batches(owner, lead, burst, args.initial_sequence_count,args.sampler_discard_draws)
                 if batches is None:
                     continue
                 signature = tuple(sum(batches, []))
@@ -170,18 +171,20 @@ def main():
     candidate_bases = {}
     if args.fixed_owner_prefix:
         selected=json.loads(args.fixed_owner_prefix.read_text())
-        fixed=batches_from_owners(selected['creator_owner_prefix'],args.initial_sequence_count)
-        assert fixed is not None and fixed[0]==selected['sequence_start_frames']
+        fixed=batches_from_owners(selected['creator_owner_prefix'],args.initial_sequence_count,args.sampler_discard_draws)
+        assert fixed is not None
+        if not args.sampler_discard_draws:
+            assert fixed[0]==selected['sequence_start_frames']
         candidates.append(('fixed_selected_prefix',fixed[0],None))
         candidate_owners['fixed_selected_prefix']=fixed[1]
     if args.random_interleavings:
         assert not args.controls_only
-        baseline = candidate_batches(0, 32, 16, args.initial_sequence_count)
+        baseline = candidate_batches(0, 32, 16, args.initial_sequence_count,args.sampler_discard_draws)
         candidates.append(('prior_best_owner0_lead32_burst16', baseline, None))
         generator = np.random.default_rng(args.diagnostic_schedule_seed)
         generated = 0
         while generated < args.random_interleavings:
-            batches, owners = random_candidate_batches(generator, args.initial_sequence_count)
+            batches, owners = random_candidate_batches(generator, args.initial_sequence_count,args.sampler_discard_draws)
             signature = tuple(sum(batches, []))
             if signature in seen:
                 continue
@@ -195,7 +198,7 @@ def main():
         if args.refine_owner_prefix:
             selected = json.loads(args.refine_owner_prefix.read_text())
             bases = [{'run': selected['candidate'], 'feasible_creator_owner_prefix': selected['creator_owner_prefix']}]
-            baseline = batches_from_owners(selected['creator_owner_prefix'],args.initial_sequence_count)
+            baseline = batches_from_owners(selected['creator_owner_prefix'],args.initial_sequence_count,args.sampler_discard_draws)
             assert baseline is not None and baseline[0] == selected['sequence_start_frames']
             candidates.append(('selected_refinement_base',baseline[0],None))
             candidate_owners['selected_refinement_base']=baseline[1]
@@ -203,7 +206,7 @@ def main():
             recorded = json.loads(args.neighbor_owner_prefixes.read_text())
             bases = [x for x in recorded['trials'] if 'continuous_trace' in x['run']]
             assert len(bases) == 2
-            candidates.append(('prior_best_owner0_lead32_burst16', candidate_batches(0,32,16,args.initial_sequence_count), None))
+            candidates.append(('prior_best_owner0_lead32_burst16', candidate_batches(0,32,16,args.initial_sequence_count,args.sampler_discard_draws), None))
         generator = np.random.default_rng(args.diagnostic_schedule_seed)
         generated = 0; attempts = 0
         seen.update(tuple(sum(x[1], [])) for x in candidates)
@@ -216,7 +219,7 @@ def main():
                 positions = [i for i in range(len(owners)-1) if owners[i] != owners[i+1]]
                 index = positions[int(generator.integers(len(positions)))]
                 owners[index], owners[index+1] = owners[index+1], owners[index]
-            candidate = batches_from_owners(owners,args.initial_sequence_count)
+            candidate = batches_from_owners(owners,args.initial_sequence_count,args.sampler_discard_draws)
             if candidate is None:
                 continue
             batches, owners = candidate
@@ -271,6 +274,7 @@ def main():
         'random_interleavings': args.random_interleavings,
         'neighbor_interleavings': args.neighbor_interleavings,
         'candidate_initial_sequence_count': args.initial_sequence_count,
+        'candidate_sampler_discard_draws': args.sampler_discard_draws,
         'diagnostic_schedule_seed': args.diagnostic_schedule_seed if args.random_interleavings or args.neighbor_interleavings else None,
         'diagnostic_seed_is_not_model_or_uniform_sampler_seed': True,
         'optimizer_inputs': 'Own fresh uniform-prefill replay; no historical observations or checkpoint weights',

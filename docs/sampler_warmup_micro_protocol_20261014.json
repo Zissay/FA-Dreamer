@@ -1,0 +1,22 @@
+{
+  "registered_before_execution": true,
+  "diagnostic_only": true,
+  "discard_draw_counts": [0,16,32,64,128,144,256,512],
+  "candidate_count_each": 99,
+  "model_seed": 3501,
+  "uniform_sampler_seed": 0,
+  "numeric_runtime": "Default, unchanged",
+  "initial_sequence_count": 1040,
+  "hypothesis": "Unrecorded dataset preview or discarded startup prefetch may advance Uniform's seed0 stream without optimizer updates. Current recovered core contains no such preview, so this is an alternative state hypothesis, not source recovery evidence.",
+  "candidate_family": "Prior finite constant-burst99-entry set (two strict current traces and96 owner layouts) plus fixed locally refined owner prefix, under each candidate stream offset. Current trace controls remain unshifted.",
+  "temporary_updates_each": 5,
+  "optimizer_inputs": "Own exactly equivalent native uniform prefill, no historical observations or checkpoint weights",
+  "comparison_target": "Historical earliest updated actor block only; no fitting final rates",
+  "new_environment_actions": 0,
+  "temporary_weights_used_for_full_training": false,
+  "completion_rule": "Complete all8 offset groups, retain every score, even if early group matches. Verify actual controls and unchanged model/sampler seeds.",
+  "prospective_full_trial_trigger": "Separately consider/register fresh50k only if early RMSE<=0.02 and maxerror<=0.1. Exact consistency is not unique historical state proof; original end-performance/trend criterion still required.",
+  "driver_modified": false,
+  "limitations": "No evidence yet of historical discarded draws. Fixed1040 sequence count and finite owner family. Diagnostic must not be called reproduced training.",
+  "status": "REGISTERED"
+}
