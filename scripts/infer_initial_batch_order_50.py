@@ -144,7 +144,7 @@ def main():
 
     candidate_owners = {}
     if args.random_interleavings:
-        assert not args.controls_only and not args.allow_numeric_differences
+        assert not args.controls_only
         baseline = candidate_batches(0, 32, 16)
         candidates.append(('prior_best_owner0_lead32_burst16', baseline, None))
         generator = np.random.default_rng(args.diagnostic_schedule_seed)
@@ -204,6 +204,7 @@ def main():
         'historical_actions_used_as_comparison_fingerprint': True,
         'temporary_weights_used_for_full_training': False,
         'historical_first5_order_identified': results[0]['historical_action_max_error'] < 1e-5,
+        'fingerprint_consistency_is_not_unique_historical_state_identification': True,
         'results': results, 'limitation': 'Finite block-interleaving family; a near match is not proof of unique original order or full50k reproduction.'}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2) + '\n')
