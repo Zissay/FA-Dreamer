@@ -1,0 +1,17 @@
+{
+  "run": "dreamer_seed3501_refined_prefix_20261014",
+  "stage": "First updated actor fingerprint only",
+  "historical_action_rmse": 0.022512327879667282,
+  "historical_action_max_error": 0.10026001930236816,
+  "fresh_random_initialization": {
+    "fresh_random_initialization": true,
+    "checkpoint_restore": false,
+    "seed": 3501,
+    "variable_arrays": 270,
+    "initial_variable_digest": "7fc0f229c73437a066679e5476575dd7ce30281c1c4917bb70f3fcc421e77ab6",
+    "callback_frames_at_initialization": 0
+  },
+  "historical_state_identified": false,
+  "full_performance_verified": false,
+  "full_trial_early_actor_matches_diagnostic_prediction": true
+}
