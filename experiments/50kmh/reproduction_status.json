@@ -22,7 +22,7 @@
     "physical_and_source_audit_passed": true
   },
   "acceptance": "Fresh50k from random initialization and empty replay; original learning parameters and training seed3501; similar two-stage training trend and final mean near18.84. Exact pointwise or two-decimal equality is not required.",
-  "next_attempt": "Three preregistered native asynchronous from-zero repeats, with instrumentation disabled during learner execution.",
+  "next_attempt": "No additional runtime mismatch identified in recovered configuration. Original per-update replay batch / creator ownership order was not recorded; current saved assets do not recover it.",
   "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
   "superseded_partial_attempt": {
     "run": "dreamer_seed3501_historical_loaders2_20261013",
@@ -445,11 +445,11 @@
     "report": "docs/sampler_warmup_micro_audit_20261014.json",
     "complete_audit": "docs/sampler_warmup_micro_audit_20261014.json"
   },
-  "completed_fresh_full_trials_count": 15,
+  "completed_fresh_full_trials_count": 18,
   "latest_status": "NOT_REPRODUCED",
   "latest_curve": "experiments/50kmh/diagnostics/refined_owner_prefix_curve_20261014.png",
   "native_async_repeats_20261014": {
-    "status": "REGISTERED",
+    "status": "COMPLETE_NOT_REPRODUCED",
     "protocol": "docs/native_async_repeat_protocol_20261014.json",
     "trials": [
       "runs/50kmh/dreamer_seed3501_native_async_repeat1_20261014",
@@ -457,6 +457,17 @@
       "runs/50kmh/dreamer_seed3501_native_async_repeat3_20261014"
     ],
     "all_trials_required": true,
-    "runtime_order_override": null
+    "runtime_order_override": null,
+    "report": "docs/native_async_repeat_audit_20261014.json",
+    "final_5k_means": [
+      15.602727553133072,
+      15.764731835363959,
+      13.18342240896347
+    ],
+    "mean_across_repeats": 14.850293932486835,
+    "all_physical_source_audits": "PASS",
+    "first_actor_report": "docs/native_async_first_actor_fingerprints_20261014.json",
+    "all_final_performance_gates_met": false,
+    "all_two_stage_gates_met": false
   }
 }

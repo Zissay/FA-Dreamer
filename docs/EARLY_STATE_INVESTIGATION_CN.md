@@ -77,3 +77,10 @@ lead32完整50k现已结束：末5k15.2875114663，未复现。来源、初始�
 
 
 完整50k已结束：登记推测owner prefix，随机初始化、空回放，模型seed3501/Uniform seed0、原参数和之后异步采样。真实50k动作、全部12175次消费索引及更新均记录；前5批与诊断索引一致。1125项独立CPU速率检查通过，来源/配置与启动快照一致，轨迹审计PASS。末5k均值13.115381，较原18.837550低5.722170；原中段平台12.850600，新平台11.230950，原后段增益5.986950、新增益1.884431，未达到半幅二次抬升门槛。结论仍**NOT_REPRODUCED**。完整失败档案`experiments/50kmh/reproduction_attempts/dreamer_seed3501_refined_prefix_20261014/`，比较及审计`docs/refined_owner_prefix_full_audit_20261014.json`，曲线图`experiments/50kmh/diagnostics/refined_owner_prefix_curve_20261014.png`。早期动作相符没有延伸到最终训练，故不能声称恢复了历史线程状态。
+
+
+## 标准异步从零重复（3轮，预先登记）
+
+为排除推测的owner-prefix人为控制影响，预先登记并执行3轮未加回放追踪器的原生异步入口；每轮原参数、seed3501、空模型/回放、两个creator、16路和原始XLA配置，完整50k，全部报告。末5k分别为15.602728、15.764732、13.183422 bps/Hz，组均值14.850294（标准差1.180511）。三轮的后段增益2.358789、0.538247、0.275382，均未达到登记的二次抬升门槛；也没有末段接近18.837550。逐轮1125项物理速率检查和来源/初始化审计通过，完整记录见`docs/native_async_repeat_audit_20261014.json`。
+
+原首个更新actor动作的只读指纹RMSE分别0.110519、0.136047、0.089031，均不能识别原批次顺序，见`docs/native_async_first_actor_fingerprints_20261014.json`。这三次标准运行说明同seed在原生异步线程下仍可分叉，但没有一轮复现成功。此前发现的8×512 disagreement、seeded uniform预填充、scheduled参数均与恢复配置吻合。现存原始目录不含原消费批次/线程owner轨迹，继续无差别重跑不能恢复该历史轨迹。主结论保持**NOT_REPRODUCED**，没有替换论文数据。
