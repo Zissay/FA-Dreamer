@@ -19,6 +19,6 @@
   "numeric_runtime": "Default, unchanged",
   "driver_modified": false,
   "limitations": "Finite family, first draws assume1040 available sequences; near fingerprint does not establish original order or successful50k reproduction. Scientific outcome remains NOT_REPRODUCED until full independent criterion passes.",
-  "script": "scripts/infer_initial_batch_order_50.py --random-only --random-interleavings512 --diagnostic-schedule-seed20261014",
+  "script": "scripts/infer_initial_batch_order_50.py --random-only --random-interleavings 512 --diagnostic-schedule-seed 20261014",
   "status": "REGISTERED"
 }
