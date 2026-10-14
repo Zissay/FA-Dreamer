@@ -320,12 +320,25 @@
   },
   "ongoing_attempt": {
     "status": "RUNNING",
-    "type": "two_registered_continuous_fresh_trace_trials",
+    "run": "dreamer_seed3501_fp32_trace_20261014",
     "seed": 3501,
-    "real_action_budget_each": 50000,
+    "real_action_budget": 50000,
     "external_training_inputs": [],
-    "protocol": "docs/continuous_trace_pair_protocol_20261014.json",
-    "early_state_diagnostic": "docs/early_value_comparison_20261014.json",
-    "early_coverage_diagnostic": "docs/early_coverage_comparison_20261014.json"
+    "learning_parameters_unchanged": true,
+    "numeric_runtime_override": "JAX_DEFAULT_MATMUL_PRECISION=float32",
+    "historical_numeric_setting_known": false,
+    "driver_changed": false,
+    "protocol": "docs/fp32_fresh_protocol_20261014.json"
+  },
+  "continuous_trace_pair_20261014": {
+    "status": "COMPLETE",
+    "rates": [
+      13.184511780406906,
+      13.153779084199316
+    ],
+    "all_source_action_trace_audits": "PASS",
+    "all_registered_trials_reported": true,
+    "performance_candidates": [],
+    "report": "docs/continuous_trace_pair_audit_20261014.json"
   }
 }
