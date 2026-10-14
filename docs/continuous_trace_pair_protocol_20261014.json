@@ -1,0 +1,20 @@
+{
+  "registered_before_launch": true,
+  "additional_complete_trials": 2,
+  "run_directories": [
+    "runs/50kmh/dreamer_seed3501_continuous_trace1_20261014",
+    "runs/50kmh/dreamer_seed3501_continuous_trace2_20261014"
+  ],
+  "training_seed": 3501,
+  "action_budget_each": 50000,
+  "source": "scripts/trace_fresh_50.py, observe_original_async_batches mode",
+  "training_protocol": "Uninterrupted original recovered trainer; data_loaders2; no30k restart; original learning parameters/channel/XLA flags",
+  "external_training_inputs": [],
+  "rationale": "Original first30k contains18 actions at rates>=17, while the completed integrated fresh first30k contains none. Read-only world-model evaluation predicts17.34 vs12.17 on the same held-out high-rate route. Actual asynchronous minibatch order varies despite seed. Test fresh trajectories under unchanged original recipe and retain their sample-order records.",
+  "driver": "Current driver unchanged",
+  "completion_rule": "Complete both registered50k trials regardless of early coverage or score; publish every result and any setup failure. No seed/parameter search or checkpoint continuation.",
+  "acceptance": "Original learning parameters/seed and near18.83755 with similar first/second rise; previously declared0.2bps/Hz performance gate. A successful run requires independent action/physical/source and fresh-initialization verification.",
+  "followup_if_matched": "Verify computational replay from fresh random model using that trial's recorded minibatch indices and its own newly generated observations; no historical model or observations supplied.",
+  "limitation": "Observing batches adds timing overhead; original historical consumed sample order remains unavailable. Repeats test stochastic trajectories and do not prove sole causation by data order.",
+  "status": "REGISTERED"
+}
