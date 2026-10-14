@@ -1,0 +1,18 @@
+{
+  "registered_before_launch": true,
+  "additional_complete_trials": 1,
+  "run_directories": ["runs/50kmh/dreamer_seed3501_fp32_trace_20261014"],
+  "training_seed": 3501,
+  "action_budget": 50000,
+  "learning_parameters": "Original H10/batch16/length64/ratio256/data_loaders2; all learning rates, schedules and physical parameters unchanged",
+  "initialization": "Fresh random model, empty replay; no historical weights or observations",
+  "numeric_runtime_control": "Explicit JAX_DEFAULT_MATMUL_PRECISION=float32; network compute dtype remains originalfloat32",
+  "driver": "Current driver unchanged",
+  "rationale": "With fixed identical inputs, original seed and five optimizer updates, explicitFP32 dot precision changes next actions by up to0.25356 vs default. This isolates arithmetic-runtime sensitivity from sample-order changes. It does not establish the historical cause.",
+  "source": "scripts/trace_fp32_50.py wraps scripts/trace_fresh_50.py in observe mode; original recovered training core remains unchanged",
+  "completion_rule": "Complete50k regardless of early coverage or score; publish all genuine logs and consumed batches",
+  "acceptance": "Original learning parameters/seed, near18.83755 within previously declared0.2bps/Hz and similar two-stage rise; independently audit initialization, updates, action physics and source snapshots",
+  "followup_if_matched": "Fresh computational replay of the candidate's consumed indices under the same numeric runtime; no saved weights or prior observations used",
+  "limitation": "Historical matrix precision is unknown; runtime override must be disclosed. Observing batches can affect asynchronous timing.",
+  "status": "REGISTERED"
+}
