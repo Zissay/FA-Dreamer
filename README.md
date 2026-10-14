@@ -12,7 +12,7 @@ Preserved configurations, training sources and online terminal records for the t
 
 **[从零整合30k＋本轮恢复20k](docs/INTEGRATED_FRESH_50KMH_CN.md)**：`scripts/train_integrated_50.py`先从空模型训练30k，再以本轮模型/优化器/回放接续20k。原参数及seed3501固定。完整50k已完成，末段均值**13.071403bps/Hz**，未复现原二次抬升/18.84；来源及物理核验通过。30k的采样器/carry重建边界明确记录，见[报告](docs/integrated_fresh_audit_20261014.json)。
 
-**[持续取证与调度控制](docs/EARLY_STATE_INVESTIGATION_CN.md)**：两轮后续连续从零验证为13.184512/13.153779，均失败。预填充特征一致，早期稀有高值访问和世界模型预测不同。FP32控制已失败，当前已登记的creator启动顺序1、0控制正在运行；原学习参数、seed及驱动保持不变。若失败，已登记两种固定采样交错顺序，均需完整50k并报告。原历史执行顺序未保存，这些控制不能称为已恢复历史随机状态。
+**[持续取证与调度控制](docs/EARLY_STATE_INVESTIGATION_CN.md)**：两轮后续连续从零验证为13.184512/13.153779，均失败。预填充特征一致，早期稀有高值访问和世界模型预测不同。FP32及creator启动顺序1、0控制均失败，后者末5k为13.085993。目前两种已登记固定采样交错顺序依次运行，均需完整50k并报告。原学习参数、seed及驱动保持不变。原历史执行顺序未保存，这些控制不能称为已恢复历史随机状态。
 
 `scripts/verify_fresh_trace_50.py`为通过性能门槛的候选提供从零计算复核：只读取实际采样索引，以新模型、新生成观测训练；不读取候选权重或旧观测。候选核验方案必须在启动前登记。
 

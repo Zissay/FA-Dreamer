@@ -22,7 +22,7 @@
     "physical_and_source_audit_passed": true
   },
   "acceptance": "Fresh50k from random initialization and empty replay; original learning parameters and training seed3501; similar two-stage training trend and final mean near18.84. Exact pointwise or two-decimal equality is not required.",
-  "next_attempt": "Registered loader creator startup scheduling control running, original learning parameters and seed3501, fresh random model and empty replay; full50k required.",
+  "next_attempt": "Both registered creator interleaving controls run in sequence; complete and report both50k trials. No prior weights or observations.",
   "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
   "superseded_partial_attempt": {
     "run": "dreamer_seed3501_historical_loaders2_20261013",
@@ -320,18 +320,16 @@
   },
   "ongoing_attempt": {
     "status": "RUNNING",
-    "run": "dreamer_seed3501_loader_start10_20261014",
+    "protocol": "docs/loader_cycle_pair_protocol_20261014.json",
+    "run": "dreamer_seed3501_loader_cycle0_20261014",
+    "registered_trials": 2,
     "seed": 3501,
-    "real_action_budget": 50000,
+    "real_action_budget_each": 50000,
     "external_training_inputs": [],
     "learning_parameters_unchanged": true,
-    "creator_start_order": [
-      1,
-      0
-    ],
+    "creator_sampling_block": 8,
     "historical_creator_execution_order_known": false,
-    "driver_changed": false,
-    "protocol": "docs/loader_start_protocol_20261014.json"
+    "driver_changed": false
   },
   "continuous_trace_pair_20261014": {
     "status": "COMPLETE",
@@ -352,5 +350,17 @@
     "report": "docs/fp32_fresh_audit_20261014.json",
     "numeric_runtime_override": "JAX_DEFAULT_MATMUL_PRECISION=float32",
     "historical_numeric_setting_known": false
+  },
+  "loader_start_control_20261014": {
+    "status": "COMPLETE",
+    "mean": 13.08599317004191,
+    "performance_status": "NOT_REPRODUCED",
+    "authenticity": "PASS",
+    "report": "docs/loader_start_audit_20261014.json",
+    "creator_start_order": [
+      1,
+      0
+    ],
+    "historical_execution_order_known": false
   }
 }
