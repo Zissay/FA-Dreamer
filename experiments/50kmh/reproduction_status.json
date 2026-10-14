@@ -321,7 +321,7 @@
   "ongoing_attempt": {
     "status": "RUNNING",
     "protocol": "docs/loader_cycle_pair_protocol_20261014.json",
-    "run": "dreamer_seed3501_loader_cycle0_20261014",
+    "run": "dreamer_seed3501_loader_cycle1_20261014",
     "registered_trials": 2,
     "seed": 3501,
     "real_action_budget_each": 50000,
@@ -329,7 +329,10 @@
     "learning_parameters_unchanged": true,
     "creator_sampling_block": 8,
     "historical_creator_execution_order_known": false,
-    "driver_changed": false
+    "driver_changed": false,
+    "completed_trials": 1,
+    "first_trial_mean": 15.262784732292863,
+    "first_trial_performance_status": "NOT_REPRODUCED"
   },
   "continuous_trace_pair_20261014": {
     "status": "COMPLETE",
