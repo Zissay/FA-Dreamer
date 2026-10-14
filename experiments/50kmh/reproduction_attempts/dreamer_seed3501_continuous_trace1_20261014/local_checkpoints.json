@@ -1,0 +1,62 @@
+[
+  {
+    "filename": "milestone_checkpoints\\checkpoint_005000.pkl",
+    "sha256": "deb1ec0c1ceb2e5d582cd6f591f7fef4f22ee04685a861ff4a5bbd2492694538",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "filename": "milestone_checkpoints\\checkpoint_010000.pkl",
+    "sha256": "77351824d896bf9e6863e8b0a43e5b2719f2a96099d4fd9b9699b6a9b2affe01",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "filename": "milestone_checkpoints\\checkpoint_015000.pkl",
+    "sha256": "30ca38aab7f570fd4b05405b904f985c6a255738b1a265a5b007ff16ca10ae74",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "filename": "milestone_checkpoints\\checkpoint_020000.pkl",
+    "sha256": "51118d7f8d5526320b1a1528e7a8213ac782e6b9a100f20268b34e75ba1b8b47",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "filename": "milestone_checkpoints\\checkpoint_025000.pkl",
+    "sha256": "2f455dee1d803278f611be9a1bd6a627e99af47c28d13bb9307639a1275e51b7",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "filename": "milestone_checkpoints\\checkpoint_030000.pkl",
+    "sha256": "b77a5a43262ce1e9daa192860e8287a141747736e8f89c1383e06927f722e785",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "filename": "milestone_checkpoints\\checkpoint_035000.pkl",
+    "sha256": "3b99010ab180354fcac9a560e495a9c0421355908b95809c938c73b66fd685dd",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "filename": "milestone_checkpoints\\checkpoint_040000.pkl",
+    "sha256": "df9df0639e4786a506431a762bab78e561304a722922354e95a77bd8f1491428",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "filename": "milestone_checkpoints\\checkpoint_045000.pkl",
+    "sha256": "9e2d99b0e41817bb29097eb29151b44eee89bd9abbbd4084eb3a63ca7aaf67aa",
+    "bytes": 51822097,
+    "weights_published": false
+  },
+  {
+    "filename": "milestone_checkpoints\\checkpoint_050000.pkl",
+    "sha256": "1b1ad9bd4bdd82550357d972f41cde8a49565ac358b51ee0854ab8eb444fe8f9",
+    "bytes": 51822097,
+    "weights_published": false
+  }
+]

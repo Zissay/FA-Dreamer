@@ -317,5 +317,15 @@
     },
     "published_evidence": "experiments/50kmh/reproduction_attempts/dreamer_seed3501_integrated_fresh_20261014",
     "report": "docs/integrated_fresh_audit_20261014.json"
+  },
+  "ongoing_attempt": {
+    "status": "RUNNING",
+    "type": "two_registered_continuous_fresh_trace_trials",
+    "seed": 3501,
+    "real_action_budget_each": 50000,
+    "external_training_inputs": [],
+    "protocol": "docs/continuous_trace_pair_protocol_20261014.json",
+    "early_state_diagnostic": "docs/early_value_comparison_20261014.json",
+    "early_coverage_diagnostic": "docs/early_coverage_comparison_20261014.json"
   }
 }
