@@ -63,6 +63,28 @@ def candidate_batches(initial_worker, lead, burst):
     raise RuntimeError('Incomplete diagnostic interleaving')
 
 
+def random_candidate_batches(generator):
+    """Finite variable-burst owner schedule, bounded by original queue capacity."""
+    import numpy as np
+    draws = np.random.default_rng(0).integers(0, 1040, size=160) + 1
+    counts = [0, 0]; starts = np.zeros((5, 16), int); owners = []
+    owner = int(generator.integers(0, 2)); remaining = int(generator.integers(1, 34))
+    for start in draws:
+        if counts[owner] - counts[1-owner] >= 33:
+            owner = 1-owner; remaining = int(generator.integers(1, 17))
+        number = counts[owner]
+        if number < 40:
+            starts[number // 8, 2 * (number % 8) + owner] = start
+        counts[owner] += 1; owners.append(owner); remaining -= 1
+        assert abs(counts[0]-counts[1]) <= 33
+        if min(counts) >= 40:
+            assert (starts > 0).all()
+            return starts.tolist(), owners
+        if remaining == 0:
+            owner = 1-owner; remaining = int(generator.integers(1, 17))
+    raise RuntimeError('Incomplete bounded diagnostic interleaving')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--own-prefix', type=Path, required=True)
@@ -71,7 +93,12 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--controls-only', action='store_true')
     parser.add_argument('--allow-numeric-differences', action='store_true', help='Declared arithmetic-runtime comparison, not an order-identification result')
+    parser.add_argument('--random-interleavings', type=int, default=0)
+    parser.add_argument('--random-only', action='store_true')
+    parser.add_argument('--diagnostic-schedule-seed', type=int, default=20261014)
     args = parser.parse_args()
+    assert 0 <= args.random_interleavings <= 512
+    assert not args.random_only or args.random_interleavings
     sys.modules['tensorflow'] = None
     from reproduction_tools.training import preserved_vendor
     sys.path.insert(0, str(preserved_vendor()))
@@ -104,7 +131,7 @@ def main():
         candidates.append((f'actual_trace:{run.name}', batches, action_block(actual, worker_order(actual), 2300)))
     seen = set()
     for owner in (0, 1):
-        if args.controls_only:
+        if args.controls_only or args.random_only:
             break
         for lead in (0, 1, 2, 4, 8, 16, 24, 32, 33):
             for burst in (1, 2, 4, 8, 16, 32):
@@ -114,6 +141,23 @@ def main():
                 signature = tuple(sum(batches, []))
                 if signature not in seen:
                     candidates.append((f'owner{owner}_lead{lead}_burst{burst}', batches, None)); seen.add(signature)
+
+    candidate_owners = {}
+    if args.random_interleavings:
+        assert not args.controls_only and not args.allow_numeric_differences
+        baseline = candidate_batches(0, 32, 16)
+        candidates.append(('prior_best_owner0_lead32_burst16', baseline, None))
+        generator = np.random.default_rng(args.diagnostic_schedule_seed)
+        generated = 0
+        while generated < args.random_interleavings:
+            batches, owners = random_candidate_batches(generator)
+            signature = tuple(sum(batches, []))
+            if signature in seen:
+                continue
+            seen.add(signature)
+            label = f'variable_interleaving_{generated:04d}'
+            candidates.append((label, batches, None)); candidate_owners[label] = owners
+            generated += 1
 
     def evaluate(starts):
         model.load(initial); model.rng = jaxutils.RNG(3501); model.rng.next()
@@ -140,6 +184,8 @@ def main():
         action = evaluate(starts)
         result = {'candidate': label, 'historical_action_rmse': float(np.sqrt(np.mean((action - target) ** 2))),
                   'historical_action_max_error': float(abs(action - target).max()), 'sequence_start_frames': starts}
+        if label in candidate_owners:
+            result['creator_owner_prefix'] = candidate_owners[label]
         if known_actions is not None:
             result['known_trace_action_max_error'] = float(abs(action - known_actions).max())
             if not args.allow_numeric_differences:
@@ -151,6 +197,9 @@ def main():
         'matmul_precision': jax.config.jax_default_matmul_precision,
         'numeric_runtime_comparison': args.allow_numeric_differences,
         'candidate_count': len(results), 'new_environment_actions': 0,
+        'random_interleavings': args.random_interleavings,
+        'diagnostic_schedule_seed': args.diagnostic_schedule_seed if args.random_interleavings else None,
+        'diagnostic_seed_is_not_model_or_uniform_sampler_seed': True,
         'optimizer_inputs': 'Own fresh uniform-prefill replay; no historical observations or checkpoint weights',
         'historical_actions_used_as_comparison_fingerprint': True,
         'temporary_weights_used_for_full_training': False,
