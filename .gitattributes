@@ -22,3 +22,4 @@ docs/late_start_micro_protocol_20261014.json -text -whitespace
 docs/late_start_fp32_micro_protocol_20261014.json -text -whitespace
 docs/neighbor_order_micro_protocol_20261014.json -text -whitespace
 docs/refine_order_micro_protocol_20261014.json -text -whitespace
+docs/refined_precision_micro_protocol_20261014.json -text -whitespace

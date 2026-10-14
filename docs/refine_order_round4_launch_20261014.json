@@ -1,0 +1,32 @@
+{
+  "round": 4,
+  "captured_before_execution_utc": "2026-10-14T07:56:23.465892+00:00",
+  "command": [
+    "/home/user1/fa_afdm_dreamer_gpu/bin/python",
+    "-u",
+    "/mnt/e/fa_afdm_dreamerv3/deliverables/FA-Dreamer-reproduction/scripts/infer_initial_batch_order_50.py",
+    "--own-prefix",
+    "/mnt/e/fa_afdm_dreamerv3/deliverables/FA-Dreamer-reproduction/runs/50kmh/dreamer_seed3501_integrated_fresh_20261014/stage1_fresh30k/prefix_replay.npz",
+    "--historical-run",
+    "/mnt/e/fa_afdm_dreamerv3/runs/user/t1_dreamer_h10_scheduled_env20_seed3501_50k",
+    "--control-runs",
+    "/mnt/e/fa_afdm_dreamerv3/deliverables/FA-Dreamer-reproduction/runs/50kmh/dreamer_seed3501_continuous_trace1_20261014",
+    "/mnt/e/fa_afdm_dreamerv3/deliverables/FA-Dreamer-reproduction/runs/50kmh/dreamer_seed3501_continuous_trace2_20261014",
+    "--neighbor-interleavings",
+    "512",
+    "--refine-owner-prefix",
+    "/mnt/e/fa_afdm_dreamerv3/deliverables/FA-Dreamer-reproduction/docs/refine_order_round4_parent_20261014.json",
+    "--diagnostic-schedule-seed",
+    "20261018",
+    "--output",
+    "/mnt/e/fa_afdm_dreamerv3/deliverables/FA-Dreamer-reproduction/docs/refine_order_round4_result_20261014.json"
+  ],
+  "source_sha256": "ef1f6ab3b5c84a8f13bf9b75bb8baa1dc11a626a49f9a8bfe38acc9308d0fc93",
+  "protocol_sha256": "7ee81048c279b19b6defa5edfed7b7175803c2bf26c34d439a010ed53a80ea05",
+  "parent_path": "docs/refine_order_round4_parent_20261014.json",
+  "parent_sha256": "a48938722dc3e5b02b0a133f8fe85936f2db876ac034033a1fcae8f4a5df31d1",
+  "previous_report": "docs/refine_order_round3_result_20261014.json",
+  "previous_report_sha256": "f38c8e3a130d6ebd8560a34973904a1f2d6ec3445d4864796c3d44b8abb04337",
+  "new_environment_actions": 0,
+  "temporary_weights_used_for_full_training": false
+}

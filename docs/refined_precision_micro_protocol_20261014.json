@@ -1,0 +1,21 @@
+{
+  "registered_before_execution": true,
+  "diagnostic_only": true,
+  "selected_parent": "Best earliest-actor RMSE candidate after all four registered local refinement rounds; default RMSE0.022512328, max0.100260019, not identified state",
+  "numeric_modes": ["default", "float32"],
+  "candidates_each": 3,
+  "controls": "Two actual continuous run first5 batches plus fixed selected owner prefix; same sample inputs across modes",
+  "initial_sequence_count": 1040,
+  "model_seed": 3501,
+  "uniform_sampler_seed": 0,
+  "temporary_updates_each": 5,
+  "new_environment_actions": 0,
+  "optimizer_inputs": "Own exactly verified native prefill; no historical observations/checkpoint weights",
+  "temporary_weights_used_for_full_training": false,
+  "completion_rule": "Complete and retain both modes, all3 candidates each. Verify identical indices. Default fixed prefix must reproduce previous score.",
+  "prospective_full_trial_trigger": "Separately register/start fresh50k only if fixed candidate fingerprint RMSE<=0.02 and maxerror<=0.1. Fingerprint consistency is not unique state identification or accepted full performance reproduction.",
+  "rationale": "Local refinement reduced earliest error but narrowly missed preset gate. Check numeric precision on the refined fixed inputs rather than starting unqualified full trials.",
+  "driver_modified": false,
+  "limitations": "Original matrix precision/startup not recorded. Only early fingerprint compared, no final-rate fitting; full from-zero performance/trend and independent trace validation still required.",
+  "status": "REGISTERED"
+}
