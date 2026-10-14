@@ -12,6 +12,8 @@ Preserved configurations, training sources and online terminal records for the t
 
 **[从零整合30k＋本轮恢复20k](docs/INTEGRATED_FRESH_50KMH_CN.md)**：`scripts/train_integrated_50.py`先从空模型训练30k，再以本轮模型/优化器/回放接续20k。原参数及seed3501固定。完整50k已完成，末段均值**13.071403bps/Hz**，未复现原二次抬升/18.84；来源及物理核验通过。30k的采样器/carry重建边界明确记录，见[报告](docs/integrated_fresh_audit_20261014.json)。
 
+**[持续取证与数值控制](docs/EARLY_STATE_INVESTIGATION_CN.md)**：两轮后续连续从零验证为13.184512/13.153779，均失败。预填充特征一致，早期稀有高值访问和世界模型预测不同。当前显式FP32矩阵运行设置的完整试验正在进行，学习参数和驱动保持不变；尚未确认成功。
+
 ## Rebuild the paper figures
 
 Run from the repository root. Rebuilding recorded attempts requires no training or GPU; these50km/h attempt figures are not accepted paper replacements.
