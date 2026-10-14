@@ -1,0 +1,7 @@
+{
+  "jax_default_matmul_precision": "float32",
+  "network_compute_dtype": "float32, unchanged",
+  "driver_modified": false,
+  "original_learning_parameters_unchanged": true,
+  "limitation": "Historical dot precision was not recorded; this is an explicit arithmetic-runtime control."
+}

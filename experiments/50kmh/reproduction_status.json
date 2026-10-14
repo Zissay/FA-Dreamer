@@ -22,7 +22,7 @@
     "physical_and_source_audit_passed": true
   },
   "acceptance": "Fresh50k from random initialization and empty replay; original learning parameters and training seed3501; similar two-stage training trend and final mean near18.84. Exact pointwise or two-decimal equality is not required.",
-  "next_attempt": "Actual fresh30k and own-state20k integration completed; complete50k yields13.0714 and no second rise. Further original early-learning/state provenance investigation required. Historical30k restoration cannot establish fresh reproduction.",
+  "next_attempt": "Registered loader creator startup scheduling control running, original learning parameters and seed3501, fresh random model and empty replay; full50k required.",
   "source_recovery": "Recovered original train.py/agent.py from timestamped prelaunch edits; see historical_target/source/recovery_manifest.json",
   "superseded_partial_attempt": {
     "run": "dreamer_seed3501_historical_loaders2_20261013",
@@ -320,15 +320,18 @@
   },
   "ongoing_attempt": {
     "status": "RUNNING",
-    "run": "dreamer_seed3501_fp32_trace_20261014",
+    "run": "dreamer_seed3501_loader_start10_20261014",
     "seed": 3501,
     "real_action_budget": 50000,
     "external_training_inputs": [],
     "learning_parameters_unchanged": true,
-    "numeric_runtime_override": "JAX_DEFAULT_MATMUL_PRECISION=float32",
-    "historical_numeric_setting_known": false,
+    "creator_start_order": [
+      1,
+      0
+    ],
+    "historical_creator_execution_order_known": false,
     "driver_changed": false,
-    "protocol": "docs/fp32_fresh_protocol_20261014.json"
+    "protocol": "docs/loader_start_protocol_20261014.json"
   },
   "continuous_trace_pair_20261014": {
     "status": "COMPLETE",
@@ -340,5 +343,14 @@
     "all_registered_trials_reported": true,
     "performance_candidates": [],
     "report": "docs/continuous_trace_pair_audit_20261014.json"
+  },
+  "fp32_control_20261014": {
+    "status": "COMPLETE",
+    "mean": 15.28960894925014,
+    "performance_status": "NOT_REPRODUCED",
+    "authenticity": "PASS",
+    "report": "docs/fp32_fresh_audit_20261014.json",
+    "numeric_runtime_override": "JAX_DEFAULT_MATMUL_PRECISION=float32",
+    "historical_numeric_setting_known": false
   }
 }
