@@ -1,0 +1,122 @@
+{
+  "diagnostic_only": true,
+  "model_weights_read": false,
+  "optimizer_updates_performed": 0,
+  "new_environment_actions": 0,
+  "compared_callback_frames_per_worker": 115,
+  "workers": 20,
+  "max_field_errors": {
+    "vector": 0.0,
+    "rate_target": 0.0,
+    "reward": 0.0,
+    "is_first": 0.0,
+    "is_last": 0.0,
+    "is_terminal": 0.0,
+    "action": 0.0,
+    "reset": 0.0
+  },
+  "original_files": [
+    {
+      "original_file": "20260911T193157F012357-5yW646UY7rnk3f0QgB5Vjb-0000000000000000000000-256.npz",
+      "native_worker": 0,
+      "sha256": "6e134421a8d1e00db1d3a08e1ee5d29a77c56e3337dc90047a9736c2b08ee941"
+    },
+    {
+      "original_file": "20260911T193157F012432-5T2ayBP9FzuBVmTURSjt18-0000000000000000000000-256.npz",
+      "native_worker": 1,
+      "sha256": "d677bb02af517b17ebd35605dbdf9e3eb32f5d8109fb00f7ccf8e6e09e3f568e"
+    },
+    {
+      "original_file": "20260911T193157F012466-1M092UAMDF4zp2OffNWcAu-0000000000000000000000-256.npz",
+      "native_worker": 2,
+      "sha256": "b14d59b072d47cabcd74545e0b9650f01db9e52c4635484d30b94d5c9cef0ff9"
+    },
+    {
+      "original_file": "20260911T193157F012492-6jy4pnot23kGAKePGcGdRf-0000000000000000000000-256.npz",
+      "native_worker": 3,
+      "sha256": "521e24ab3be1e62fb923a72e07c500296fb69f1e207325568503afa5a201a2dd"
+    },
+    {
+      "original_file": "20260911T193157F012519-6tTic2TRJNIQSMPTGDBNaO-0000000000000000000000-256.npz",
+      "native_worker": 4,
+      "sha256": "ddf8592f3ffc9b3db808845f4ba48883d9b0c33ded24e46ca848dea98c3f7042"
+    },
+    {
+      "original_file": "20260911T193157F012546-4UziZmeyYwDjNpo9RojZH3-0000000000000000000000-256.npz",
+      "native_worker": 5,
+      "sha256": "40dda0a349db367cac2009b933d86b5f4155be53bb0f918bf997953b9d22b71c"
+    },
+    {
+      "original_file": "20260911T193157F012573-4oktCQO50oMe3XaNnC66Ny-0000000000000000000000-256.npz",
+      "native_worker": 6,
+      "sha256": "15600f7282be51d2f97c025866662a771300174b5b6b1637fe86a7ed06afdfa4"
+    },
+    {
+      "original_file": "20260911T193157F012605-5mg6HjzMuX8eSsN1ZVoF70-0000000000000000000000-256.npz",
+      "native_worker": 7,
+      "sha256": "ff8524548819dbf31519ab1cb93ff9a2ae8fd458909c94579d03ea12a2e569a7"
+    },
+    {
+      "original_file": "20260911T193157F012630-5XNLOx4SWUznEzSgKFCTgQ-0000000000000000000000-256.npz",
+      "native_worker": 8,
+      "sha256": "685123b6f953166570315c12e2663d8984b862dc59042029ec92b69a4e2c931e"
+    },
+    {
+      "original_file": "20260911T193157F012840-06O7rnqTEyMbZUIqvLXD4g-0000000000000000000000-256.npz",
+      "native_worker": 9,
+      "sha256": "bcdb2aaaf641664635b7a2ddf11c75fe84ddbe06a525092466da4d1afb00e7b0"
+    },
+    {
+      "original_file": "20260911T193157F012866-0FV8kb7MVgO50kY1SJvgaL-0000000000000000000000-256.npz",
+      "native_worker": 10,
+      "sha256": "9db33174e4a364beb7b228dab6a4a7f7b475f4496db319e0d905f7091860feaa"
+    },
+    {
+      "original_file": "20260911T193157F012892-6PGRgXUH4ICnOKTlmx8FC8-0000000000000000000000-256.npz",
+      "native_worker": 11,
+      "sha256": "2aece8801c90141b77ef33658911655aba7a0b25f810d8c34b312539321d2778"
+    },
+    {
+      "original_file": "20260911T193157F012916-04LdSz2nNpLRY5M2xilT7w-0000000000000000000000-256.npz",
+      "native_worker": 12,
+      "sha256": "605553be2045cde34ae32090b256aac348878fbb4e1a270e0c061a701071a417"
+    },
+    {
+      "original_file": "20260911T193157F012940-1MnVYXenvw78op1x7xb0v7-0000000000000000000000-256.npz",
+      "native_worker": 13,
+      "sha256": "567d982036c604305b49a073885d304e3bbdf1a8848e87d9f05bbe2ec6d64109"
+    },
+    {
+      "original_file": "20260911T193157F012964-2m5d69m7DP50uOTX3txkmw-0000000000000000000000-256.npz",
+      "native_worker": 14,
+      "sha256": "a47b3deeb9102c242c2fb929f25ac9d773733c6d5fffa5412a41cc056985b067"
+    },
+    {
+      "original_file": "20260911T193157F012989-1JCGHS8sG6ItLxVqVut3vq-0000000000000000000000-256.npz",
+      "native_worker": 15,
+      "sha256": "686e1b5b87d1d95fb26644a0047ee3f0f2c1c4e7788a2f20078bc301cc92a4e8"
+    },
+    {
+      "original_file": "20260911T193157F013013-6eEvvz7F7w8vYhQN3E1Tb0-0000000000000000000000-256.npz",
+      "native_worker": 16,
+      "sha256": "c107b1af8845ee954474a7c4179b0187978c57eaacf60abe17b365a2a3474465"
+    },
+    {
+      "original_file": "20260911T193157F013038-5nMKEoMB49fTY2uRGPMT5T-0000000000000000000000-256.npz",
+      "native_worker": 17,
+      "sha256": "ae539a99887489c5102e25b77f247685741830a084d573303aaeee3b8038b7af"
+    },
+    {
+      "original_file": "20260911T193157F013061-5X5d3MtjjK1yk9xAvPi3wC-0000000000000000000000-256.npz",
+      "native_worker": 18,
+      "sha256": "abaf1323a100d9cf75d528c1fe6a153255b5c5d3ffcacaa4790d4bf9aeddccd6"
+    },
+    {
+      "original_file": "20260911T193157F013085-2ZpGtffX22LfiBuBbX71dI-0000000000000000000000-256.npz",
+      "native_worker": 19,
+      "sha256": "541a15e33179bb65885d08a3e1a90446b19f55860dbeeb2a623f6ca8c54cde41"
+    }
+  ],
+  "own_prefix_sha256": "eb88708bcb99851f1aa471a166f9cc455e2fbedcf294002149dbb03f7d8c83a5",
+  "limitation": "Direct stored prefill comparison; historical observations are not supplied to any fresh training."
+}
