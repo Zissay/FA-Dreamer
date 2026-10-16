@@ -1,7 +1,0 @@
-{
-  "resolved_config_differences": [],
-  "installed_vs_preserved_library_mismatches": [],
-  "library_source_files_checked": 63,
-  "latest_source_mtime_utc": "2026-08-30T07:08:01.418052+00:00",
-  "scope": "Current installed package vs preserved copy and original resolved config; file mtime is supplementary evidence, not an original launch hash"
-}
