@@ -1,9 +1,0 @@
-{
-  "captured_before_execution_utc": "2026-10-14T06:04:40.076291+00:00",
-  "source_sha256": "b05e5bef9cd7fb3e5f3e92c71ac84f168d040665c6937841a37af657fbcba3e2",
-  "shell_sha256": "aa905c7981b08e9f132332968e7876e2cff54ac3e4b80f08f0ec068f712bcf69",
-  "protocol_sha256": "d063991ba850bdc803383bba1def64e9417221fe5a035e9dec67ba3e3ff99ee4",
-  "status": "PREPARED_NOT_EXECUTED",
-  "candidate_count": 515,
-  "driver_changed": false
-}

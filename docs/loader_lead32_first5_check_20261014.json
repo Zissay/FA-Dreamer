@@ -1,9 +1,0 @@
-{
-  "diagnostic_only": true,
-  "new_environment_actions": 0,
-  "optimizer_updates_performed": 0,
-  "actual_first5_indices_match_declared_candidate": true,
-  "historical_first_updated_actor_rmse": 0.08215799927711487,
-  "historical_first_updated_actor_max_error": 0.4287620782852173,
-  "historical_order_identified": false
-}

@@ -1,5 +1,0 @@
-# Versions recorded during figure generation. PDF crop support is an analysis addition.
-numpy==2.5.2
-matplotlib==3.11.1
-pillow==12.3.0
-pypdf>=5,<7
