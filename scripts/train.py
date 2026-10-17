@@ -1,8 +1,8 @@
-"""Train Dreamer or PPO for one receiver speed (50,000 real interactions, seed 5215).
+"""Train Dreamer or PPO (50,000 real interactions, seed 5215).
 
 Run on Linux/WSL with an NVIDIA GPU, e.g.
-  .venv-dreamer/bin/python scripts/train.py --speed 50 --algorithm dreamer --run-dir runs/dreamer_50
-  .venv-ppo/bin/python scripts/train.py --speed 50 --algorithm ppo --run-dir runs/ppo_50 \
+  .venv-dreamer/bin/python scripts/train.py --algorithm dreamer --run-dir runs/dreamer
+  .venv-ppo/bin/python scripts/train.py --algorithm ppo --run-dir runs/ppo \
       --gpu-python .venv-dreamer/bin/python
 """
 import argparse
@@ -40,7 +40,6 @@ def dreamer_runtime():
 
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--speed", type=int, choices=(50, 500), required=True)
     p.add_argument("--algorithm", choices=("dreamer", "ppo"), required=True)
     p.add_argument("--run-dir", type=Path, required=True)
     p.add_argument("--seed", type=int, default=5215)
@@ -50,9 +49,9 @@ def main():
     run = a.run_dir.resolve()
     if run.exists():
         raise FileExistsError(f"Use a fresh run directory: {run}")
-    configs = ROOT / "configs" / f"{a.speed}kmh"
+    configs = ROOT / "configs"
     source = ROOT / a.algorithm
-    socket = f"/tmp/fa_dreamer_{a.speed}_{a.algorithm}_{os.getpid()}.sock"
+    socket = f"/tmp/fa_dreamer_{a.algorithm}_{os.getpid()}.sock"
     env = dict(os.environ, OMP_NUM_THREADS="2", MKL_NUM_THREADS="2", OPENBLAS_NUM_THREADS="1",
                XLA_PYTHON_CLIENT_PREALLOCATE="false", XLA_PYTHON_CLIENT_MEM_FRACTION=".55")
 
