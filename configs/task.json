@@ -25,5 +25,7 @@
   "continuing_task": false,
   "train_start_pool": null,
   "dense_rate_coefficient": 0.0,
-  "target_bonus": 0.0
+  "target_bonus": 0.0,
+  "angle_dependent_doppler": true,
+  "velocity_direction_deg": 0.0
 }

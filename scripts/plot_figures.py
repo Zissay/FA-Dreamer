@@ -9,7 +9,6 @@ mean of the last 100 online terminal rates (last 5K interactions).
 import argparse
 import collections
 import csv
-import json
 from pathlib import Path
 
 import matplotlib
@@ -23,7 +22,7 @@ from matplotlib.ticker import FormatStrFormatter, FuncFormatter
 ROOT = Path(__file__).resolve().parents[1]
 PAGE = (570.41, 406.5)                # points
 FRAME = (62.3, 38.5, 490.6, 365.4)    # left, bottom, width, height (points)
-LINE = {"proposed": "#036EAD", "ppo": "#DD656D", "daft": "#F3962F", "time": "#61A7D0", "random": "#8798C9"}
+LINE = {"proposed": "#036EAD", "ppo": "#DD656D"}
 
 
 def font(size, bold=False):
@@ -48,15 +47,6 @@ def terminal_rates(run):
     return np.array(steps), shown, final
 
 
-def references():
-    folder = ROOT / "baselines"
-    daft = json.loads((folder / "daft_grid81.json").read_text())["best_rate_bps_per_hz"]
-    time = json.loads((folder / "time_grid21.json").read_text())["selected_afdm_rate_bps_per_hz"]
-    with (folder / "random_positions_100.csv").open(newline="") as stream:
-        random = float(np.mean([float(r["true_afdm_rate_bps_per_hz"]) for r in csv.DictReader(stream)]))
-    return daft, time, random
-
-
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--dreamer", type=Path, required=True)
@@ -67,18 +57,11 @@ def main():
     plt.rcParams.update({"font.family": "serif", "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
                          "pdf.fonttype": 42})
     dreamer, ppo = terminal_rates(a.dreamer), terminal_rates(a.ppo)
-    daft, time, random = references()
 
     fig = plt.figure(figsize=(PAGE[0] / 72, PAGE[1] / 72))
     ax = fig.add_axes((FRAME[0] / PAGE[0], FRAME[1] / PAGE[1], FRAME[2] / PAGE[0], FRAME[3] / PAGE[1]))
     ax.plot(*dreamer[:2], color=LINE["proposed"], linewidth=2.5, label="Proposed")
     ax.plot(*ppo[:2], color=LINE["ppo"], linestyle="--", linewidth=2.5, label="PPO")
-    marks = np.linspace(0, 50000, 11)
-    ax.plot(marks, np.full_like(marks, daft), color=LINE["daft"], linestyle="--", linewidth=2.5, marker="^",
-            markersize=5.5, markerfacecolor="white", markeredgecolor=LINE["daft"],
-            label="DAFT-Domain Exhaustive Search")
-    ax.axhline(time, color=LINE["time"], linestyle="-.", linewidth=2.5, label="Time-Domain Exhaustive Search")
-    ax.axhline(random, color=LINE["random"], linestyle=":", linewidth=2.5, label="Random Position")
     ax.set_xlim(0, 50000)
     ax.set_ylim(4.5, 20.2)
     ax.set_xlabel("Environment Interaction Steps", fontproperties=font(20.6, True), labelpad=1)
@@ -94,8 +77,7 @@ def main():
     ax.legend(loc="lower right", bbox_to_anchor=(0.995, 0.08), framealpha=0.95, prop=font(17),
               handlelength=1.7, handletextpad=0.6)
     fig.savefig(a.output / "training_curve.pdf")
-    print(f"Final rates (bps/Hz): Proposed {dreamer[2]:.3f}, PPO {ppo[2]:.3f}, "
-          f"DAFT-domain search {daft:.3f}, time-domain search {time:.3f}, random {random:.3f}")
+    print(f"Final rates (bps/Hz): Proposed {dreamer[2]:.3f}, PPO {ppo[2]:.3f}")
 
 
 if __name__ == "__main__":

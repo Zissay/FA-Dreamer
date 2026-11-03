@@ -34,7 +34,7 @@
   "learning_rate": 0.0003,
   "gamma": 1.0,
   "gae_lambda": 0.95,
-  "n_epochs": 10,
+  "n_epochs": 20,
   "ent_coef": 0.01,
   "ent_coef_final": 0.0001,
   "ent_coef_anneal_steps": 20000,
@@ -81,7 +81,7 @@
   "path_loss_ref_distance_m": 100.0,
   "path_loss_exponent": 2.0,
   "fixed_doppler_hz": 12971.93703548369,
-  "angle_dependent_doppler": false,
+  "angle_dependent_doppler": true,
   "velocity_direction_deg": 0.0,
   "gpu_rate_batch_size": 20,
   "gpu_rate_device": "cuda"
