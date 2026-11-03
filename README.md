@@ -1,8 +1,12 @@
 # FA-Dreamer
 
 Code to reproduce the training-curve results of the proposed Dreamer-based joint
-transmit/receive fluid-antenna position optimization for AFDM, compared with PPO and
-exhaustive-search references.
+transmit/receive fluid-antenna position optimization for AFDM, compared with PPO.
+
+The task is a receiver moving at 500 km/h. Each propagation path has its own Doppler
+shift, set by its direction of arrival: nu_i = f_max cos(zeta_i) cos(eta_i - v), where
+f_max = 12971.94 Hz (500 km/h at a 10.7 mm carrier wavelength) and v is the direction of
+motion (`angle_dependent_doppler` and `velocity_direction_deg` in `configs/task.json`).
 
 ## Layout
 
@@ -10,7 +14,6 @@ exhaustive-search references.
 dreamer/      Dreamer agent, world model and AFDM environment
 ppo/          PPO baseline and AFDM environment
 configs/      dreamer.json, ppo.json, task.json (channel and task parameters)
-baselines/    Exhaustive-search and random-position reference rates
 vendor/       dreamerv3==1.3.0 source used for all runs (extracted automatically)
 scripts/      train.py (one run) and plot_figures.py (training-curve figure)
 ```
@@ -55,9 +58,9 @@ interactions).
 
 Final rates (bps/Hz):
 
-| Proposed | PPO | DAFT-domain exhaustive search | Time-domain exhaustive search | Random position |
-|---|---|---|---|---|
-| 18.302 | 15.277 | 19.418 | 13.252 | 5.921 |
+| Proposed | PPO |
+|---|---|
+| 18.048 | 15.190 |
 
 Dreamer runs use `--xla_gpu_deterministic_ops`; on the same GPU and software versions a
 run repeats its trajectory. Other hardware or library versions can change the trajectory,
