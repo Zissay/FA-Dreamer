@@ -7,6 +7,7 @@ from pathlib import Path
 sys.modules["tensorflow"] = None
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT.parent))  # shared fa_afdm_dreamerv3 package
 import numpy as np
 from dreamerv3 import train as native
 from dreamerv3.embodied.envs.from_gym import FromGym
@@ -247,9 +248,6 @@ def model_config(hp, seed, platform="cuda", episode_steps=50,
                 "actor_critic_bootstrap_step": hp.get("actor_critic_bootstrap_step", 20),
                 "actor_critic_start_update": hp.get("actor_critic_start_update", 2000),
                 "actor_critic_ramp_end_update": hp.get("actor_critic_ramp_end_update", 4000),
-                "local_rate_gain_scale": hp.get("local_rate_gain_scale", 0.0),
-                "local_rate_threshold": hp.get("local_rate_threshold", 16.0),
-                "local_rate_start_count": hp.get("local_rate_start_count", 64),
                 "known_kinematics": hp.get("known_kinematics", False),
                 "observed_rate_head": hp.get("observed_rate_head", False),
                 "actor_observed_vector": hp.get("actor_observed_vector", False),

@@ -14,7 +14,7 @@ from pathlib import Path
 import numpy as np
 
 
-REPOSITORY_ROOT = Path(__file__).resolve().parent
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]  # shared fa_afdm_dreamerv3 package
 sys.path.insert(0, str(REPOSITORY_ROOT))
 
 from fa_afdm_dreamerv3.channel import FAAFDMConfig  # noqa: E402

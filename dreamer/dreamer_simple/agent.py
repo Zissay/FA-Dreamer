@@ -478,11 +478,6 @@ class ActorCritic(native.ImagActorCritic):
         if self.replay_imitation_scale and not (
                 config.afdm.full_return_actor and config.afdm.task_actor_vector_only):
             raise ValueError('Replay self-imitation requires the full-return vector-only actor')
-        if config.afdm.local_rate_gain_scale:
-            if not (config.afdm.known_kinematics and config.afdm.observed_rate_head
-                    and config.afdm.task_actor_vector_only and rate_model is not None):
-                raise ValueError("Local model gain requires known kinematics, "
-                                 "a learned observed-rate head and vector-only actor")
         self.actor_kl_scale = float(config.afdm.actor_kl_scale)
         self.reference_actor = None
         self.reference_updater = None
@@ -786,8 +781,7 @@ class ActorCritic(native.ImagActorCritic):
         if self.config.afdm.full_return_actor:
             raise ValueError('Choose either full return or critic bootstrap, not both')
         if (self.config.afdm.task_intrinsic_scale or self.replay_imitation_scale
-                or self.config.afdm.actor_critic_loss_scale or self.actor_kl_scale
-                or self.config.afdm.local_rate_gain_scale):
+                or self.config.afdm.actor_critic_loss_scale or self.actor_kl_scale):
             raise ValueError('Bootstrap pilot has one actor objective, no auxiliaries')
         reward = self.reward_fn(traj)
         cont = traj['cont']
@@ -938,12 +932,6 @@ class ActorCritic(native.ImagActorCritic):
                 s, self.physical_feedback_gradient)).sample(seed=nj.rng())
             traj = imagine(policy, start, self.config.imag_horizon)
             loss, metrics = self.loss(traj)
-            if self.config.afdm.local_rate_gain_scale:
-                from .local_policy_improvement import high_state_model_gain
-                local_loss, local_metrics = high_state_model_gain(
-                    self._actor_dist, self.rate_model, context, self.config)
-                loss += local_loss
-                metrics.update(local_metrics)
             if self.replay_imitation_scale:
                 from .replay_imitation import replay_actor_auxiliary
                 # The MLP uses deter for its leading-dimension convention,

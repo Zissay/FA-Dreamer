@@ -11,11 +11,12 @@ motion (`angle_dependent_doppler` and `velocity_direction_deg` in `configs/task.
 ## Layout
 
 ```text
-dreamer/      Dreamer agent, world model and AFDM environment
-ppo/          PPO baseline and AFDM environment
-configs/      dreamer.json, ppo.json, task.json (channel and task parameters)
-vendor/       dreamerv3==1.3.0 source used for all runs (extracted automatically)
-scripts/      train.py (one run) and plot_figures.py (training-curve figure)
+fa_afdm_dreamerv3/  AFDM channel and environment, shared by both methods
+dreamer/            Dreamer agent, world model and trainer
+ppo/                PPO trainer
+configs/            dreamer.json, ppo.json, task.json (channel and task parameters)
+vendor/             dreamerv3==1.3.0 source used for all runs (extracted automatically)
+scripts/            train.py (one run), plot_figures.py (training-curve figure) and the GPU rate server
 ```
 
 ## Setup

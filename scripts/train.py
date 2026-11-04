@@ -77,7 +77,7 @@ def main():
     run.parent.mkdir(parents=True, exist_ok=True)
     log = run.parent / f"{run.name}.rate_server.log"
     with log.open("w") as server_log:
-        server = subprocess.Popen([a.gpu_python, "scripts/gpu_rate_server.py", "--socket", socket],
+        server = subprocess.Popen([a.gpu_python, str(ROOT / "scripts/gpu_rate_server.py"), "--socket", socket],
                                   cwd=source, env=env, stdout=server_log, stderr=subprocess.STDOUT)
         try:
             deadline = time.monotonic() + 60
