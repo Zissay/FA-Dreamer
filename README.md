@@ -41,8 +41,6 @@ training seed 5215, and needs a new run directory.
 .venv-ppo/bin/python scripts/train.py --algorithm ppo --run-dir runs/ppo --gpu-python .venv-dreamer/bin/python
 ```
 
-A Dreamer run takes about 70 minutes on one RTX 4060; a PPO run takes a few minutes.
-If JAX cannot find `ptxas`, set `XLA_CUDA_DATA_DIR` to a CUDA toolkit directory.
 
 ## Plot
 
