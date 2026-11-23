@@ -26,7 +26,7 @@ Linux or WSL2, Python 3.12, an NVIDIA GPU with CUDA 12.
 ```bash
 python3.12 -m venv .venv-dreamer && .venv-dreamer/bin/pip install -r requirements/dreamer.txt
 python3.12 -m venv .venv-ppo && .venv-ppo/bin/pip install -r requirements/ppo.txt
-```
+``` 
 
 The PPO network runs on CPU; both methods evaluate the AFDM rate on the GPU through a
 rate server started from the Dreamer environment.
